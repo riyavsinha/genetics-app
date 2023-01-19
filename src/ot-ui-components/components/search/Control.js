@@ -1,6 +1,6 @@
-import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
+import { Component } from 'react';
 
 const styles = {
   input: {
@@ -13,7 +13,7 @@ const InputComponent = ({ inputRef, ...rest }) => (
   <div ref={inputRef} {...rest} />
 );
 
-class Control extends React.Component {
+class Control extends Component {
   render() {
     const { classes, innerRef, innerProps, children, selectProps } = this.props;
     return (

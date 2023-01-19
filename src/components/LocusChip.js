@@ -1,4 +1,3 @@
-import React from 'react';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import MuiChip from '@material-ui/core/Chip';

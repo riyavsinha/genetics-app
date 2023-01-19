@@ -1,8 +1,8 @@
-import React from 'react';
 import { Query } from '@apollo/client/react/components';
 import { loader } from 'graphql.macro';
 import gql from 'graphql-tag';
 import * as d3 from 'd3';
+import { Component } from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import Radio from '@material-ui/core/Radio';
@@ -184,10 +184,10 @@ const tableColumns = [
     id: 'h3',
     label: 'H3',
     tooltip: (
-      <React.Fragment>
+      <>
         Posterior probability that the signals <strong>do not</strong>{' '}
         colocalise
-      </React.Fragment>
+      </>
     ),
     renderCell: d => significantFigures(d.h3),
   },
@@ -228,7 +228,7 @@ const buildCredibleSet = (data, study, indexVariant, credSet95Value) => {
     .filter(d => (credSet95Value === '95' ? d.is95CredibleSet : true));
 };
 
-class StudyLocusPage extends React.Component {
+class StudyLocusPage extends Component {
   state = {
     qtlTabsValue: 'heatmap',
     gwasTabsValue: 'heatmap',
@@ -384,7 +384,7 @@ class StudyLocusPage extends React.Component {
               const qtlColocDownloadData = getDownloadData(qtlColocalisation);
 
               return (
-                <React.Fragment>
+                <>
                   <SectionHeading heading="Association summary" />
                   <Grid container>
                     <Grid xs={4}>
@@ -502,11 +502,11 @@ class StudyLocusPage extends React.Component {
                       </div>
                     }
                     subheading={
-                      <React.Fragment>
+                      <>
                         Which molecular traits colocalise with{' '}
                         <strong>{traitAuthorYear(studyInfo)}</strong> at this
                         locus?
-                      </React.Fragment>
+                      </>
                     }
                   />
                   <DataDownloader
@@ -543,11 +543,11 @@ class StudyLocusPage extends React.Component {
                   <SectionHeading
                     heading="GWAS Study Colocalisation"
                     subheading={
-                      <React.Fragment>
+                      <>
                         Which GWAS studies colocalise with{' '}
                         <strong>{traitAuthorYear(studyInfo)}</strong> at this
                         locus?
-                      </React.Fragment>
+                      </>
                     }
                   />
                   <ColocGWASTable
@@ -780,7 +780,7 @@ class StudyLocusPage extends React.Component {
                           }));
 
                         return (
-                          <React.Fragment>
+                          <>
                             <Typography style={{ paddingTop: '10px' }}>
                               <strong>GWAS</strong>
                             </Typography>
@@ -902,7 +902,7 @@ class StudyLocusPage extends React.Component {
                               data={variantsByCredibleSetsIntersection}
                               filenameStem={`${studyId}-${indexVariantId}-credset-intersection`}
                             />
-                          </React.Fragment>
+                          </>
                         );
                       }}
                     </Query>
@@ -922,7 +922,7 @@ class StudyLocusPage extends React.Component {
                       </div>
                     </PlotContainerSection>
                   </PlotContainer>
-                </React.Fragment>
+                </>
               );
             }}
           </Query>

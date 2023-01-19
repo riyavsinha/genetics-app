@@ -1,7 +1,7 @@
-import React from 'react';
 import * as d3 from 'd3';
 import { withContentRect } from 'react-measure';
 import theme from './theme';
+import { Component, createRef } from 'react';
 
 const LEGEND_HEIGHT = 50;
 const GENE_SLOT_HEIGHT = 30;
@@ -58,11 +58,11 @@ const connectorColor = (d, noSelectedEntities) => {
   }
 };
 
-class Gecko extends React.Component {
+class Gecko extends Component {
   constructor(props) {
     super(props);
-    this.canvasRef = React.createRef();
-    this.hiddenCanvasRef = React.createRef();
+    this.canvasRef = createRef();
+    this.hiddenCanvasRef = createRef();
   }
   componentDidMount() {
     this._render();

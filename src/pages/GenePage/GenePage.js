@@ -1,4 +1,3 @@
-import React from 'react';
 import { Helmet } from 'react-helmet';
 import { loader } from 'graphql.macro';
 import queryString from 'query-string';
@@ -12,6 +11,7 @@ import BasePage from '../BasePage';
 import AssociatedStudiesTable from '../../components/AssociatedStudiesTable';
 import ColocForGeneTable from '../../components/ColocForGeneTable';
 import Header from './Header';
+import { Component } from 'react';
 
 const GENE_PAGE_QUERY = loader('../../queries/GenePageQuery.gql');
 
@@ -67,7 +67,7 @@ const styles = theme => {
   };
 };
 
-class GenePage extends React.Component {
+class GenePage extends Component {
   handleColocTraitFilter = newColocTraitFilterValue => {
     const { colocTraitFilter, ...rest } = this._parseQueryProps();
     const newQueryParams = {
@@ -223,7 +223,7 @@ class GenePage extends React.Component {
 
             const { chromosome, start, end, symbol } = gene;
             return (
-              <React.Fragment>
+              <>
                 <Helmet>
                   <title>{symbol}</title>
                 </Helmet>
@@ -270,7 +270,7 @@ class GenePage extends React.Component {
                   colocTraitFilterHandler={this.handleColocTraitFilter}
                   filenameStem={`${geneId}-colocalising-studies`}
                 />
-              </React.Fragment>
+              </>
             );
           }}
         </Query>

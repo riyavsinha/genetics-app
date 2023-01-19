@@ -1,4 +1,3 @@
-import React from 'react';
 import { Query } from '@apollo/client/react/components';
 import { Helmet } from 'react-helmet';
 import { loader } from 'graphql.macro';
@@ -38,7 +37,7 @@ function StudyPage(props) {
           const isStudyWithInfo = studyHasInfo(data);
           const { hasSumstats } = isStudyWithInfo ? data.studyInfo : {};
           return (
-            <React.Fragment>
+            <>
               <ScrollToTop />
               <Helmet>
                 <title>{studyId}</title>
@@ -46,7 +45,7 @@ function StudyPage(props) {
               <ManhattanContainer
                 {...{ studyId, hasSumstats, loading, error, data }}
               />
-            </React.Fragment>
+            </>
           );
         }}
       </Query>

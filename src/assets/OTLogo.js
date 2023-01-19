@@ -1,4 +1,3 @@
-import React from 'react';
 import { SvgIcon, withStyles } from '@material-ui/core';
 
 const styles = () => ({

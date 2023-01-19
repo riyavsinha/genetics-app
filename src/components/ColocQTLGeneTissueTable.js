@@ -1,4 +1,3 @@
-import React from 'react';
 import * as d3 from 'd3';
 
 import { Link, OtTableRF, DataCircle, Tooltip } from '../ot-ui-components';

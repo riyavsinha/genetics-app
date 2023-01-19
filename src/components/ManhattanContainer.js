@@ -1,10 +1,9 @@
-import React from 'react';
-
 import {
   SectionHeading,
   DownloadSVGPlot,
   ListTooltip,
 } from '../ot-ui-components';
+import { Component, createRef } from 'react';
 
 import { chromosomesWithCumulativeLengths } from '../utils';
 import Manhattan from '../components/Manhattan';
@@ -59,14 +58,14 @@ function loci(data) {
   return hasAssociations(data) ? data.manhattan.associations.length : 0;
 }
 
-class ManhattanContainer extends React.Component {
+class ManhattanContainer extends Component {
   state = {
     associations: [],
     start: 0,
     end: maxPos,
   };
 
-  manhattanPlot = React.createRef();
+  manhattanPlot = createRef();
 
   handleZoom = (start, end) => {
     const { start: prevStart, end: prevEnd } = this.state;
@@ -100,7 +99,7 @@ class ManhattanContainer extends React.Component {
     const significantLociCount = significantLoci(data);
     const lociCount = loci(data);
     return (
-      <React.Fragment>
+      <>
         <SectionHeading
           heading="Independently-associated loci"
           subheading={
@@ -145,7 +144,7 @@ class ManhattanContainer extends React.Component {
           hasSumstats={hasSumstats}
           filenameStem={`${studyId}-independently-associated-loci`}
         />
-      </React.Fragment>
+      </>
     );
   }
 }

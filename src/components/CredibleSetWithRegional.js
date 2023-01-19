@@ -1,5 +1,5 @@
-import React from 'react';
 import { Query } from '@apollo/client/react/components';
+import { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import {
   Accordion,
@@ -19,7 +19,7 @@ const styles = () => ({
   },
 });
 
-class CredibleSetWithRegional extends React.Component {
+class CredibleSetWithRegional extends Component {
   state = {
     expanded: false,
   };

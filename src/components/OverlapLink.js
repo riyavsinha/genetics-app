@@ -1,4 +1,3 @@
-import React from 'react';
 import { withStyles } from '@material-ui/core';
 
 import { Link, Button, OverlapIcon } from '../ot-ui-components';

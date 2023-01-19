@@ -1,8 +1,8 @@
-import React from 'react';
 import * as d3 from 'd3';
 import _ from 'lodash';
 import { withContentRect } from 'react-measure';
 import theme from './theme';
+import { Component, createRef } from 'react';
 
 const GENE_SLOT_HEIGHT = 25;
 const GENE_TRANSCRIPT_HEIGHT = 5;
@@ -84,11 +84,11 @@ const wrapText = (text, maxLineWidth, measure) => {
   };
 };
 
-class GeneTrack extends React.Component {
+class GeneTrack extends Component {
   constructor(props) {
     super(props);
-    this.canvasRef = React.createRef();
-    this.hiddenCanvasRef = React.createRef();
+    this.canvasRef = createRef();
+    this.hiddenCanvasRef = createRef();
   }
   componentDidMount() {
     this._render();

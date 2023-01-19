@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 
 import {
   Link,
@@ -36,7 +36,7 @@ export const tableColumns = studyId => [
     id: 'beta',
     label: 'Beta',
     tooltip: (
-      <React.Fragment>
+      <>
         Beta with respect to the ALT allele.
         <Link
           external
@@ -45,7 +45,7 @@ export const tableColumns = studyId => [
         >
           See FAQ.
         </Link>
-      </React.Fragment>
+      </>
     ),
     renderCell: rowData =>
       rowData.beta ? significantFigures(rowData.beta) : null,
@@ -93,14 +93,14 @@ export const tableColumns = studyId => [
     label: 'L2G',
     tooltip: 'Genes prioritised by our locus-to-gene model with score ≥ 0.5',
     renderCell: rowData => (
-      <React.Fragment>
+      <>
         {rowData.bestLocus2Genes.map((d, i) => (
-          <React.Fragment key={i}>
+          <Fragment key={i}>
             {i > 0 ? ', ' : ''}
             <Link to={`/gene/${d.gene.id}`}>{d.gene.symbol}</Link>
-          </React.Fragment>
+          </Fragment>
         ))}
-      </React.Fragment>
+      </>
     ),
   },
   {
@@ -120,26 +120,26 @@ export const tableColumns = studyId => [
     tooltip:
       'The list of genes which colocalise at this locus with PP(H4) ≥ 0.95 and log2(H4/H3) ≥ log2(5)',
     renderCell: rowData => (
-      <React.Fragment>
+      <>
         {rowData.bestColocGenes.map((d, i) => (
-          <React.Fragment key={i}>
+          <Fragment key={i}>
             {i > 0 ? ', ' : ''}
             <Link to={`/gene/${d.gene.id}`}>{d.gene.symbol}</Link>
-          </React.Fragment>
+          </Fragment>
         ))}
-      </React.Fragment>
+      </>
     ),
   },
   {
     id: 'locus',
     label: 'View',
     renderCell: rowData => (
-      <React.Fragment>
+      <>
         <StudyLocusLink
           indexVariantId={rowData.indexVariantId}
           studyId={studyId}
         />
-      </React.Fragment>
+      </>
     ),
   },
 ];

@@ -1,4 +1,3 @@
-import React from 'react';
 import * as d3 from 'd3';
 
 import {
@@ -112,7 +111,7 @@ const getDownloadRows = data => {
 
 const ColocL2GTable = ({ loading, error, fileStem, data }) => {
   return (
-    <React.Fragment>
+    <>
       <DataDownloader
         tableHeaders={getDownloadColumns()}
         rows={getDownloadRows(data)}
@@ -134,7 +133,7 @@ const ColocL2GTable = ({ loading, error, fileStem, data }) => {
           { colspan: 3, label: '' },
         ]}
       />
-    </React.Fragment>
+    </>
   );
 };
 

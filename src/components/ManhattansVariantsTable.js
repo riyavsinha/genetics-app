@@ -1,10 +1,9 @@
-import React from 'react';
-
 import { Link, OtTable } from '../ot-ui-components';
 
 import variantIdComparator from '../logic/variantIdComparator';
 import cytobandComparator from '../logic/cytobandComparator';
 import { getCytoband } from '../utils';
+import { Fragment } from 'react';
 
 const tableColumns = studyIds => [
   {
@@ -34,13 +33,13 @@ const tableColumns = studyIds => [
     tooltip:
       'The list of genes with equal best overall score across all variants in either the credible set or LD expansion of a given locus',
     renderCell: rowData => (
-      <React.Fragment>
+      <>
         {rowData.bestGenes.map((d, i) => (
-          <React.Fragment key={i}>
+          <Fragment key={i}>
             <Link to={`/gene/${d.gene.id}`}>{d.gene.symbol}</Link>{' '}
-          </React.Fragment>
+          </Fragment>
         ))}
-      </React.Fragment>
+      </>
     ),
   },
 ];

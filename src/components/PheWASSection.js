@@ -153,7 +153,7 @@ function PheWASSection({
         );
 
         return (
-          <React.Fragment>
+          <>
             <SectionHeading
               heading="PheWAS"
               subheading="Which traits are associated with this variant in the UK Biobank, FinnGen, and/or GWAS Catalog summary statistics repository? Only traits with P-value < 0.005 are returned"
@@ -221,7 +221,7 @@ function PheWASSection({
               categoryFilterOptions={phewasCategoryFilterOptions}
               categoryFilterHandler={handlePhewasCategoryFilter}
             />
-          </React.Fragment>
+          </>
         );
       }}
     </Query>

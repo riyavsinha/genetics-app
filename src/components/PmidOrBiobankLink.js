@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from '../ot-ui-components';
 
 const PmidOrBiobankLink = ({ studyId, pmid }) => {

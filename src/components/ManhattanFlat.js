@@ -1,5 +1,5 @@
-import React from 'react';
 import { withContentRect } from 'react-measure';
+import { Fragment } from 'react';
 
 import theme from './theme';
 import { chromosomesWithCumulativeLengths } from '../utils';
@@ -17,11 +17,11 @@ const ManhattanFlat = ({ measureRef, data, contentRect, onClick }) => {
     <div ref={measureRef}>
       <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height}>
         {width ? (
-          <React.Fragment>
+          <>
             <g>
               {chromosomesWithCumulativeLengths.map((d, i) => {
                 return (
-                  <React.Fragment key={`chr${d.name}`}>
+                  <Fragment key={`chr${d.name}`}>
                     <rect
                       x={d.proportionalStart * width}
                       y={0}
@@ -49,7 +49,7 @@ const ManhattanFlat = ({ measureRef, data, contentRect, onClick }) => {
                         {d.name}
                       </text>
                     ) : null}
-                  </React.Fragment>
+                  </Fragment>
                 );
               })}
             </g>
@@ -82,7 +82,7 @@ const ManhattanFlat = ({ measureRef, data, contentRect, onClick }) => {
                 );
               })}
             </g>
-          </React.Fragment>
+          </>
         ) : null}
       </svg>
     </div>

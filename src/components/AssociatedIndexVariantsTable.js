@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   OtTable,
   commaSeparate,
@@ -49,7 +48,7 @@ const tableColumns = variantId => [
     id: 'beta',
     label: 'Beta',
     tooltip: (
-      <React.Fragment>
+      <>
         Beta with respect to the ALT allele.
         <Link
           external
@@ -58,7 +57,7 @@ const tableColumns = variantId => [
         >
           See FAQ.
         </Link>
-      </React.Fragment>
+      </>
     ),
     renderCell: rowData =>
       rowData.beta ? significantFigures(rowData.beta) : null,

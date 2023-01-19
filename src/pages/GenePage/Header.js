@@ -1,4 +1,3 @@
-import React from 'react';
 import { faDna } from '@fortawesome/free-solid-svg-icons';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';

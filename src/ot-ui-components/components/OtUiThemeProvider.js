@@ -1,11 +1,11 @@
-import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createTheme } from '@material-ui/core/styles';
+import { Component } from 'react';
 
 import defaultTheme from '../theme';
 import setupIcons from '../icons/setupIcons';
 
-class OtUiThemeProvider extends React.Component {
+class OtUiThemeProvider extends Component {
   componentDidMount() {
     setupIcons();
   }

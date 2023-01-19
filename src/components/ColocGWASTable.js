@@ -1,4 +1,3 @@
-import React from 'react';
 import * as d3 from 'd3';
 
 import {
@@ -52,10 +51,10 @@ const tableColumns = [
     id: 'h3',
     label: 'H3',
     tooltip: (
-      <React.Fragment>
+      <>
         Posterior probability that the signals <strong>do not</strong>{' '}
         colocalise
-      </React.Fragment>
+      </>
     ),
     renderCell: d => significantFigures(d.h3),
   },
@@ -101,7 +100,7 @@ const getDownloadData = data => {
 const ColocGWASTable = ({ loading, error, fileStem, data }) => {
   const downloadData = getDownloadData(data);
   return (
-    <React.Fragment>
+    <>
       <DataDownloader
         tableHeaders={tableColumns}
         rows={downloadData}
@@ -115,7 +114,7 @@ const ColocGWASTable = ({ loading, error, fileStem, data }) => {
         sortBy="log2h4h3"
         order="desc"
       />
-    </React.Fragment>
+    </>
   );
 };
 

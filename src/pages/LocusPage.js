@@ -1,4 +1,3 @@
-import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Query } from '@apollo/client/react/components';
 import { loader } from 'graphql.macro';
@@ -6,6 +5,7 @@ import queryString from 'query-string';
 import { findDOMNode } from 'react-dom';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { Component, createRef } from 'react';
 
 import {
   SectionHeading,
@@ -50,7 +50,7 @@ const styles = theme => {
   };
 };
 
-class LocusPage extends React.Component {
+class LocusPage extends Component {
   handleZoomIn = () => {
     const { start, end, ...rest } = this._parseQueryProps();
     const gap = end - start;
@@ -316,7 +316,7 @@ class LocusPage extends React.Component {
       ? displayFinemapping
       : LOCUS_FINEMAPPING.ALL;
     const subheading = `What genetic evidence is there within this locus?`;
-    const geckoPlot = React.createRef();
+    const geckoPlot = createRef();
     return (
       <BasePage>
         <ScrollToTop />
@@ -374,7 +374,7 @@ class LocusPage extends React.Component {
               selectedStudies,
             });
             return (
-              <React.Fragment>
+              <>
                 <PlotContainer
                   loading={loading}
                   error={error}
@@ -482,7 +482,7 @@ class LocusPage extends React.Component {
                   studyFilterOptions={entities.studies}
                   studyFilterHandler={this.handleAddStudy}
                 />
-              </React.Fragment>
+              </>
             );
           }}
         </Query>

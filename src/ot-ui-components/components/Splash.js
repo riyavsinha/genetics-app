@@ -1,7 +1,7 @@
-import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import * as d3 from 'd3';
 import { withContentRect } from 'react-measure';
+import { Component, createRef } from 'react';
 
 const styles = theme => ({
   splash: {
@@ -21,10 +21,10 @@ for (let i = 0; i < 500; i++) {
   DATA.push([uniformGenerator(), uniformGenerator()]);
 }
 
-class Splash extends React.Component {
+class Splash extends Component {
   constructor(props) {
     super(props);
-    this.svgRef = React.createRef();
+    this.svgRef = createRef();
   }
   componentDidMount() {
     this._renderVoronoi();

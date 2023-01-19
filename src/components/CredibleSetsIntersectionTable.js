@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
   Link,
   OtTableRF,
@@ -49,7 +47,7 @@ const getDownloadData = data => {
 const CredibleSetsIntersectionTable = ({ filenameStem, data }) => {
   const downloadData = getDownloadData(data);
   return (
-    <React.Fragment>
+    <>
       <DataDownloader
         tableHeaders={tableColumns}
         rows={downloadData}
@@ -63,7 +61,7 @@ const CredibleSetsIntersectionTable = ({ filenameStem, data }) => {
         sortBy="posteriorProbabilityProd"
         order="desc"
       />
-    </React.Fragment>
+    </>
   );
 };
 

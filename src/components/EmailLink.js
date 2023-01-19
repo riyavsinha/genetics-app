@@ -1,4 +1,3 @@
-import React from 'react';
 import Icon from '@material-ui/core/Icon';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';

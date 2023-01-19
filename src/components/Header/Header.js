@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 import { Skeleton } from '@material-ui/lab';
 

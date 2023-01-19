@@ -1,4 +1,3 @@
-import React from 'react';
 import { Typography, Chip } from '@material-ui/core';
 import { commaSeparate } from '../../ot-ui-components';
 import SearchOption from './BaseSearchOption';
@@ -22,7 +21,7 @@ const Study = ({ data }) => {
       heading={data.traitReported}
       subheading={`${data.pubAuthor} (${pubYear})`}
       extra={
-        <React.Fragment>
+        <>
           {data.pubJournal ? <em>{data.pubJournal} </em> : null}N Study:{' '}
           {commaSeparate(data.nInitial)}
           <span style={{ float: 'right' }}>
@@ -49,7 +48,7 @@ const Study = ({ data }) => {
               </span>
             ) : null}
           </span>
-        </React.Fragment>
+        </>
       }
     />
   );

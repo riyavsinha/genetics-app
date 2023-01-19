@@ -1,4 +1,3 @@
-import React from 'react';
 import * as d3 from 'd3';
 import {
   Link,
@@ -125,7 +124,7 @@ export const tableColumns = ({
     id: 'beta',
     label: 'Beta',
     tooltip: (
-      <React.Fragment>
+      <>
         Beta with respect to the ALT allele.
         <Link
           external
@@ -134,7 +133,7 @@ export const tableColumns = ({
         >
           See FAQ.
         </Link>
-      </React.Fragment>
+      </>
     ),
     renderCell: rowData =>
       rowData.beta ? significantFigures(rowData.beta) : null,

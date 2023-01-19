@@ -1,7 +1,7 @@
-import React from 'react';
 import * as d3 from 'd3';
 import { withContentRect } from 'react-measure';
 import theme from './theme';
+import { Component, createRef } from 'react';
 
 const GENE_SLOT_HEIGHT = 30;
 const GENE_TRANSCRIPT_HEIGHT = 7;
@@ -16,10 +16,10 @@ const CONNECTOR_TRACK_HEIGHT = 80;
 const CHAR_WIDTH = 12; // TODO: base on font-size
 const HEIGHT_DEFAULT = 400;
 
-class Gecko extends React.Component {
+class Gecko extends Component {
   constructor(props) {
     super(props);
-    this.svgRef = React.createRef();
+    this.svgRef = createRef();
   }
   componentDidMount() {
     this._render();

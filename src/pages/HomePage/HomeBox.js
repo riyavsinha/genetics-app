@@ -1,4 +1,3 @@
-import React from 'react';
 import { Grid, Paper, withStyles } from '@material-ui/core';
 
 import OTLogo from '../../assets/OTLogo';

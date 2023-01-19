@@ -1,4 +1,3 @@
-import React from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 
 const OptionContainer = props => {

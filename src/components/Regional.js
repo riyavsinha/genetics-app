@@ -1,6 +1,6 @@
-import React from 'react';
 import * as d3 from 'd3';
 import { withContentRect } from 'react-measure';
+import { Component, createRef } from 'react';
 
 import theme from './theme';
 
@@ -9,10 +9,10 @@ const posteriorProbabilityScale = d3
   .domain([0, 1])
   .range(['cyan', 'darkblue']);
 
-class Regional extends React.Component {
+class Regional extends Component {
   constructor(props) {
     super(props);
-    this.svgRef = React.createRef();
+    this.svgRef = createRef();
     this.x = d3.scaleLinear();
     this.y = d3.scaleLinear();
     this.voronoi = d3.voronoi();

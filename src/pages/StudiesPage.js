@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment, Component } from 'react';
 import { Helmet } from 'react-helmet';
 import { Query } from '@apollo/client/react/components';
 import { loader } from 'graphql.macro';
@@ -215,7 +215,7 @@ const styles = theme => {
   };
 };
 
-class StudiesPage extends React.Component {
+class StudiesPage extends Component {
   handleAddStudy = studyId => {
     const { studyIds, ...rest } = this._parseQueryProps();
     const newStudyIds = studyIds

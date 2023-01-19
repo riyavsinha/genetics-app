@@ -1,4 +1,3 @@
-import React from 'react';
 import classNames from 'classnames';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from '@material-ui/core/styles';
@@ -51,14 +50,14 @@ const ICON_LABEL_MAP = {
   variant: 'V',
   study: 'S',
   indexVariant: (
-    <React.Fragment>
+    <>
       V<tspan dy="6">L</tspan>
-    </React.Fragment>
+    </>
   ),
   tagVariant: (
-    <React.Fragment>
+    <>
       V<tspan dy="6">T</tspan>
-    </React.Fragment>
+    </>
   ),
 };
 

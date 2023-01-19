@@ -1,4 +1,3 @@
-import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -44,12 +43,12 @@ export const tableColumns = ({ onDeleteStudy, onClickIntersectionLocus }) => [
         ).getFullYear()})`;
       }
       return (
-        <React.Fragment>
+        <>
           <span style={{ fontWeight: 'bold' }}>{rowData.traitReported}</span>
           <span style={{ fontSize: '0.75rem' }}>{pubInfo}</span>
           <br />
           <span style={{ fontSize: '0.65rem' }}>{rowData.pubJournal}</span>
-        </React.Fragment>
+        </>
       );
     },
   },
@@ -113,7 +112,7 @@ function ManhattansTable({
       order="desc"
       downloadFileStem="multi-study"
       message={
-        <React.Fragment>
+        <>
           Each selected study in this table is compared to the <b>ROOT</b>{' '}
           study.
           <br />
@@ -121,7 +120,7 @@ function ManhattansTable({
             Loci overlapping with the ROOT study are shown in <i>black</i>. Loci
             overlapping across all selected studies are shown in <i>red</i>.
           </small>
-        </React.Fragment>
+        </>
       }
     />
   );

@@ -1,9 +1,9 @@
-import React from 'react';
 import Select from 'react-select';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import { Component } from 'react';
 
 import Placeholder from './Placeholder';
 import NoOptionsMessage from './NoOptionsMessage';
@@ -69,7 +69,7 @@ function Control(props) {
   );
 }
 
-class Autocomplete extends React.Component {
+class Autocomplete extends Component {
   state = {
     value: null,
   };

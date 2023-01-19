@@ -29,7 +29,7 @@ const createDistanceCellRenderer = schema => {
     const distanceData = rowData[schema.sourceId];
     if (distanceData !== undefined) {
       const { distance } = distanceData.tissues[0];
-      return <React.Fragment>{commaSeparate(distance)}</React.Fragment>;
+      return <>{commaSeparate(distance)}</>;
     }
   };
 };
@@ -38,11 +38,7 @@ const createDistanceAggregateCellRenderer = schema => {
   return rowData => {
     if (rowData.aggregated) {
       const { distance } = rowData.aggregated;
-      return (
-        <React.Fragment>
-          {distance ? commaSeparate(distance) : null}
-        </React.Fragment>
-      );
+      return <>{distance ? commaSeparate(distance) : null}</>;
     } else {
       return null;
     }
