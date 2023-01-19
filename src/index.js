@@ -1,5 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import TagManager from 'react-gtm-module';
 
 import '@fontsource/inter';
@@ -13,7 +12,9 @@ if (config.googleTagManagerID) {
   TagManager.initialize({ gtmId: config.googleTagManagerID });
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(<App />);
 
 // disable service worker
 unregister();
