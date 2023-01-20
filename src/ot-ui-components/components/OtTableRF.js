@@ -319,11 +319,7 @@ class OtTableRF extends Component {
                             <Badge
                               className={classes.badgeWithTooltip}
                               badgeContent={
-                                <Tooltip
-                                  title={column.tooltip}
-                                  placement="top"
-                                  interactive
-                                >
+                                <Tooltip title={column.tooltip} placement="top">
                                   <HelpIcon className={classes.tooltipIcon} />
                                 </Tooltip>
                               }

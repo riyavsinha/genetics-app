@@ -455,7 +455,6 @@ const ForestPlot = ({
         <Tooltip
           title={`The plot shows : beta for selected trait categories.`}
           placement={'top'}
-          interactive={true}
         >
           <Help
             style={{
