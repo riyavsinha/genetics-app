@@ -18,6 +18,7 @@ class Control extends Component {
     const { classes, innerRef, innerProps, children, selectProps } = this.props;
     return (
       <TextField
+        variant="standard"
         fullWidth
         InputProps={{
           inputComponent: InputComponent,

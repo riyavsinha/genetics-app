@@ -56,7 +56,11 @@ const BrowserControls = ({
     </Grid>
     <Grid item>
       <div className={classes.selectContainer}>
-        <Select value={displayTypeValue} onChange={handleDisplayTypeChange}>
+        <Select
+          variant="standard"
+          value={displayTypeValue}
+          onChange={handleDisplayTypeChange}
+        >
           {displayTypeOptions.map(d => (
             <MenuItem key={d.value} value={d.value}>
               {d.label}
@@ -68,6 +72,7 @@ const BrowserControls = ({
     <Grid item>
       <div className={classes.selectContainer}>
         <Select
+          variant="standard"
           value={displayFinemappingValue}
           onChange={handleDisplayFinemappingChange}
         >

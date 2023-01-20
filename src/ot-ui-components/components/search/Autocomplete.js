@@ -54,6 +54,7 @@ const InputComponent = ({ inputRef, ...rest }) => (
 function Control(props) {
   return (
     <TextField
+      variant="standard"
       fullWidth
       InputProps={{
         inputComponent: InputComponent,
