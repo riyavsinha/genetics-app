@@ -1,7 +1,7 @@
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
-import { Skeleton } from '@material-ui/lab';
+import { Skeleton } from '@mui/material';
 import { Typography, SectionHeading } from '../../../ot-ui-components';
 import Link from '../../../components/Link';
 import { Fragment } from 'react';

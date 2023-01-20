@@ -1,4 +1,4 @@
-import { Typography, Chip } from '@material-ui/core';
+import { Typography, Chip } from '@mui/material';
 import { commaSeparate } from '../../ot-ui-components';
 import SearchOption from './BaseSearchOption';
 

@@ -4,11 +4,11 @@ import gql from 'graphql-tag';
 import * as d3 from 'd3';
 import { Component } from 'react';
 
-import Typography from '@material-ui/core/Typography';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Grid from '@material-ui/core/Grid';
+import Typography from '@mui/material/Typography';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Grid from '@mui/material/Grid';
 import { sanitize } from 'string-sanitizer';
 import Link from '../../components/Link';
 import ScrollToTop from '../../components/ScrollToTop';

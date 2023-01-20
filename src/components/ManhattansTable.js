@@ -1,12 +1,12 @@
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 import { Link, OtTable, commaSeparate } from '../ot-ui-components';
 
 import ManhattanFlat from '../components/ManhattanFlat';
 
 const CloseButton = props => (
-  <IconButton {...props}>
+  <IconButton {...props} size="large">
     <CloseIcon />
   </IconButton>
 );

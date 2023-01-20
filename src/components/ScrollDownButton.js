@@ -1,5 +1,5 @@
-import DownArrowIcon from '@material-ui/icons/KeyboardArrowDown';
-import withStyles from '@material-ui/core/styles/withStyles';
+import DownArrowIcon from '@mui/icons-material/KeyboardArrowDown';
+import withStyles from '@mui/styles/withStyles';
 import classNames from 'classnames';
 
 const styles = theme => {

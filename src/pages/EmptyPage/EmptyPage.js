@@ -1,4 +1,5 @@
-import { Grid, Typography, withStyles } from '@material-ui/core';
+import { Grid, Typography } from '@mui/material';
+import withStyles from '@mui/styles/withStyles';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

@@ -1,6 +1,6 @@
-import { withStyles } from '@material-ui/core/styles';
-import MuiChip from '@material-ui/core/Chip';
-import CancelIcon from '@material-ui/icons/Cancel';
+import withStyles from '@mui/styles/withStyles';
+import MuiChip from '@mui/material/Chip';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const styles = theme => ({
   miniChip: {

@@ -1,4 +1,4 @@
-import MenuItem from '@material-ui/core/MenuItem';
+import MenuItem from '@mui/material/MenuItem';
 
 const OptionContainer = props => {
   const { children, innerRef, innerProps, isFocused, isSelected } = props;

@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 import * as d3 from 'd3';
 import { withContentRect } from 'react-measure';
 import { Component, createRef } from 'react';

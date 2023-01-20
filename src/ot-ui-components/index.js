@@ -1,7 +1,7 @@
 export { default as Link } from './components/Link';
 export { default as Page } from './components/Page';
-export { default as Tabs } from '@material-ui/core/Tabs';
-export { default as Tab } from '@material-ui/core/Tab';
+export { default as Tabs } from '@mui/material/Tabs';
+export { default as Tab } from '@mui/material/Tab';
 
 export { default as Splash } from './components/Splash';
 export { default as Autocomplete } from './components/search/Autocomplete';
@@ -24,8 +24,8 @@ export {
   default as PlotContainerSection,
 } from './components/PlotContainerSection';
 export { default as DataCircle } from './components/DataCircle';
-export { default as Tooltip } from '@material-ui/core/Tooltip';
-export { default as Typography } from '@material-ui/core/Typography';
+export { default as Tooltip } from '@mui/material/Tooltip';
+export { default as Typography } from '@mui/material/Typography';
 export { default as OverviewIcon } from './icons/OverviewIcon';
 export { default as DrugsIcon } from './icons/DrugsIcon';
 export { default as MouseIcon } from './icons/MouseIcon';

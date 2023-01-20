@@ -1,4 +1,6 @@
-import { Grid, Paper, withStyles } from '@material-ui/core';
+import { Grid, Paper } from '@mui/material';
+
+import withStyles from '@mui/styles/withStyles';
 
 import OTLogo from '../../assets/OTLogo';
 

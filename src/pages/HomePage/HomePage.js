@@ -1,7 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { Helmet } from 'react-helmet';
-import { Grid, Box, Typography, useMediaQuery } from '@material-ui/core';
-import { useTheme, withStyles, makeStyles } from '@material-ui/core/styles';
+import { Grid, Box, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+
+import withStyles from '@mui/styles/withStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -84,7 +87,7 @@ const useHelpBoxStyle = makeStyles(theme => ({
   helpBoxes: {
     maxWidth: '120px',
     textAlign: 'center',
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       textAlign: 'left',
     },
   },
@@ -92,7 +95,7 @@ const useHelpBoxStyle = makeStyles(theme => ({
 
 const HelpBoxPanel = ({ fai, url, label, external }) => {
   const theme = useTheme();
-  const xsMQ = useMediaQuery(theme.breakpoints.down('xs'));
+  const xsMQ = useMediaQuery(theme.breakpoints.down('sm'));
   const classes = useHelpBoxStyle();
   if (xsMQ) {
     // on xsmall screens

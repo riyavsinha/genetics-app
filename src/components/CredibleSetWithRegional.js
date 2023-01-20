@@ -1,13 +1,9 @@
 import { Query } from '@apollo/client/react/components';
 import { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-} from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Checkbox from '@material-ui/core/Checkbox';
+import withStyles from '@mui/styles/withStyles';
+import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Checkbox from '@mui/material/Checkbox';
 
 import CredibleSet from './CredibleSet';
 import Regional from './Regional';

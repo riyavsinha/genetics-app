@@ -7,9 +7,9 @@ import {
   Fade,
   Paper,
   ClickAwayListener,
-} from '@material-ui/core';
-import { Menu as MenuIcon, Close as CloseIcon } from '@material-ui/icons';
-import { withStyles } from '@material-ui/core/styles';
+} from '@mui/material';
+import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
+import withStyles from '@mui/styles/withStyles';
 import Link from '../Link';
 
 const styles = () => ({

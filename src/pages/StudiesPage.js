@@ -3,8 +3,8 @@ import { Helmet } from 'react-helmet';
 import { Query } from '@apollo/client/react/components';
 import { loader } from 'graphql.macro';
 import queryString from 'query-string';
-import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
+import Typography from '@mui/material/Typography';
+import withStyles from '@mui/styles/withStyles';
 
 import { SectionHeading, Autocomplete } from '../ot-ui-components';
 

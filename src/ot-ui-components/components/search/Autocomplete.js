@@ -1,8 +1,8 @@
 import Select from 'react-select';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
+import withStyles from '@mui/styles/withStyles';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
 import { Component } from 'react';
 
 import Placeholder from './Placeholder';

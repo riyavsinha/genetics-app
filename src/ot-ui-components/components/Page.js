@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
+import Grid from '@mui/material/Grid';
+import withStyles from '@mui/styles/withStyles';
 import { Component } from 'react';
 
 const styles = theme => ({

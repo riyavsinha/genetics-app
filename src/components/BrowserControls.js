@@ -1,12 +1,12 @@
-import Grid from '@material-ui/core/Grid';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import IconButton from '@material-ui/core/IconButton';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import Add from '@material-ui/icons/Add';
-import Remove from '@material-ui/icons/Remove';
-import { withStyles } from '@material-ui/core/styles';
+import Grid from '@mui/material/Grid';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import Add from '@mui/icons-material/Add';
+import Remove from '@mui/icons-material/Remove';
+import withStyles from '@mui/styles/withStyles';
 
 const styles = theme => ({
   selectContainer: {
@@ -31,22 +31,26 @@ const BrowserControls = ({
 }) => (
   <Grid container alignItems="center">
     <Grid item>
-      <IconButton onClick={handlePanLeft}>
+      <IconButton onClick={handlePanLeft} size="large">
         <KeyboardArrowLeft />
       </IconButton>
     </Grid>
     <Grid item>
-      <IconButton onClick={handlePanRight}>
+      <IconButton onClick={handlePanRight} size="large">
         <KeyboardArrowRight />
       </IconButton>
     </Grid>
     <Grid item>
-      <IconButton onClick={handleZoomIn}>
+      <IconButton onClick={handleZoomIn} size="large">
         <Add />
       </IconButton>
     </Grid>
     <Grid item>
-      <IconButton onClick={handleZoomOut} disabled={disabledZoomOut}>
+      <IconButton
+        onClick={handleZoomOut}
+        disabled={disabledZoomOut}
+        size="large"
+      >
         <Remove />
       </IconButton>
     </Grid>

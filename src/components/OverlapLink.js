@@ -1,4 +1,4 @@
-import { withStyles } from '@material-ui/core';
+import withStyles from '@mui/styles/withStyles';
 
 import { Link, Button, OverlapIcon } from '../ot-ui-components';
 

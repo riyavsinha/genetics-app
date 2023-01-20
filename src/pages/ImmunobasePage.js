@@ -1,5 +1,5 @@
-import { Grid, Typography } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { Grid, Typography } from '@mui/material';
+import withStyles from '@mui/styles/withStyles';
 
 import { Link, Button } from '../ot-ui-components';
 

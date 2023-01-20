@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet';
 import { loader } from 'graphql.macro';
 import queryString from 'query-string';
 import _ from 'lodash';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 import { Query } from '@apollo/client/react/components';
 
 import { SectionHeading } from '../../ot-ui-components';

@@ -1,5 +1,10 @@
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { ThemeProvider, createTheme } from '@material-ui/core/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import {
+  ThemeProvider,
+  StyledEngineProvider,
+  createTheme,
+  adaptV4Theme,
+} from '@mui/material/styles';
 import { Component } from 'react';
 
 import defaultTheme from '../theme';
@@ -12,10 +17,12 @@ class OtUiThemeProvider extends Component {
   render() {
     const { children, theme = defaultTheme } = this.props;
     return (
-      <ThemeProvider theme={createTheme(theme)}>
-        <CssBaseline />
-        {children}
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={createTheme(adaptV4Theme(theme))}>
+          <CssBaseline />
+          {children}
+        </ThemeProvider>
+      </StyledEngineProvider>
     );
   }
 }

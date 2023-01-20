@@ -7,8 +7,8 @@ import {
   significantFigures,
   ListTooltip,
 } from '../ot-ui-components';
-import { Tooltip } from '@material-ui/core';
-import Help from '@material-ui/icons/Help';
+import { Tooltip } from '@mui/material';
+import Help from '@mui/icons-material/Help';
 import { pvalThreshold } from '../constants';
 
 function traitFilterOptions(data, selectedCategories) {

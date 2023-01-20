@@ -1,5 +1,5 @@
-import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
+import Paper from '@mui/material/Paper';
+import withStyles from '@mui/styles/withStyles';
 
 const styles = theme => ({
   paper: {

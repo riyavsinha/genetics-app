@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { loader } from 'graphql.macro';
-import {
-  Box,
-  CircularProgress,
-  Input,
-  InputBase,
-  makeStyles,
-} from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
-import { Search as SearchIcon, ArrowDropDown } from '@material-ui/icons';
+import { Box, CircularProgress, Input, InputBase } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { Autocomplete } from '@mui/material';
+import { Search as SearchIcon, ArrowDropDown } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
 
 import useDebounce from '../../hooks/useDebounce';
@@ -129,7 +124,7 @@ function Search({ autoFocus = false, embedded = false }) {
         }}
         filterOptions={(o, s) => searchResults}
         getOptionLabel={option => (option.id ? option.id : option)}
-        getOptionSelected={(option, value) => option.id === value}
+        isOptionEqualToValue={(option, value) => option.id === value}
         groupBy={option =>
           option.type === 'topHit' ? 'topHit' : option.entity
         }
