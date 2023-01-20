@@ -54,7 +54,7 @@ const ManhattanFlat = ({ measureRef, data, contentRect, onClick }) => {
               })}
             </g>
             <g>
-              {data.map(d => {
+              {data.map((d) => {
                 const c = chromosomeMap[d.chromosome];
                 const position =
                   (c.proportionalStart +

@@ -20,9 +20,7 @@ export { default as ModelSchematic } from './components/ModelSchematic';
 export { default as SectionHeading } from './components/SectionHeading';
 export { default as Button } from './components/Button';
 export { default as PlotContainer } from './components/PlotContainer';
-export {
-  default as PlotContainerSection,
-} from './components/PlotContainerSection';
+export { default as PlotContainerSection } from './components/PlotContainerSection';
 export { default as DataCircle } from './components/DataCircle';
 export { default as Tooltip } from '@mui/material/Tooltip';
 export { default as Typography } from '@mui/material/Typography';

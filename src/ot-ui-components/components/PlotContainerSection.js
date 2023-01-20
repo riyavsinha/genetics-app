@@ -1,6 +1,6 @@
 import withStyles from '@mui/styles/withStyles';
 
-const styles = theme => ({
+const styles = (theme) => ({
   plotContainerSection: {
     padding: '4px 0',
     borderBottom: `1px solid ${theme.palette.grey[300]}`,

@@ -8,7 +8,7 @@ import Add from '@mui/icons-material/Add';
 import Remove from '@mui/icons-material/Remove';
 import withStyles from '@mui/styles/withStyles';
 
-const styles = theme => ({
+const styles = (theme) => ({
   selectContainer: {
     paddingLeft: '4px',
     paddingRight: '4px',
@@ -61,7 +61,7 @@ const BrowserControls = ({
           value={displayTypeValue}
           onChange={handleDisplayTypeChange}
         >
-          {displayTypeOptions.map(d => (
+          {displayTypeOptions.map((d) => (
             <MenuItem key={d.value} value={d.value}>
               {d.label}
             </MenuItem>
@@ -76,7 +76,7 @@ const BrowserControls = ({
           value={displayFinemappingValue}
           onChange={handleDisplayFinemappingChange}
         >
-          {displayFinemappingOptions.map(d => (
+          {displayFinemappingOptions.map((d) => (
             <MenuItem key={d.value} value={d.value}>
               {d.label}
             </MenuItem>

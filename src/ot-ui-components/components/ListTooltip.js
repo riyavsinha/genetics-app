@@ -6,7 +6,7 @@ import Popper from '@mui/material/Popper';
 import Fade from '@mui/material/Fade';
 import withStyles from '@mui/styles/withStyles';
 
-const styles = theme => ({
+const styles = (theme) => ({
   listitem: {
     padding: '0.2rem 0.6rem',
     width: '100%',

@@ -18,7 +18,7 @@ const EntitiesMap = {
   variants: 'variant',
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     width: '100%',
   },
@@ -55,7 +55,7 @@ function Search({ autoFocus = false, embedded = false }) {
   const [searchResults, setSearchResults] = useState([]);
   let history = useHistory();
 
-  const handleChangeInputValue = e => {
+  const handleChangeInputValue = (e) => {
     if (!e.target.value) {
       setOpen(false);
     } else {
@@ -76,36 +76,30 @@ function Search({ autoFocus = false, embedded = false }) {
     }
   };
 
-  useEffect(
-    () => {
-      if (debouncedInputValue) {
-        getData({ variables: { queryString: debouncedInputValue } });
-      } else {
-        setSearchResults([]);
-      }
-    },
-    [debouncedInputValue, getData]
-  );
+  useEffect(() => {
+    if (debouncedInputValue) {
+      getData({ variables: { queryString: debouncedInputValue } });
+    } else {
+      setSearchResults([]);
+    }
+  }, [debouncedInputValue, getData]);
 
-  useEffect(
-    () => {
-      const res = [];
+  useEffect(() => {
+    const res = [];
 
-      if (data) {
-        ['variants', 'genes', 'studies'].forEach(key =>
-          data.search[key].map(element =>
-            res.push({
-              type: key === 'topHit' ? 'topHit' : 'normal',
-              entity: EntitiesMap[key],
-              ...element,
-            })
-          )
-        );
-      }
-      setSearchResults(res);
-    },
-    [data, inputValue]
-  );
+    if (data) {
+      ['variants', 'genes', 'studies'].forEach((key) =>
+        data.search[key].map((element) =>
+          res.push({
+            type: key === 'topHit' ? 'topHit' : 'normal',
+            entity: EntitiesMap[key],
+            ...element,
+          })
+        )
+      );
+    }
+    setSearchResults(res);
+  }, [data, inputValue]);
 
   const classes = useStyles();
 
@@ -123,9 +117,9 @@ function Search({ autoFocus = false, embedded = false }) {
           root: classes.root,
         }}
         filterOptions={(o, s) => searchResults}
-        getOptionLabel={option => (option.id ? option.id : option)}
+        getOptionLabel={(option) => (option.id ? option.id : option)}
         isOptionEqualToValue={(option, value) => option.id === value}
-        groupBy={option =>
+        groupBy={(option) =>
           option.type === 'topHit' ? 'topHit' : option.entity
         }
         loading={loading}
@@ -140,11 +134,11 @@ function Search({ autoFocus = false, embedded = false }) {
         }}
         open={open}
         popupIcon={open ? <ArrowDropDown /> : <SearchIcon />}
-        renderOption={option => <Option data={option} />}
-        renderGroup={group => (
+        renderOption={(option) => <Option data={option} />}
+        renderGroup={(group) => (
           <Group key={group.key} name={group.group} children={group.children} />
         )}
-        renderInput={params =>
+        renderInput={(params) =>
           !embedded ? (
             <Input
               className={classes.input}

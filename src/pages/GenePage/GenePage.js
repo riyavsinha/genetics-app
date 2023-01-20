@@ -27,7 +27,7 @@ function hasAssociatedStudies(data) {
   return data && data.studiesAndLeadVariantsForGeneByL2G;
 }
 
-const styles = theme => {
+const styles = (theme) => {
   return {
     section: {
       height: '100%',
@@ -68,35 +68,35 @@ const styles = theme => {
 };
 
 class GenePage extends Component {
-  handleColocTraitFilter = newColocTraitFilterValue => {
+  handleColocTraitFilter = (newColocTraitFilterValue) => {
     const { colocTraitFilter, ...rest } = this._parseQueryProps();
     const newQueryParams = {
       ...rest,
     };
     if (newColocTraitFilterValue && newColocTraitFilterValue.length > 0) {
       newQueryParams.colocTraitFilter = newColocTraitFilterValue.map(
-        d => d.value
+        (d) => d.value
       );
     }
     this._stringifyQueryProps(newQueryParams);
   };
-  handleTraitFilter = newTraitFilterValue => {
+  handleTraitFilter = (newTraitFilterValue) => {
     const { traitFilter, ...rest } = this._parseQueryProps();
     const newQueryParams = {
       ...rest,
     };
     if (newTraitFilterValue && newTraitFilterValue.length > 0) {
-      newQueryParams.traitFilter = newTraitFilterValue.map(d => d.value);
+      newQueryParams.traitFilter = newTraitFilterValue.map((d) => d.value);
     }
     this._stringifyQueryProps(newQueryParams);
   };
-  handleAuthorFilter = newFilterValue => {
+  handleAuthorFilter = (newFilterValue) => {
     const { authorFilter, ...rest } = this._parseQueryProps();
     const newQueryParams = {
       ...rest,
     };
     if (newFilterValue && newFilterValue.length > 0) {
-      newQueryParams.authorFilter = newFilterValue.map(d => d.value);
+      newQueryParams.authorFilter = newFilterValue.map((d) => d.value);
     }
     this._stringifyQueryProps(newQueryParams);
   };
@@ -151,11 +151,10 @@ class GenePage extends Component {
 
             const colocalisationsForGeneFiltered = (
               colocalisationsForGene || []
-            ).filter(
-              d =>
-                colocTraitFilterUrl
-                  ? colocTraitFilterUrl.indexOf(d.study.traitReported) >= 0
-                  : true
+            ).filter((d) =>
+              colocTraitFilterUrl
+                ? colocTraitFilterUrl.indexOf(d.study.traitReported) >= 0
+                : true
             );
 
             // all
@@ -165,7 +164,7 @@ class GenePage extends Component {
                 : [];
 
             // filtered
-            const associatedStudiesFiltered = associatedStudies.filter(d => {
+            const associatedStudiesFiltered = associatedStudies.filter((d) => {
               return (
                 (traitFilterUrl
                   ? traitFilterUrl.indexOf(d.study.traitReported) >= 0
@@ -179,46 +178,48 @@ class GenePage extends Component {
             // filters
             const colocTraitFilterOptions = _.sortBy(
               _.uniq(
-                colocalisationsForGeneFiltered.map(d => d.study.traitReported)
-              ).map(d => ({
+                colocalisationsForGeneFiltered.map((d) => d.study.traitReported)
+              ).map((d) => ({
                 label: d,
                 value: d,
                 selected: colocTraitFilterUrl
                   ? colocTraitFilterUrl.indexOf(d) >= 0
                   : false,
               })),
-              [d => !d.selected, 'value']
+              [(d) => !d.selected, 'value']
             );
             const colocTraitFilterValue = colocTraitFilterOptions.filter(
-              d => d.selected
+              (d) => d.selected
             );
             const traitFilterOptions = _.sortBy(
               _.uniq(
-                associatedStudiesFiltered.map(d => d.study.traitReported)
-              ).map(d => ({
+                associatedStudiesFiltered.map((d) => d.study.traitReported)
+              ).map((d) => ({
                 label: d,
                 value: d,
                 selected: traitFilterUrl
                   ? traitFilterUrl.indexOf(d) >= 0
                   : false,
               })),
-              [d => !d.selected, 'value']
+              [(d) => !d.selected, 'value']
             );
-            const traitFilterValue = traitFilterOptions.filter(d => d.selected);
+            const traitFilterValue = traitFilterOptions.filter(
+              (d) => d.selected
+            );
             const authorFilterOptions = _.sortBy(
-              _.uniq(associatedStudiesFiltered.map(d => d.study.pubAuthor)).map(
-                d => ({
-                  label: d,
-                  value: d,
-                  selected: authorFilterUrl
-                    ? authorFilterUrl.indexOf(d) >= 0
-                    : false,
-                })
-              ),
-              [d => !d.selected, 'value']
+              _.uniq(
+                associatedStudiesFiltered.map((d) => d.study.pubAuthor)
+              ).map((d) => ({
+                label: d,
+                value: d,
+                selected: authorFilterUrl
+                  ? authorFilterUrl.indexOf(d) >= 0
+                  : false,
+              })),
+              [(d) => !d.selected, 'value']
             );
             const authorFilterValue = authorFilterOptions.filter(
-              d => d.selected
+              (d) => d.selected
             );
 
             const { chromosome, start, end, symbol } = gene;

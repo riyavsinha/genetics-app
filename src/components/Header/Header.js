@@ -4,7 +4,7 @@ import { Skeleton } from '@mui/material';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   externalLinks: {
     '& > :not(:first-child):before': {
       content: '" | "',

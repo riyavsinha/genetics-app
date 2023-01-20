@@ -18,7 +18,7 @@ import {
 
 const GENE_HEADER_QUERY = loader('./GeneHeader.gql');
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   sectionContainer: {
     marginBottom: '20px',
     '& span': {

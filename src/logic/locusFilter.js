@@ -15,19 +15,19 @@ const locusFilter = ({
   } = data;
 
   // add selected field
-  let genesUnfiltered = genes.map(d => ({
+  let genesUnfiltered = genes.map((d) => ({
     ...d,
     selected: selectedGenes && selectedGenes.indexOf(d.id) >= 0,
   }));
-  let tagVariantsUnfiltered = tagVariants.map(d => ({
+  let tagVariantsUnfiltered = tagVariants.map((d) => ({
     ...d,
     selected: selectedTagVariants && selectedTagVariants.indexOf(d.id) >= 0,
   }));
-  let indexVariantsUnfiltered = indexVariants.map(d => ({
+  let indexVariantsUnfiltered = indexVariants.map((d) => ({
     ...d,
     selected: selectedIndexVariants && selectedIndexVariants.indexOf(d.id) >= 0,
   }));
-  let studiesUnfiltered = studies.map(d => ({
+  let studiesUnfiltered = studies.map((d) => ({
     ...d,
     selected: selectedStudies && selectedStudies.indexOf(d.studyId) >= 0,
   }));
@@ -36,7 +36,8 @@ const locusFilter = ({
   let genesFiltered = genesUnfiltered.slice();
   let geneTagVariantsFiltered = geneTagVariants.slice();
   let tagVariantsFiltered = tagVariantsUnfiltered.slice();
-  let tagVariantIndexVariantStudiesFiltered = tagVariantIndexVariantStudies.slice();
+  let tagVariantIndexVariantStudiesFiltered =
+    tagVariantIndexVariantStudies.slice();
   let indexVariantsFiltered = indexVariantsUnfiltered.slice();
   let studiesFiltered = studiesUnfiltered.slice();
 
@@ -44,20 +45,23 @@ const locusFilter = ({
 
   // genes
   if (selectedGenes) {
-    genesFiltered = genesFiltered.filter(d => selectedGenes.indexOf(d.id) >= 0);
+    genesFiltered = genesFiltered.filter(
+      (d) => selectedGenes.indexOf(d.id) >= 0
+    );
     geneTagVariantsFiltered = geneTagVariantsFiltered.filter(
-      d => selectedGenes.indexOf(d.geneId) >= 0
+      (d) => selectedGenes.indexOf(d.geneId) >= 0
     );
     const tagVariantsLeft = geneTagVariantsFiltered.reduce((acc, d) => {
       acc[d.tagVariantId] = true;
       return acc;
     }, {});
     tagVariantsFiltered = tagVariantsFiltered.filter(
-      d => tagVariantsLeft[d.id]
+      (d) => tagVariantsLeft[d.id]
     );
-    tagVariantIndexVariantStudiesFiltered = tagVariantIndexVariantStudiesFiltered.filter(
-      d => tagVariantsLeft[d.tagVariantId]
-    );
+    tagVariantIndexVariantStudiesFiltered =
+      tagVariantIndexVariantStudiesFiltered.filter(
+        (d) => tagVariantsLeft[d.tagVariantId]
+      );
     const indexVariantsLeft = tagVariantIndexVariantStudiesFiltered.reduce(
       (acc, d) => {
         acc[d.indexVariantId] = true;
@@ -66,7 +70,7 @@ const locusFilter = ({
       {}
     );
     indexVariantsFiltered = indexVariantsFiltered.filter(
-      d => indexVariantsLeft[d.id]
+      (d) => indexVariantsLeft[d.id]
     );
     const studiesLeft = tagVariantIndexVariantStudiesFiltered.reduce(
       (acc, d) => {
@@ -75,25 +79,26 @@ const locusFilter = ({
       },
       {}
     );
-    studiesFiltered = studiesFiltered.filter(d => studiesLeft[d.studyId]);
+    studiesFiltered = studiesFiltered.filter((d) => studiesLeft[d.studyId]);
   }
 
   // tag variants
   if (selectedTagVariants) {
     tagVariantsFiltered = tagVariantsFiltered.filter(
-      d => selectedTagVariants.indexOf(d.id) >= 0
+      (d) => selectedTagVariants.indexOf(d.id) >= 0
     );
     geneTagVariantsFiltered = geneTagVariantsFiltered.filter(
-      d => selectedTagVariants.indexOf(d.tagVariantId) >= 0
+      (d) => selectedTagVariants.indexOf(d.tagVariantId) >= 0
     );
     const genesLeft = geneTagVariantsFiltered.reduce((acc, d) => {
       acc[d.geneId] = true;
       return acc;
     }, {});
-    genesFiltered = genesFiltered.filter(d => genesLeft[d.id]);
-    tagVariantIndexVariantStudiesFiltered = tagVariantIndexVariantStudiesFiltered.filter(
-      d => selectedTagVariants.indexOf(d.tagVariantId) >= 0
-    );
+    genesFiltered = genesFiltered.filter((d) => genesLeft[d.id]);
+    tagVariantIndexVariantStudiesFiltered =
+      tagVariantIndexVariantStudiesFiltered.filter(
+        (d) => selectedTagVariants.indexOf(d.tagVariantId) >= 0
+      );
     const indexVariantsLeft = tagVariantIndexVariantStudiesFiltered.reduce(
       (acc, d) => {
         acc[d.indexVariantId] = true;
@@ -102,7 +107,7 @@ const locusFilter = ({
       {}
     );
     indexVariantsFiltered = indexVariantsFiltered.filter(
-      d => indexVariantsLeft[d.id]
+      (d) => indexVariantsLeft[d.id]
     );
     const studiesLeft = tagVariantIndexVariantStudiesFiltered.reduce(
       (acc, d) => {
@@ -111,17 +116,18 @@ const locusFilter = ({
       },
       {}
     );
-    studiesFiltered = studiesFiltered.filter(d => studiesLeft[d.studyId]);
+    studiesFiltered = studiesFiltered.filter((d) => studiesLeft[d.studyId]);
   }
 
   // index variants
   if (selectedIndexVariants) {
     indexVariantsFiltered = indexVariantsFiltered.filter(
-      d => selectedIndexVariants.indexOf(d.id) >= 0
+      (d) => selectedIndexVariants.indexOf(d.id) >= 0
     );
-    tagVariantIndexVariantStudiesFiltered = tagVariantIndexVariantStudiesFiltered.filter(
-      d => selectedIndexVariants.indexOf(d.indexVariantId) >= 0
-    );
+    tagVariantIndexVariantStudiesFiltered =
+      tagVariantIndexVariantStudiesFiltered.filter(
+        (d) => selectedIndexVariants.indexOf(d.indexVariantId) >= 0
+      );
     const tagVariantsLeft = tagVariantIndexVariantStudiesFiltered.reduce(
       (acc, d) => {
         acc[d.tagVariantId] = true;
@@ -130,7 +136,7 @@ const locusFilter = ({
       {}
     );
     tagVariantsFiltered = tagVariantsFiltered.filter(
-      d => tagVariantsLeft[d.id]
+      (d) => tagVariantsLeft[d.id]
     );
     const studiesLeft = tagVariantIndexVariantStudiesFiltered.reduce(
       (acc, d) => {
@@ -139,25 +145,26 @@ const locusFilter = ({
       },
       {}
     );
-    studiesFiltered = studiesFiltered.filter(d => studiesLeft[d.studyId]);
+    studiesFiltered = studiesFiltered.filter((d) => studiesLeft[d.studyId]);
     geneTagVariantsFiltered = geneTagVariantsFiltered.filter(
-      d => tagVariantsLeft[d.tagVariantId]
+      (d) => tagVariantsLeft[d.tagVariantId]
     );
     const genesLeft = geneTagVariantsFiltered.reduce((acc, d) => {
       acc[d.geneId] = true;
       return acc;
     }, {});
-    genesFiltered = genesFiltered.filter(d => genesLeft[d.id]);
+    genesFiltered = genesFiltered.filter((d) => genesLeft[d.id]);
   }
 
   // studies
   if (selectedStudies) {
     studiesFiltered = studiesFiltered.filter(
-      d => selectedStudies.indexOf(d.studyId) >= 0
+      (d) => selectedStudies.indexOf(d.studyId) >= 0
     );
-    tagVariantIndexVariantStudiesFiltered = tagVariantIndexVariantStudiesFiltered.filter(
-      d => selectedStudies.indexOf(d.studyId) >= 0
-    );
+    tagVariantIndexVariantStudiesFiltered =
+      tagVariantIndexVariantStudiesFiltered.filter(
+        (d) => selectedStudies.indexOf(d.studyId) >= 0
+      );
     const tagVariantsLeft = tagVariantIndexVariantStudiesFiltered.reduce(
       (acc, d) => {
         acc[d.tagVariantId] = true;
@@ -173,19 +180,19 @@ const locusFilter = ({
       {}
     );
     tagVariantsFiltered = tagVariantsFiltered.filter(
-      d => tagVariantsLeft[d.id]
+      (d) => tagVariantsLeft[d.id]
     );
     indexVariantsFiltered = indexVariantsFiltered.filter(
-      d => indexVariantsLeft[d.id]
+      (d) => indexVariantsLeft[d.id]
     );
     geneTagVariantsFiltered = geneTagVariantsFiltered.filter(
-      d => tagVariantsLeft[d.tagVariantId]
+      (d) => tagVariantsLeft[d.tagVariantId]
     );
     const genesLeft = geneTagVariantsFiltered.reduce((acc, d) => {
       acc[d.geneId] = true;
       return acc;
     }, {});
-    genesFiltered = genesFiltered.filter(d => genesLeft[d.id]);
+    genesFiltered = genesFiltered.filter((d) => genesLeft[d.id]);
   }
 
   return {

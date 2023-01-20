@@ -3,7 +3,7 @@ import * as d3 from 'd3';
 import { withContentRect } from 'react-measure';
 import { Component, createRef } from 'react';
 
-const styles = theme => ({
+const styles = (theme) => ({
   splash: {
     left: 0,
     top: 0,
@@ -36,7 +36,7 @@ class Splash extends Component {
     const { classes, measureRef } = this.props;
     return (
       <div className={classes.splash} ref={measureRef}>
-        <svg ref={node => (this.svgRef = node)} />
+        <svg ref={(node) => (this.svgRef = node)} />
       </div>
     );
   }
@@ -50,11 +50,14 @@ class Splash extends Component {
     const { width, height } = this._dimensions();
 
     // scale data and svg to parent dims
-    const data = DATA.map(d => [d[0] * width, d[1] * height]);
+    const data = DATA.map((d) => [d[0] * width, d[1] * height]);
     svg.attr('width', width).attr('height', height);
 
     // create voronoi generator
-    const voronoi = d3.voronoi().extent([[-1, -1], [width, height]]);
+    const voronoi = d3.voronoi().extent([
+      [-1, -1],
+      [width, height],
+    ]);
 
     // join
     const pointsVoronoi = svg.selectAll('path').data(voronoi.polygons(data));
@@ -66,7 +69,7 @@ class Splash extends Component {
       .attr('stroke-opacity', 0.3)
       .attr('fill', 'none')
       .merge(pointsVoronoi)
-      .attr('d', function(d) {
+      .attr('d', function (d) {
         return d ? 'M' + d.join('L') + 'Z' : null;
       });
 

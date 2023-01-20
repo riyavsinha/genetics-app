@@ -2,13 +2,13 @@ import * as d3 from 'd3';
 
 import { Link, OtTableRF, DataCircle, Tooltip } from '../ot-ui-components';
 
-const tissueComparator = t => (a, b) => {
+const tissueComparator = (t) => (a, b) => {
   if (a[t] && b[t]) {
     return a[t].log2h4h3 > b[t].log2h4h3
       ? 1
       : a[t].log2h4h3 === b[t].log2h4h3
-        ? 0
-        : -1;
+      ? 0
+      : -1;
   } else if (a[t] && !b[t]) {
     return 1;
   } else if (!a[t] && b[t]) {
@@ -36,23 +36,20 @@ const ColocTable = ({ loading, error, fileStem, data }) => {
     }, {})
   );
   const tissueThresholdValue = 7;
-  const [minVal, maxVal] = d3.extent(data, d => d.log2h4h3);
+  const [minVal, maxVal] = d3.extent(data, (d) => d.log2h4h3);
   const absMax = Math.min(
     tissueThresholdValue,
     Math.max(Math.abs(minVal), maxVal)
   );
-  const radiusScale = d3
-    .scaleSqrt()
-    .domain([0, absMax])
-    .range([0, 6]);
+  const radiusScale = d3.scaleSqrt().domain([0, absMax]).range([0, 6]);
   const tissueColumns = uniqueTissues
     .sort((a, b) => d3.ascending(a.name, b.name))
-    .map(t => ({
+    .map((t) => ({
       id: t.id,
       label: t.name,
       verticalHeader: true,
       comparator: tissueComparator(t.id),
-      renderCell: row => {
+      renderCell: (row) => {
         if (!row[t.id]) {
           // no comparison made for this gene-tissue pair
           return null;
@@ -86,13 +83,13 @@ const ColocTable = ({ loading, error, fileStem, data }) => {
       ...uniqueTissues.reduce((acc, t) => {
         const items = data
           .filter(
-            d =>
+            (d) =>
               d.phenotypeId === phenotypeId &&
               d.gene.id === gene.id &&
               d.qtlStudyName === qtlStudyName &&
               d.tissue.id === t.id
           )
-          .map(d => ({
+          .map((d) => ({
             h3: d.h3,
             h4: d.h4,
             log2h4h3: d.log2h4h3,
@@ -105,9 +102,7 @@ const ColocTable = ({ loading, error, fileStem, data }) => {
         // to deduplication on index variants)
         if (items.length > 1) {
           console.info(
-            `Multiple entries found: ${
-              gene.symbol
-            }, ${qtlStudyName}, ${phenotypeId}`,
+            `Multiple entries found: ${gene.symbol}, ${qtlStudyName}, ${phenotypeId}`,
             items
           );
         }
@@ -120,7 +115,7 @@ const ColocTable = ({ loading, error, fileStem, data }) => {
     id: 'gene.symbol',
     label: 'Gene',
     comparator: (a, b) => d3.ascending(a.gene.symbol, b.gene.symbol),
-    renderCell: d => <Link to={`/gene/${d.gene.id}`}>{d.gene.symbol}</Link>,
+    renderCell: (d) => <Link to={`/gene/${d.gene.id}`}>{d.gene.symbol}</Link>,
   };
   const phenotypeIdColumn = {
     id: 'phenotypeId',

@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import withStyles from '@mui/styles/withStyles';
 import { Component } from 'react';
 
-const styles = theme => ({
+const styles = (theme) => ({
   base: {
     fontFamily: 'Inter',
     fontSize: 'inherit',

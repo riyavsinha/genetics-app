@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Search from '../../components/Search';
 
-const styles = theme => ({
+const styles = (theme) => ({
   icon: {
     color: theme.palette.primary.main,
     marginBottom: '12px',

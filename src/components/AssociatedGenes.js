@@ -19,13 +19,10 @@ import LabelHML from './LabelHML';
 
 const OVERVIEW = 'overview';
 
-const radiusScale = d3
-  .scaleSqrt()
-  .domain([0, 1])
-  .range([0, 6]);
+const radiusScale = d3.scaleSqrt().domain([0, 1]).range([0, 6]);
 
-const createDistanceCellRenderer = schema => {
-  return rowData => {
+const createDistanceCellRenderer = (schema) => {
+  return (rowData) => {
     const distanceData = rowData[schema.sourceId];
     if (distanceData !== undefined) {
       const { distance } = distanceData.tissues[0];
@@ -34,8 +31,8 @@ const createDistanceCellRenderer = schema => {
   };
 };
 
-const createDistanceAggregateCellRenderer = schema => {
-  return rowData => {
+const createDistanceAggregateCellRenderer = (schema) => {
+  return (rowData) => {
     if (rowData.aggregated) {
       const { distance } = rowData.aggregated;
       return <>{distance ? commaSeparate(distance) : null}</>;
@@ -45,8 +42,8 @@ const createDistanceAggregateCellRenderer = schema => {
   };
 };
 
-const createQtlCellRenderer = schema => {
-  return rowData => {
+const createQtlCellRenderer = (schema) => {
+  return (rowData) => {
     if (rowData[schema.sourceId] !== undefined) {
       const circleRadius = radiusScale(rowData[schema.sourceId]);
       return <DataCircle radius={circleRadius} colorScheme="default" />;
@@ -54,8 +51,8 @@ const createQtlCellRenderer = schema => {
   };
 };
 
-const createAggregateCellRenderer = schema => {
-  return rowData => {
+const createAggregateCellRenderer = (schema) => {
+  return (rowData) => {
     if (rowData.aggregated) {
       const circleRadius = radiusScale(rowData.aggregated.aggregatedScore);
       return <DataCircle radius={circleRadius} colorScheme="default" />;
@@ -68,8 +65,8 @@ const createAggregateCellRenderer = schema => {
 const tissueColumnComparator = (a, b) =>
   a.label > b.label ? 1 : a.label === b.label ? 0 : -1;
 
-const createIntervalCellRenderer = schema => {
-  return rowData => {
+const createIntervalCellRenderer = (schema) => {
+  return (rowData) => {
     if (rowData[schema.sourceId] !== undefined) {
       const circleRadius = radiusScale(rowData[schema.sourceId]);
       return <DataCircle radius={circleRadius} colorScheme="default" />;
@@ -77,8 +74,8 @@ const createIntervalCellRenderer = schema => {
   };
 };
 
-const createFPCellRenderer = schema => {
-  return rowData => {
+const createFPCellRenderer = (schema) => {
+  return (rowData) => {
     const fpData = rowData[schema.sourceId];
 
     if (fpData !== undefined) {
@@ -87,15 +84,15 @@ const createFPCellRenderer = schema => {
         0 <= maxEffectScore && maxEffectScore <= 1 / 3
           ? 'L'
           : 1 / 3 < maxEffectScore && maxEffectScore <= 2 / 3
-            ? 'M'
-            : 'H';
+          ? 'M'
+          : 'H';
       return <LabelHML level={level}>{maxEffectLabel}</LabelHML>;
     }
   };
 };
 
-const createFPAggregateCellRenderer = schema => {
-  return rowData => {
+const createFPAggregateCellRenderer = (schema) => {
+  return (rowData) => {
     const fpData = rowData.aggregated;
 
     if (fpData !== undefined) {
@@ -104,8 +101,8 @@ const createFPAggregateCellRenderer = schema => {
         0 <= maxEffectScore && maxEffectScore <= 1 / 3
           ? 'L'
           : 1 / 3 < maxEffectScore && maxEffectScore <= 2 / 3
-            ? 'M'
-            : 'H';
+          ? 'M'
+          : 'H';
       return <LabelHML level={level}>{maxEffectLabel}</LabelHML>;
     }
   };
@@ -116,50 +113,49 @@ const getColumnsAll = (genesForVariantSchema, genesForVariant) => {
     .scaleSqrt()
     .domain([
       0,
-      d3.max(genesForVariant, geneForVariant => geneForVariant.overallScore),
+      d3.max(genesForVariant, (geneForVariant) => geneForVariant.overallScore),
     ])
     .range([0, 6]);
   const columns = [
     {
       id: 'geneSymbol',
       label: 'Gene',
-      renderCell: rowData => {
+      renderCell: (rowData) => {
         return <Link to={`/gene/${rowData.geneId}`}>{rowData.geneSymbol}</Link>;
       },
     },
     {
       id: 'overallScore',
       label: 'Overall V2G',
-      renderCell: rowData => {
+      renderCell: (rowData) => {
         const circleRadius = overallScoreScale(rowData.overallScore);
         return <DataCircle radius={circleRadius} colorScheme="bold" />;
       },
     },
-    ...genesForVariantSchema.distances.map(schema => ({
+    ...genesForVariantSchema.distances.map((schema) => ({
       id: schema.sourceId,
       label: schema.sourceLabel,
       tooltip: schema.sourceDescriptionOverview,
       renderCell: createDistanceCellRenderer(schema),
-      comparator: generateComparator(
-        d =>
-          d[schema.sourceId] && d[schema.sourceId].tissues[0].distance
-            ? d[schema.sourceId].tissues[0].distance
-            : null
+      comparator: generateComparator((d) =>
+        d[schema.sourceId] && d[schema.sourceId].tissues[0].distance
+          ? d[schema.sourceId].tissues[0].distance
+          : null
       ),
     })),
-    ...genesForVariantSchema.qtls.map(schema => ({
+    ...genesForVariantSchema.qtls.map((schema) => ({
       id: schema.sourceId,
       label: schema.sourceLabel,
       tooltip: schema.sourceDescriptionOverview,
       renderCell: createQtlCellRenderer(schema),
     })),
-    ...genesForVariantSchema.intervals.map(schema => ({
+    ...genesForVariantSchema.intervals.map((schema) => ({
       id: schema.sourceId,
       label: schema.sourceLabel,
       tooltip: schema.sourceDescriptionOverview,
       renderCell: createIntervalCellRenderer(schema),
     })),
-    ...genesForVariantSchema.functionalPredictions.map(schema => ({
+    ...genesForVariantSchema.functionalPredictions.map((schema) => ({
       id: schema.sourceId,
       label: schema.sourceLabel,
       tooltip: schema.sourceDescriptionOverview,
@@ -170,9 +166,9 @@ const getColumnsAll = (genesForVariantSchema, genesForVariant) => {
   return columns;
 };
 
-const getDataAll = genesForVariant => {
+const getDataAll = (genesForVariant) => {
   const data = [];
-  genesForVariant.forEach(item => {
+  genesForVariant.forEach((item) => {
     const row = {
       geneId: item.gene.id,
       geneSymbol: item.gene.symbol,
@@ -180,18 +176,18 @@ const getDataAll = genesForVariant => {
     };
     // for distances we want to use the first element of
     // the distances array
-    item.distances.forEach(distance => {
+    item.distances.forEach((distance) => {
       row[distance.sourceId] = item.distances[0];
     });
-    item.qtls.forEach(qtl => {
+    item.qtls.forEach((qtl) => {
       row[qtl.sourceId] = qtl.aggregatedScore;
     });
-    item.intervals.forEach(interval => {
+    item.intervals.forEach((interval) => {
       row[interval.sourceId] = interval.aggregatedScore;
     });
     // for functionalPredictions we want to use the first element of
     // the functionalPredictions array
-    item.functionalPredictions.forEach(fp => {
+    item.functionalPredictions.forEach((fp) => {
       row[fp.sourceId] = item.functionalPredictions[0];
     });
     data.push(row);
@@ -199,8 +195,8 @@ const getDataAll = genesForVariant => {
   return data;
 };
 
-const getDataAllDownload = tableData => {
-  return tableData.map(row => {
+const getDataAllDownload = (tableData) => {
+  return tableData.map((row) => {
     const newRow = { ...row };
     if (row.canonical_tss) {
       newRow.canonical_tss = row.canonical_tss.tissues[0].distance;
@@ -219,35 +215,34 @@ const getTissueColumns = (schema, genesForVariantSchema, genesForVariant) => {
   switch (schema.type) {
     case 'distances':
       aggregateColumns = genesForVariantSchema.distances
-        .filter(distance => distance.sourceId === schema.sourceId)
-        .map(schema => ({
+        .filter((distance) => distance.sourceId === schema.sourceId)
+        .map((schema) => ({
           id: 'aggregated',
           label: `${schema.sourceLabel}`,
           renderCell: createDistanceAggregateCellRenderer(schema),
-          comparator: generateComparator(
-            d =>
-              d.aggregated ? d.aggregated.distance : Number.MAX_SAFE_INTEGER
+          comparator: generateComparator((d) =>
+            d.aggregated ? d.aggregated.distance : Number.MAX_SAFE_INTEGER
           ),
         }));
       break;
     case 'qtls':
       aggregateColumns = genesForVariantSchema.qtls
-        .filter(qtl => qtl.sourceId === schema.sourceId)
-        .map(schema => ({
+        .filter((qtl) => qtl.sourceId === schema.sourceId)
+        .map((schema) => ({
           id: 'aggregated',
           label: `${schema.sourceLabel} aggregated`,
           renderCell: createAggregateCellRenderer(schema),
-          comparator: generateComparator(
-            d => (d.aggregated ? d.aggregated.aggregatedScore : null)
+          comparator: generateComparator((d) =>
+            d.aggregated ? d.aggregated.aggregatedScore : null
           ),
         }));
       tissueColumns = schema.tissues
-        .map(tissue => {
+        .map((tissue) => {
           return {
             id: tissue.id,
             label: tissue.name,
             verticalHeader: true,
-            renderCell: rowData => {
+            renderCell: (rowData) => {
               if (rowData[tissue.id]) {
                 const { quantile, beta, pval } = rowData[tissue.id];
                 const qtlRadius = radiusScale(quantile);
@@ -273,22 +268,22 @@ const getTissueColumns = (schema, genesForVariantSchema, genesForVariant) => {
       break;
     case 'intervals':
       aggregateColumns = genesForVariantSchema.intervals
-        .filter(interval => interval.sourceId === schema.sourceId)
-        .map(schema => ({
+        .filter((interval) => interval.sourceId === schema.sourceId)
+        .map((schema) => ({
           id: 'aggregated',
           label: `${schema.sourceLabel} aggregated`,
           renderCell: createAggregateCellRenderer(schema),
-          comparator: generateComparator(
-            d => (d.aggregated ? d.aggregated.aggregatedScore : null)
+          comparator: generateComparator((d) =>
+            d.aggregated ? d.aggregated.aggregatedScore : null
           ),
         }));
       tissueColumns = schema.tissues
-        .map(tissue => {
+        .map((tissue) => {
           return {
             id: tissue.id,
             label: tissue.name,
             verticalHeader: true,
-            renderCell: rowData => {
+            renderCell: (rowData) => {
               if (rowData[tissue.id]) {
                 const intervalRadius = radiusScale(rowData[tissue.id]);
                 return (
@@ -310,16 +305,16 @@ const getTissueColumns = (schema, genesForVariantSchema, genesForVariant) => {
     case 'functionalPredictions':
       aggregateColumns = genesForVariantSchema.functionalPredictions
         .filter(
-          functionalPrediction =>
+          (functionalPrediction) =>
             functionalPrediction.sourceId === schema.sourceId
         )
-        .map(schema => ({
+        .map((schema) => ({
           id: 'aggregated',
           label: `${schema.sourceLabel}`,
           // tooltip: schema.sourceDescriptionOverview,
           renderCell: createFPAggregateCellRenderer(schema),
-          comparator: generateComparator(
-            d => (d.aggregated ? d.aggregated.aggregatedScore : null)
+          comparator: generateComparator((d) =>
+            d.aggregated ? d.aggregated.aggregatedScore : null
           ),
         }));
       break;
@@ -330,7 +325,7 @@ const getTissueColumns = (schema, genesForVariantSchema, genesForVariant) => {
     {
       id: 'geneSymbol',
       label: 'Gene',
-      renderCell: rowData => {
+      renderCell: (rowData) => {
         return <Link to={`/gene/${rowData.geneId}`}>{rowData.geneSymbol}</Link>;
       },
     },
@@ -343,13 +338,13 @@ const getTissueColumns = (schema, genesForVariantSchema, genesForVariant) => {
 const getTissueData = (schema, genesForVariantSchema, genesForVariant) => {
   const data = [];
 
-  genesForVariant.forEach(geneForVariant => {
+  genesForVariant.forEach((geneForVariant) => {
     let aggregated = null;
 
     switch (schema.type) {
       case 'distances':
         const distances = geneForVariant.distances.filter(
-          distance => distance.sourceId === schema.sourceId
+          (distance) => distance.sourceId === schema.sourceId
         );
         if (distances.length === 1) {
           aggregated = distances[0].tissues[0];
@@ -357,7 +352,7 @@ const getTissueData = (schema, genesForVariantSchema, genesForVariant) => {
         break;
       case 'qtls':
         const qtls = geneForVariant.qtls.filter(
-          qtl => qtl.sourceId === schema.sourceId
+          (qtl) => qtl.sourceId === schema.sourceId
         );
         if (qtls.length === 1) {
           aggregated = qtls[0];
@@ -365,17 +360,18 @@ const getTissueData = (schema, genesForVariantSchema, genesForVariant) => {
         break;
       case 'intervals':
         const intervals = geneForVariant.intervals.filter(
-          interval => interval.sourceId === schema.sourceId
+          (interval) => interval.sourceId === schema.sourceId
         );
         if (intervals.length === 1) {
           aggregated = intervals[0];
         }
         break;
       case 'functionalPredictions':
-        const functionalPredictions = geneForVariant.functionalPredictions.filter(
-          functionalPrediction =>
-            functionalPrediction.sourceId === schema.sourceId
-        );
+        const functionalPredictions =
+          geneForVariant.functionalPredictions.filter(
+            (functionalPrediction) =>
+              functionalPrediction.sourceId === schema.sourceId
+          );
         if (functionalPredictions.length === 1) {
           aggregated = functionalPredictions[0];
         }
@@ -392,11 +388,11 @@ const getTissueData = (schema, genesForVariantSchema, genesForVariant) => {
       row.aggregated = aggregated;
     }
     const element = geneForVariant[schema.type].find(
-      item => item.sourceId === schema.sourceId
+      (item) => item.sourceId === schema.sourceId
     );
 
     if (element) {
-      element.tissues.forEach(elementTissue => {
+      element.tissues.forEach((elementTissue) => {
         if (elementTissue.__typename === 'DistanceTissue') {
           row[elementTissue.tissue.id] = {
             quantile: elementTissue.quantile,
@@ -423,7 +419,7 @@ const getTissueData = (schema, genesForVariantSchema, genesForVariant) => {
 
 const getTissueDataDownload = (schema, tableData) => {
   if (schema.type === 'distances') {
-    return tableData.map(row => {
+    return tableData.map((row) => {
       const newRow = { geneSymbol: row.geneSymbol };
       if (row.aggregated) {
         newRow.aggregated = row.aggregated.distance;
@@ -433,12 +429,12 @@ const getTissueDataDownload = (schema, tableData) => {
   }
 
   if (schema.type === 'qtls' || schema.type === 'intervals') {
-    return tableData.map(row => {
+    return tableData.map((row) => {
       const newRow = { geneSymbol: row.geneSymbol };
       if (row.aggregated) {
         newRow.aggregated = row.aggregated.aggregatedScore;
       }
-      schema.tissues.forEach(tissue => {
+      schema.tissues.forEach((tissue) => {
         if (row[tissue.id]) {
           newRow[tissue.id] = row[tissue.id].quantile
             ? row[tissue.id].quantile
@@ -449,7 +445,7 @@ const getTissueDataDownload = (schema, tableData) => {
     });
   }
 
-  return tableData.map(row => {
+  return tableData.map((row) => {
     const newRow = { geneSymbol: row.geneSymbol };
     if (row.aggregated) {
       newRow.aggregated = row.aggregated.tissues[0].maxEffectLabel;
@@ -459,7 +455,7 @@ const getTissueDataDownload = (schema, tableData) => {
 };
 
 const isDisabledColumn = (allData, sourceId) => {
-  return !allData.some(d => d[sourceId]);
+  return !allData.some((d) => d[sourceId]);
 };
 
 class AssociatedGenes extends Component {
@@ -478,19 +474,19 @@ class AssociatedGenes extends Component {
     // Hardcoding the order and assuming qtls, intervals, and
     // functionalPredictions are the only fields in the schema
     const schemas = [
-      ...genesForVariantSchema.distances.map(distanceSchema => ({
+      ...genesForVariantSchema.distances.map((distanceSchema) => ({
         ...distanceSchema,
         type: 'distances',
       })),
-      ...genesForVariantSchema.qtls.map(qtlSchema => ({
+      ...genesForVariantSchema.qtls.map((qtlSchema) => ({
         ...qtlSchema,
         type: 'qtls',
       })),
-      ...genesForVariantSchema.intervals.map(intervalSchema => ({
+      ...genesForVariantSchema.intervals.map((intervalSchema) => ({
         ...intervalSchema,
         type: 'intervals',
       })),
-      ...genesForVariantSchema.functionalPredictions.map(fpSchema => ({
+      ...genesForVariantSchema.functionalPredictions.map((fpSchema) => ({
         ...fpSchema,
         type: 'functionalPredictions',
       })),
@@ -517,7 +513,7 @@ class AssociatedGenes extends Component {
       </Fragment>
     );
 
-    const tabsTissues = schemas.map(schema => {
+    const tabsTissues = schemas.map((schema) => {
       const tableColumns = getTissueColumns(
         schema,
         genesForVariantSchema,
@@ -556,7 +552,7 @@ class AssociatedGenes extends Component {
     const tabs = (
       <Tabs variant="scrollable" value={value} onChange={this.handleChange}>
         <Tab label="Summary" value={OVERVIEW} />
-        {schemas.map(schema => {
+        {schemas.map((schema) => {
           return (
             <Tab
               key={schema.sourceId}

@@ -4,7 +4,7 @@ import withStyles from '@mui/styles/withStyles';
 
 import ModelSchematic from './ModelSchematic';
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
     width: '100%',
     display: 'flex',

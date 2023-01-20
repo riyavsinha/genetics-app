@@ -4,7 +4,7 @@ import withStyles from '@mui/styles/withStyles';
 
 import OTLogo from '../../assets/OTLogo';
 
-const styles = theme => ({
+const styles = (theme) => ({
   homeboxContainer: {
     overflow: 'visible',
     padding: '30px 60px',

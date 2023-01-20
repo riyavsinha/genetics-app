@@ -7,7 +7,7 @@ import withStyles from '@mui/styles/withStyles';
 import Link from './Link';
 import EmailLink from './EmailLink';
 
-const styles = theme => ({
+const styles = (theme) => ({
   footer: {
     backgroundColor: theme.palette.footer,
     color: '#fff',

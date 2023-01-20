@@ -17,21 +17,21 @@ const HIDDEN_TYPE_MAP = {
 };
 const HIDDEN_TYPE_MAP_INVERSE = {};
 Object.keys(HIDDEN_TYPE_MAP).forEach(
-  k => (HIDDEN_TYPE_MAP_INVERSE[HIDDEN_TYPE_MAP[k]] = k)
+  (k) => (HIDDEN_TYPE_MAP_INVERSE[HIDDEN_TYPE_MAP[k]] = k)
 );
 
 const color = (d, noSelectedEntities) =>
   d.selected
     ? theme.gecko.colorSelected
     : !noSelectedEntities && d.chained
-      ? theme.gecko.colorChained
-      : theme.gecko.color;
+    ? theme.gecko.colorChained
+    : theme.gecko.color;
 const backgroundColor = (d, noSelectedEntities) =>
   d.selected
     ? theme.gecko.backgroundColorSelected
     : !noSelectedEntities && d.chained
-      ? theme.gecko.backgroundColorChained
-      : theme.gecko.backgroundColor;
+    ? theme.gecko.backgroundColorChained
+    : theme.gecko.backgroundColor;
 
 const wrapText = (text, maxLineWidth, measure) => {
   const lines = [];
@@ -119,7 +119,7 @@ class GeneTrack extends Component {
             top: 0,
             left: 0,
           }}
-          ref={node => (this.canvasRef = node)}
+          ref={(node) => (this.canvasRef = node)}
         />
         <canvas
           width={width ? width * SCALE_FACTOR : 0}
@@ -133,7 +133,7 @@ class GeneTrack extends Component {
             imageRendering: 'pixelated',
             opacity: 0,
           }}
-          ref={node => (this.hiddenCanvasRef = node)}
+          ref={(node) => (this.hiddenCanvasRef = node)}
         />
       </div>
     );
@@ -293,7 +293,7 @@ class GeneTrack extends Component {
     hiddenContext.translate(0, track.top + GENE_TRACK_PADDING);
 
     // genes
-    data.forEach(d => {
+    data.forEach((d) => {
       const label = d.start === d.tss ? `${d.symbol}>` : `<${d.symbol}`;
       const textWidth = context.measureText(label).width;
 
@@ -334,7 +334,7 @@ class GeneTrack extends Component {
       context.stroke();
 
       // exons
-      d.exons.forEach(e => {
+      d.exons.forEach((e) => {
         const exonX = scaleX(e[[0]]);
         const exonY = d.slotIndex * GENE_SLOT_HEIGHT + GENE_TRANSCRIPT_OFFSET;
         const exonWidth = scaleX(e[[1]]) - exonX;
@@ -379,14 +379,14 @@ class GeneTrack extends Component {
     return `rgb(${r},${g},${b},255)`;
   }
   _geneSlots(genes, scale) {
-    const sortedGenes = _.sortBy(genes.slice(), d => d.start);
+    const sortedGenes = _.sortBy(genes.slice(), (d) => d.start);
     const canvas = this.canvasRef;
     const context = canvas.getContext('2d');
 
     let slotCount = 0;
     const slots = [];
     const genesWithSlots = [];
-    const endOfGene = gene => {
+    const endOfGene = (gene) => {
       const transcriptLength = scale(gene.end) - scale(gene.start);
       const labelLength = context.measureText(gene.symbol + '>').width;
       return transcriptLength > labelLength
@@ -395,9 +395,9 @@ class GeneTrack extends Component {
             scale(gene.start) + labelLength + GENE_BACKDROP_PADDING * 3
           );
     };
-    sortedGenes.forEach(gene => {
-      const sortedSlots = _.sortBy(slots, d => d.index);
-      const suitableSlots = sortedSlots.filter(slot => gene.start > slot.end);
+    sortedGenes.forEach((gene) => {
+      const sortedSlots = _.sortBy(slots, (d) => d.index);
+      const suitableSlots = sortedSlots.filter((slot) => gene.start > slot.end);
       if (suitableSlots.length > 0) {
         // store in slots
         suitableSlots[0].genes.push(gene);
@@ -443,7 +443,7 @@ class GeneTrack extends Component {
     const { lines, width } = wrapText(
       text,
       maxWidth,
-      str => context.measureText(str).width
+      (str) => context.measureText(str).width
     );
     return { lineArray: lines, width };
   }

@@ -25,32 +25,34 @@ function hasAssociations(data) {
 
 function transformAssociations(data) {
   // TODO: API should fix this
-  const zeroPvals = data.manhattan.associations.filter(d => d.pval === 0);
+  const zeroPvals = data.manhattan.associations.filter((d) => d.pval === 0);
   if (zeroPvals.length > 0) {
     console.error('Found zero pvalues in Manhattan data: ', zeroPvals);
   }
 
-  return data.manhattan.associations.filter(d => d.pval > 0).map(d => {
-    const { variant, ...rest } = d;
-    const ch = chromosomesWithCumulativeLengths.find(
-      ch => ch.name === variant.chromosome
-    );
+  return data.manhattan.associations
+    .filter((d) => d.pval > 0)
+    .map((d) => {
+      const { variant, ...rest } = d;
+      const ch = chromosomesWithCumulativeLengths.find(
+        (ch) => ch.name === variant.chromosome
+      );
 
-    return {
-      ...rest,
-      indexVariantId: variant.id,
-      indexVariantRsId: variant.rsId,
-      chromosome: variant.chromosome,
-      position: variant.position,
-      globalPosition: ch.cumulativeLength - ch.length + variant.position,
-      nearestCodingGene: variant.nearestCodingGene,
-    };
-  });
+      return {
+        ...rest,
+        indexVariantId: variant.id,
+        indexVariantRsId: variant.rsId,
+        chromosome: variant.chromosome,
+        position: variant.position,
+        globalPosition: ch.cumulativeLength - ch.length + variant.position,
+        nearestCodingGene: variant.nearestCodingGene,
+      };
+    });
 }
 
 function significantLoci(data) {
   return hasAssociations(data)
-    ? data.manhattan.associations.filter(d => d.pval < SIGNIFICANCE).length
+    ? data.manhattan.associations.filter((d) => d.pval < SIGNIFICANCE).length
     : 0;
 }
 
@@ -137,7 +139,7 @@ class ManhattanContainer extends Component {
         <ManhattanTable
           loading={loading}
           error={error}
-          data={associations.filter(assoc => {
+          data={associations.filter((assoc) => {
             return start <= assoc.globalPosition && assoc.globalPosition <= end;
           })}
           studyId={studyId}

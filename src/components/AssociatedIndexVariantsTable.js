@@ -9,11 +9,11 @@ import { pvalThreshold } from '../constants';
 import PmidOrBiobankLink from './PmidOrBiobankLink';
 import StudyLocusLink from './StudyLocusLink';
 
-const tableColumns = variantId => [
+const tableColumns = (variantId) => [
   {
     id: 'indexVariantId',
     label: 'Lead Variant',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       variantId !== rowData.indexVariantId ? (
         <Link to={`/variant/${rowData.indexVariantId}`}>
           {rowData.indexVariantId}
@@ -31,7 +31,7 @@ const tableColumns = variantId => [
   {
     id: 'studyId',
     label: 'Study ID',
-    renderCell: rowData => (
+    renderCell: (rowData) => (
       <Link to={`/study/${rowData.studyId}`}>{rowData.studyId}</Link>
     ),
   },
@@ -39,7 +39,7 @@ const tableColumns = variantId => [
   {
     id: 'pval',
     label: 'Lead Variant P-value',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.pval < pvalThreshold
         ? `<${pvalThreshold}`
         : significantFigures(rowData.pval),
@@ -59,14 +59,14 @@ const tableColumns = variantId => [
         </Link>
       </>
     ),
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.beta ? significantFigures(rowData.beta) : null,
   },
   {
     id: 'oddsRatio',
     label: 'Odds Ratio',
     tooltip: 'Odds ratio with respect to the ALT allele',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.oddsRatio ? significantFigures(rowData.oddsRatio) : null,
   },
   {
@@ -74,52 +74,52 @@ const tableColumns = variantId => [
     label: '95% Confidence Interval',
     tooltip:
       '95% confidence interval for the effect estimate. CIs are calculated approximately using the reported p-value.',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.beta
         ? `(${significantFigures(rowData.betaCILower)}, ${significantFigures(
             rowData.betaCIUpper
           )})`
         : rowData.oddsRatio
-          ? `(${significantFigures(
-              rowData.oddsRatioCILower
-            )}, ${significantFigures(rowData.oddsRatioCIUpper)})`
-          : null,
+        ? `(${significantFigures(
+            rowData.oddsRatioCILower
+          )}, ${significantFigures(rowData.oddsRatioCIUpper)})`
+        : null,
   },
   {
     id: 'pmid',
     label: 'PMID',
-    renderCell: rowData => (
+    renderCell: (rowData) => (
       <PmidOrBiobankLink studyId={rowData.studyId} pmid={rowData.pmid} />
     ),
   },
   {
     id: 'pubAuthor',
     label: 'Author (Year)',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       `${rowData.pubAuthor} (${new Date(rowData.pubDate).getFullYear()})`,
   },
   {
     id: 'nTotal',
     label: 'Study N',
-    renderCell: rowData => commaSeparate(rowData.nTotal),
+    renderCell: (rowData) => commaSeparate(rowData.nTotal),
   },
   {
     id: 'overallR2',
     label: 'LD (r²)',
     tooltip: 'Linkage disequilibrium with the queried variant',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.overallR2 ? rowData.overallR2.toPrecision(3) : 'No information',
   },
   {
     id: 'posteriorProbability',
     label: 'Is in 95% Credible Set',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.posteriorProbability !== null ? 'True' : '',
   },
   {
     id: 'studyLocus',
     label: 'View',
-    renderCell: rowData => {
+    renderCell: (rowData) => {
       return (
         <StudyLocusLink
           indexVariantId={rowData.indexVariantId}

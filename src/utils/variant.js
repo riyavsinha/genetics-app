@@ -28,8 +28,8 @@ export function variantHasAssociatedTagVariants(data) {
 }
 
 export function variantTransformAssociatedIndexVariants(data) {
-  const associationsFlattened = data.indexVariantsAndStudiesForTagVariant.associations.map(
-    d => {
+  const associationsFlattened =
+    data.indexVariantsAndStudiesForTagVariant.associations.map((d) => {
       const { indexVariant, study, ...rest } = d;
       return {
         indexVariantId: indexVariant.id,
@@ -41,14 +41,13 @@ export function variantTransformAssociatedIndexVariants(data) {
         pubAuthor: study.pubAuthor,
         ...rest,
       };
-    }
-  );
+    });
   return associationsFlattened;
 }
 
 export function variantTransformAssociatedTagVariants(data) {
-  const associationsFlattened = data.tagVariantsAndStudiesForIndexVariant.associations.map(
-    d => {
+  const associationsFlattened =
+    data.tagVariantsAndStudiesForIndexVariant.associations.map((d) => {
       const { tagVariant, study, ...rest } = d;
       return {
         tagVariantId: tagVariant.id,
@@ -60,8 +59,7 @@ export function variantTransformAssociatedTagVariants(data) {
         pubAuthor: study.pubAuthor,
         ...rest,
       };
-    }
-  );
+    });
   return associationsFlattened;
 }
 

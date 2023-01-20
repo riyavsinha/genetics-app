@@ -2,7 +2,7 @@ import DownArrowIcon from '@mui/icons-material/KeyboardArrowDown';
 import withStyles from '@mui/styles/withStyles';
 import classNames from 'classnames';
 
-const styles = theme => {
+const styles = (theme) => {
   return {
     root: {
       cursor: 'pointer',

@@ -42,7 +42,7 @@ const EXAMPLES = [
   },
 ];
 
-const containerStyles = theme => {
+const containerStyles = (theme) => {
   return {
     searchSection: {
       position: 'relative',
@@ -80,7 +80,7 @@ const containerStyles = theme => {
   };
 };
 
-const useHelpBoxStyle = makeStyles(theme => ({
+const useHelpBoxStyle = makeStyles((theme) => ({
   baseLink: {
     whiteSpace: 'pre-wrap',
   },

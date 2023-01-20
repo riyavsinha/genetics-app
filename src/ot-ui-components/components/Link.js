@@ -5,7 +5,7 @@ import withStyles from '@mui/styles/withStyles';
 import Icon from '@mui/material/Icon';
 import { Component } from 'react';
 
-const styles = theme => ({
+const styles = (theme) => ({
   base: {
     fontFamily: 'Inter',
     fontSize: 'inherit',

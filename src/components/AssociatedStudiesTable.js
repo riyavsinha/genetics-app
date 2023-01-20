@@ -35,8 +35,8 @@ const getDownloadColumns = () => {
   ];
 };
 
-const getDownloadRows = rows => {
-  return rows.map(row => ({
+const getDownloadRows = (rows) => {
+  return rows.map((row) => ({
     studyId: row.study.studyId,
     studyTrait: row.study.traitReported,
     studyPmid: row.study.pmid,
@@ -73,8 +73,8 @@ const tableColumns = ({
   {
     id: 'study.studyId',
     label: 'Study ID',
-    comparator: generateComparator(d => d.study.studyId),
-    renderCell: rowData => (
+    comparator: generateComparator((d) => d.study.studyId),
+    renderCell: (rowData) => (
       <Link to={`/study/${rowData.study.studyId}`}>
         {rowData.study.studyId}
       </Link>
@@ -84,8 +84,8 @@ const tableColumns = ({
   {
     id: 'study.traitReported',
     label: 'Trait',
-    comparator: generateComparator(d => d.study.traitReported),
-    renderCell: rowData => {
+    comparator: generateComparator((d) => d.study.traitReported),
+    renderCell: (rowData) => {
       // truncate long trait names for display
       return rowData.study.traitReported &&
         rowData.study.traitReported.length > 100 ? (
@@ -111,7 +111,7 @@ const tableColumns = ({
   {
     id: 'study.pubAuthor',
     label: 'Publication',
-    comparator: generateComparator(d => d.study.pubAuthor),
+    comparator: generateComparator((d) => d.study.pubAuthor),
     renderFilter: () => (
       <Autocomplete
         options={authorFilterOptions}
@@ -121,7 +121,7 @@ const tableColumns = ({
         multiple
       />
     ),
-    renderCell: rowData => {
+    renderCell: (rowData) => {
       // Some studies don't have a pmid so need to avoid dead links
       const url = rowData.study.pmid
         ? `http://europepmc.org/article/MED/${rowData.study.pmid.split(':')[1]}`
@@ -142,16 +142,16 @@ const tableColumns = ({
   {
     id: 'study.nInitial',
     label: 'N Initial',
-    comparator: generateComparator(d => d.study.nInitial),
-    renderCell: rowData =>
+    comparator: generateComparator((d) => d.study.nInitial),
+    renderCell: (rowData) =>
       rowData.study.nInitial ? commaSeparate(rowData.study.nInitial) : '',
   },
 
   {
     id: 'variant.id',
     label: 'Lead Variant',
-    comparator: generateComparator(d => d.variant.id),
-    renderCell: rowData => (
+    comparator: generateComparator((d) => d.variant.id),
+    renderCell: (rowData) => (
       <Link to={`/variant/${rowData.variant.id}`}>{rowData.variant.id}</Link>
     ),
   },
@@ -159,7 +159,7 @@ const tableColumns = ({
   {
     id: 'pval',
     label: 'P-value',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.pval < pvalThreshold
         ? `<${pvalThreshold}`
         : significantFigures(rowData.pval),
@@ -180,7 +180,7 @@ const tableColumns = ({
         </Link>
       </Fragment>
     ),
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.beta.betaCI ? significantFigures(rowData.beta.betaCI) : null,
   },
 
@@ -188,7 +188,7 @@ const tableColumns = ({
     id: 'odds.oddsCI',
     label: 'Odds Ratio',
     tooltip: 'Odds ratio with respect to the ALT allele',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.odds.oddsCI ? significantFigures(rowData.odds.oddsCI) : null,
   },
 
@@ -197,30 +197,30 @@ const tableColumns = ({
     label: '95% Confidence Interval',
     tooltip:
       '95% confidence interval for the effect estimate. CIs are calculated approximately using the reported p-value.',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.beta.betaCI
         ? `(${significantFigures(
             rowData.beta.betaCILower
           )}, ${significantFigures(rowData.beta.betaCIUpper)})`
         : rowData.odds.oddsCI
-          ? `(${significantFigures(
-              rowData.odds.oddsCILower
-            )}, ${significantFigures(rowData.odds.oddsCIUpper)})`
-          : null,
+        ? `(${significantFigures(
+            rowData.odds.oddsCILower
+          )}, ${significantFigures(rowData.odds.oddsCIUpper)})`
+        : null,
   },
 
   {
     id: 'yProbaModel',
     label: 'L2G pipeline score',
     tooltip: `Evidence linking ${geneSymbol} to this study via our locus-to-gene pipeline. Score range [0, 1].`,
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.yProbaModel ? significantFigures(rowData.yProbaModel) : null,
   },
 
   {
     id: 'locusView',
     label: 'View',
-    renderCell: rowData => {
+    renderCell: (rowData) => {
       return (
         <StudyLocusLink
           indexVariantId={rowData.variant.id}

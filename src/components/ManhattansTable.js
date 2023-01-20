@@ -5,7 +5,7 @@ import { Link, OtTable, commaSeparate } from '../ot-ui-components';
 
 import ManhattanFlat from '../components/ManhattanFlat';
 
-const CloseButton = props => (
+const CloseButton = (props) => (
   <IconButton {...props} size="large">
     <CloseIcon />
   </IconButton>
@@ -15,7 +15,7 @@ export const tableColumns = ({ onDeleteStudy, onClickIntersectionLocus }) => [
   {
     id: 'deleteRow',
     label: 'Remove',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       onDeleteStudy ? (
         <CloseButton onClick={onDeleteStudy(rowData.studyId)} />
       ) : !rowData.pileup ? (
@@ -25,7 +25,7 @@ export const tableColumns = ({ onDeleteStudy, onClickIntersectionLocus }) => [
   {
     id: 'studyId',
     label: 'Study ID',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.pileup ? (
         <b>Intersection</b>
       ) : (
@@ -35,7 +35,7 @@ export const tableColumns = ({ onDeleteStudy, onClickIntersectionLocus }) => [
   {
     id: 'traitReported',
     label: 'Details',
-    renderCell: rowData => {
+    renderCell: (rowData) => {
       let pubInfo = '';
       if (rowData.pubAuthor && rowData.pubDate) {
         pubInfo = ` (${rowData.pubAuthor} ${new Date(
@@ -55,19 +55,19 @@ export const tableColumns = ({ onDeleteStudy, onClickIntersectionLocus }) => [
   {
     id: 'nInitial',
     label: 'N Initial',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.nInitial ? commaSeparate(rowData.nInitial) : null,
   },
   {
     id: 'nReplication',
     label: 'N Replication',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.nReplication ? commaSeparate(rowData.nReplication) : null,
   },
   {
     id: 'nCases',
     label: 'N Cases',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.nCases ? commaSeparate(rowData.nCases) : null,
   },
   {
@@ -75,7 +75,7 @@ export const tableColumns = ({ onDeleteStudy, onClickIntersectionLocus }) => [
     label: 'Independently-associated loci',
     tooltip:
       'Independently-associated loci across studies that occur in the ROOT study',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.pileup && onClickIntersectionLocus ? (
         <ManhattanFlat
           data={rowData.associations}

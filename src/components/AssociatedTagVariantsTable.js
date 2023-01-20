@@ -8,7 +8,7 @@ import {
 import { pvalThreshold } from '../constants';
 import PmidOrBiobankLink from './PmidOrBiobankLink';
 
-const tableColumns = variantId => [
+const tableColumns = (variantId) => [
   {
     id: 'leadVariant',
     label: 'Lead Variant',
@@ -17,7 +17,7 @@ const tableColumns = variantId => [
   {
     id: 'tagVariantId',
     label: 'Tag Variant',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       variantId !== rowData.tagVariantId ? (
         <Link to={`/variant/${rowData.tagVariantId}`}>
           {rowData.tagVariantId}
@@ -30,7 +30,7 @@ const tableColumns = variantId => [
   {
     id: 'studyId',
     label: 'Study ID',
-    renderCell: rowData => (
+    renderCell: (rowData) => (
       <Link to={`/study/${rowData.studyId}`}>{rowData.studyId}</Link>
     ),
   },
@@ -38,7 +38,7 @@ const tableColumns = variantId => [
   {
     id: 'pval',
     label: 'Lead Variant P-value',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.pval < pvalThreshold
         ? `<${pvalThreshold}`
         : significantFigures(rowData.pval),
@@ -46,26 +46,26 @@ const tableColumns = variantId => [
   {
     id: 'pmid',
     label: 'PMID',
-    renderCell: rowData => (
+    renderCell: (rowData) => (
       <PmidOrBiobankLink studyId={rowData.studyId} pmid={rowData.pmid} />
     ),
   },
   {
     id: 'pubAuthor',
     label: 'Author (Year)',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       `${rowData.pubAuthor} (${new Date(rowData.pubDate).getFullYear()})`,
   },
   {
     id: 'nTotal',
     label: 'Study N',
-    renderCell: rowData => commaSeparate(rowData.nTotal),
+    renderCell: (rowData) => commaSeparate(rowData.nTotal),
   },
   {
     id: 'overallR2',
     label: 'LD (r²)',
     tooltip: 'Linkage disequilibrium with the queried variant',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.overallR2 ? rowData.overallR2.toPrecision(3) : 'No information',
   },
   {
@@ -73,7 +73,7 @@ const tableColumns = variantId => [
     label: 'Posterior Probability',
     tooltip:
       'Posterior probability from fine-mapping that this tag variant is causal',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.posteriorProbability !== null
         ? rowData.posteriorProbability.toPrecision(3)
         : '',

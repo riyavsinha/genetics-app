@@ -1,7 +1,7 @@
 import withStyles from '@mui/styles/withStyles';
 import classNames from 'classnames';
 
-const styles = theme => ({
+const styles = (theme) => ({
   option: {
     fontSize: '0.8rem',
     padding: '0 5px',

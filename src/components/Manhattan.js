@@ -17,7 +17,7 @@ const totalLength = chromosomesWithCumulativeLengths.reduce((acc, ch) => {
   return acc + ch.length;
 }, 0);
 
-const getXTicks = x => {
+const getXTicks = (x) => {
   const [start, end] = x.domain();
   const chRange = findChRange(x.domain());
 
@@ -44,7 +44,7 @@ const getXTicks = x => {
 
 const getX2Ticks = () => {
   const ticks = [];
-  chromosomesWithCumulativeLengths.forEach(ch => {
+  chromosomesWithCumulativeLengths.forEach((ch) => {
     const chStart = ch.cumulativeLength - ch.length;
     const chMiddle = chStart + ch.length / 2;
     ticks.push(chStart);
@@ -54,15 +54,15 @@ const getX2Ticks = () => {
   return ticks;
 };
 
-const findChRange = range => {
+const findChRange = (range) => {
   const [start, end] = range;
 
-  const chStart = chromosomesWithCumulativeLengths.findIndex(ch => {
+  const chStart = chromosomesWithCumulativeLengths.findIndex((ch) => {
     return (
       ch.cumulativeLength - ch.length <= start && start < ch.cumulativeLength
     );
   });
-  const chEnd = chromosomesWithCumulativeLengths.findIndex(ch => {
+  const chEnd = chromosomesWithCumulativeLengths.findIndex((ch) => {
     return ch.cumulativeLength - ch.length < end && end <= ch.cumulativeLength;
   });
 
@@ -74,8 +74,8 @@ const findChRange = range => {
   return chRange;
 };
 
-const getChromosomeName = pos => {
-  const chromosome = chromosomesWithCumulativeLengths.find(ch => {
+const getChromosomeName = (pos) => {
+  const chromosome = chromosomesWithCumulativeLengths.find((ch) => {
     return ch.cumulativeLength - ch.length <= pos && pos < ch.cumulativeLength;
   });
   return chromosome.name;
@@ -123,7 +123,7 @@ class ManhattanPlot extends Component {
   y = d3.scaleLinear().range([height, 0]);
   y2 = d3.scaleLinear().range([height2, 0]);
 
-  xAxis = d3.axisBottom(this.x).tickFormat(d => getChromosomeName(d));
+  xAxis = d3.axisBottom(this.x).tickFormat((d) => getChromosomeName(d));
   yAxis = d3.axisLeft(this.y);
   x2Axis = d3
     .axisBottom(this.x2)
@@ -157,7 +157,7 @@ class ManhattanPlot extends Component {
     d3.select(this.svg.current)
       .select('.focus')
       .selectAll('rect')
-      .attr('x', d => this.x(d.globalPosition));
+      .attr('x', (d) => this.x(d.globalPosition));
 
     // update ticks of xAxis
     this.xAxis.tickValues(getXTicks(this.x));
@@ -191,7 +191,7 @@ class ManhattanPlot extends Component {
     svg
       .select('.focus')
       .selectAll('rect')
-      .attr('x', d => this.x(d.globalPosition));
+      .attr('x', (d) => this.x(d.globalPosition));
 
     this.xAxis.tickValues(getXTicks(this.x));
     d3.select(this.xAxisRef.current).call(customXAxis, this.xAxis);
@@ -268,8 +268,9 @@ class ManhattanPlot extends Component {
           </g>
           <g
             ref={this.xAxisRef}
-            transform={`translate(${margin.left}, ${OUTER_HEIGHT -
-              margin.bottom})`}
+            transform={`translate(${margin.left}, ${
+              OUTER_HEIGHT - margin.bottom
+            })`}
             fontSize="12"
           />
           <g
@@ -321,8 +322,8 @@ class ManhattanPlot extends Component {
 
     this.x.range([0, width]);
     this.x2.range([0, width]);
-    this.y.domain([0, d3.max(assocs, d => -Math.log10(d.pval)) || 0]);
-    this.y2.domain([0, d3.max(assocs, d => -Math.log10(d.pval))]);
+    this.y.domain([0, d3.max(assocs, (d) => -Math.log10(d.pval)) || 0]);
+    this.y2.domain([0, d3.max(assocs, (d) => -Math.log10(d.pval))]);
 
     const svg = d3.select(this.svg.current);
     const svg2 = d3.select(this.svg2.current);
@@ -343,10 +344,10 @@ class ManhattanPlot extends Component {
       .style('cursor', 'auto')
       .attr('width', 2)
       .attr('fill', theme.line.color)
-      .attr('x', d => this.x(d.globalPosition))
-      .attr('y', d => this.y(-Math.log10(d.pval)))
-      .attr('height', d => this.y(0) - this.y(-Math.log10(d.pval)))
-      .on('mouseover', function(d) {
+      .attr('x', (d) => this.x(d.globalPosition))
+      .attr('y', (d) => this.y(-Math.log10(d.pval)))
+      .attr('height', (d) => this.y(0) - this.y(-Math.log10(d.pval)))
+      .on('mouseover', function (d) {
         handleMouseOver(this, d);
       });
 
@@ -359,20 +360,29 @@ class ManhattanPlot extends Component {
       .append('rect')
       .attr('width', 2)
       .attr('fill', theme.line.color)
-      .attr('y', d => this.y2(-Math.log10(d.pval)))
-      .attr('height', d => this.y2(0) - this.y2(-Math.log10(d.pval)))
+      .attr('y', (d) => this.y2(-Math.log10(d.pval)))
+      .attr('height', (d) => this.y2(0) - this.y2(-Math.log10(d.pval)))
       .merge(bars2)
-      .attr('x', d => this.x2(d.globalPosition));
+      .attr('x', (d) => this.x2(d.globalPosition));
 
     bars2.exit().remove();
 
     d3.select(this.x2AxisRef.current).call(customXAxis, this.x2Axis);
 
-    this.brush.extent([[0, 0], [width, height2]]);
+    this.brush.extent([
+      [0, 0],
+      [width, height2],
+    ]);
 
     this.zoom
-      .translateExtent([[0, 0], [width, height]])
-      .extent([[0, 0], [width, height]]);
+      .translateExtent([
+        [0, 0],
+        [width, height],
+      ])
+      .extent([
+        [0, 0],
+        [width, height],
+      ]);
 
     d3.select(this.brushRef.current)
       .call(this.brush)

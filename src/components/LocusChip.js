@@ -4,7 +4,7 @@ import MuiChip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 
-const styles = theme => ({
+const styles = (theme) => ({
   chip: {
     margin: theme.spacing.unit / 2,
     color: 'white',

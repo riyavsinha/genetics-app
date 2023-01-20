@@ -13,7 +13,7 @@ import Menu from './MenuFilter';
 import MultiValue from './MultiValue';
 import OptionFilter from './OptionFilter';
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     position: 'relative',
     minWidth: '70px',
@@ -27,7 +27,7 @@ const IndicatorSeparator = () => null;
 
 const ClearIndicator = () => null;
 
-const OptionContainer = props => {
+const OptionContainer = (props) => {
   const { children, innerRef, innerProps, isFocused, isSelected } = props;
   return (
     <MenuItem
@@ -74,7 +74,7 @@ class Autocomplete extends Component {
   state = {
     value: null,
   };
-  handleChange = value => {
+  handleChange = (value) => {
     this.setState({ value });
   };
   render() {
@@ -93,11 +93,11 @@ class Autocomplete extends Component {
     } = this.props;
 
     const selectStyles = {
-      input: base => ({
+      input: (base) => ({
         ...base,
         color: theme.palette.text.primary,
       }),
-      menuPortal: base => ({ ...base, zIndex: 9999 }),
+      menuPortal: (base) => ({ ...base, zIndex: 9999 }),
     };
 
     const Option = ({ data, children, isSelected, ...rest }) => {

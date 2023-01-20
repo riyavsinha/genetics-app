@@ -1,7 +1,7 @@
 import Paper from '@mui/material/Paper';
 import withStyles from '@mui/styles/withStyles';
 
-const styles = theme => ({
+const styles = (theme) => ({
   paper: {
     marginTop: theme.spacing.unit,
     position: 'absolute',

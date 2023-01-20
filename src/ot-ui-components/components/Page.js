@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import withStyles from '@mui/styles/withStyles';
 import { Component } from 'react';
 
-const styles = theme => ({
+const styles = (theme) => ({
   page: {
     background: theme.palette.grey['50'],
     minHeight: '100vh',

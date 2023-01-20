@@ -26,28 +26,28 @@ import downloadTable from '../helpers/downloadTable';
 
 const PAGE_SIZE = 10;
 
-const actionsStyles = theme => ({
+const actionsStyles = (theme) => ({
   root: {
     flexShrink: 0,
   },
 });
 
 class TablePaginationActions extends Component {
-  handleFirstPageButtonClick = event => {
+  handleFirstPageButtonClick = (event) => {
     this.props.onPageChange(event, 0);
   };
 
-  handleBackButtonClick = event => {
+  handleBackButtonClick = (event) => {
     const { onPageChange, page } = this.props;
     onPageChange(event, page - 1);
   };
 
-  handleNextButtonClick = event => {
+  handleNextButtonClick = (event) => {
     const { onPageChange, page } = this.props;
     onPageChange(event, page + 1);
   };
 
-  handleLastPageButtonClick = event => {
+  handleLastPageButtonClick = (event) => {
     const { onPageChange, count, rowsPerPage } = this.props;
     const lastPage = Math.ceil(count / rowsPerPage) - 1;
     onPageChange(event, lastPage);
@@ -98,7 +98,7 @@ class TablePaginationActions extends Component {
 TablePaginationActions = withStyles(actionsStyles)(TablePaginationActions);
 
 const getComparator = (columns, sortBy, order) => {
-  const column = columns.find(col => col.id === sortBy);
+  const column = columns.find((col) => col.id === sortBy);
 
   if (column && column.comparator) {
     if (order === 'asc') {
@@ -124,7 +124,7 @@ const getComparator = (columns, sortBy, order) => {
   };
 };
 
-const tableStyles = theme => ({
+const tableStyles = (theme) => ({
   tableWrapper: {
     overflowX: 'auto',
   },
@@ -201,7 +201,7 @@ class OtTable extends Component {
     });
   };
 
-  selectSortColumn = sortBy => {
+  selectSortColumn = (sortBy) => {
     const { reportTableSortEvent } = this.props;
     let order = 'desc';
 
@@ -216,7 +216,7 @@ class OtTable extends Component {
     this.setState({ sortBy, order });
   };
 
-  handleTableDownload = format => {
+  handleTableDownload = (format) => {
     const {
       columns,
       data,
@@ -230,7 +230,7 @@ class OtTable extends Component {
     }
 
     const headerMap = excludeDownloadColumns
-      ? columns.filter(column => !excludeDownloadColumns.includes(column.id))
+      ? columns.filter((column) => !excludeDownloadColumns.includes(column.id))
       : columns;
 
     downloadTable({
@@ -260,7 +260,7 @@ class OtTable extends Component {
     const { sortBy, order, page } = this.state;
     const filterRow = filters ? (
       <TableRow className={classes.tableRowFilters}>
-        {columns.map(column => (
+        {columns.map((column) => (
           <TableCell key={column.id} className={classes.tableCellHeader}>
             {column.renderFilter ? column.renderFilter() : null}
           </TableCell>
@@ -319,7 +319,7 @@ class OtTable extends Component {
             <Table>
               <TableHead>
                 <TableRow>
-                  {columns.map(column => (
+                  {columns.map((column) => (
                     <TableCell
                       key={column.id}
                       className={classNames(classes.tableCellHeader, {
@@ -373,7 +373,7 @@ class OtTable extends Component {
                           classes.tableRowFixed
                         )}
                       >
-                        {columnsFixed.map(column => (
+                        {columnsFixed.map((column) => (
                           <TableCell
                             key={column.id}
                             className={classNames(classes.tableCell, {
@@ -398,7 +398,7 @@ class OtTable extends Component {
                   .slice(page * pageSize, page * pageSize + pageSize)
                   .map((row, index) => (
                     <TableRow key={index} className={classes.tableRow}>
-                      {columns.map(column => (
+                      {columns.map((column) => (
                         <TableCell
                           key={column.id}
                           className={classNames(classes.tableCell, {

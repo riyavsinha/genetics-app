@@ -36,7 +36,7 @@ class HeaderMenu extends Component {
     };
   }
 
-  handleMenuToggle = event => {
+  handleMenuToggle = (event) => {
     const { anchorEl } = this.state;
     this.setState({
       anchorEl: anchorEl === null ? event.currentTarget : null,
@@ -49,7 +49,7 @@ class HeaderMenu extends Component {
     });
   };
 
-  handleListKeyDown = event => {
+  handleListKeyDown = (event) => {
     if (event.key === 'Tab') {
       event.preventDefault();
       this.setState({

@@ -3,7 +3,7 @@ import withStyles from '@mui/styles/withStyles';
 import classNames from 'classnames';
 import { withContentRect } from 'react-measure';
 
-const styles = theme => ({
+const styles = (theme) => ({
   emailLink: {
     display: 'flex',
     alignItems: 'center',

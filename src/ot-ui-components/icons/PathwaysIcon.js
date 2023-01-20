@@ -2,7 +2,7 @@ import SvgIcon from '@mui/material/SvgIcon';
 import withStyles from '@mui/styles/withStyles';
 import classNames from 'classnames';
 
-const styles = theme => {
+const styles = (theme) => {
   return {
     root: {
       display: 'block',

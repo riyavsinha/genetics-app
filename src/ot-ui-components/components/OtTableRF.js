@@ -23,28 +23,28 @@ import PlotContainerSection from './PlotContainerSection';
 
 const PAGE_SIZE = 10;
 
-const actionsStyles = theme => ({
+const actionsStyles = (theme) => ({
   root: {
     flexShrink: 0,
   },
 });
 
 class TablePaginationActions extends Component {
-  handleFirstPageButtonClick = event => {
+  handleFirstPageButtonClick = (event) => {
     this.props.onPageChange(event, 0);
   };
 
-  handleBackButtonClick = event => {
+  handleBackButtonClick = (event) => {
     const { onPageChange, page } = this.props;
     onPageChange(event, page - 1);
   };
 
-  handleNextButtonClick = event => {
+  handleNextButtonClick = (event) => {
     const { onPageChange, page } = this.props;
     onPageChange(event, page + 1);
   };
 
-  handleLastPageButtonClick = event => {
+  handleLastPageButtonClick = (event) => {
     const { onPageChange, count, rowsPerPage } = this.props;
     const lastPage = Math.ceil(count / rowsPerPage) - 1;
     onPageChange(event, lastPage);
@@ -95,7 +95,7 @@ class TablePaginationActions extends Component {
 TablePaginationActions = withStyles(actionsStyles)(TablePaginationActions);
 
 const getComparator = (columns, sortBy, order) => {
-  const column = columns.find(col => col.id === sortBy);
+  const column = columns.find((col) => col.id === sortBy);
 
   if (column && column.comparator) {
     if (order === 'asc') {
@@ -121,7 +121,7 @@ const getComparator = (columns, sortBy, order) => {
   };
 };
 
-const tableStyles = theme => ({
+const tableStyles = (theme) => ({
   tableWrapper: {
     overflowX: 'auto',
   },
@@ -209,7 +209,7 @@ class OtTableRF extends Component {
     }
   };
 
-  selectSortColumn = sortBy => {
+  selectSortColumn = (sortBy) => {
     const { reportTableSortEvent, onPageSort } = this.props;
     let order = 'desc';
 
@@ -250,7 +250,7 @@ class OtTableRF extends Component {
     const { sortBy, order, page } = this.state;
     const filterRow = filters ? (
       <TableRow className={classes.tableRowFilters}>
-        {columns.map(column => (
+        {columns.map((column) => (
           <TableCell key={column.id} className={classes.tableCellHeader}>
             {column.renderFilter ? column.renderFilter() : null}
           </TableCell>
@@ -292,7 +292,7 @@ class OtTableRF extends Component {
                   </TableRow>
                 ) : null}
                 <TableRow>
-                  {columns.map(column => (
+                  {columns.map((column) => (
                     <TableCell
                       key={column.id}
                       className={classNames(classes.tableCellHeader, {
@@ -357,7 +357,7 @@ class OtTableRF extends Component {
                         component={tableRowComponent}
                         data={row}
                       >
-                        {columnsFixed.map(column => (
+                        {columnsFixed.map((column) => (
                           <TableCell
                             key={column.id}
                             className={classNames(classes.tableCell, {
@@ -390,7 +390,7 @@ class OtTableRF extends Component {
                       component={tableRowComponent}
                       data={row}
                     >
-                      {columns.map(column => (
+                      {columns.map((column) => (
                         <TableCell
                           key={column.id}
                           className={classNames(classes.tableCell, {

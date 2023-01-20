@@ -29,7 +29,7 @@ function withTooltip(WrappedComponent, ListTooltip, tableColumns, type) {
       anchorEl: null,
     };
 
-    handleMouseOver = data => {
+    handleMouseOver = (data) => {
       const { anchorEl } = this.state;
       if (anchorEl) {
         anchorEl.setAttribute(
@@ -48,7 +48,7 @@ function withTooltip(WrappedComponent, ListTooltip, tableColumns, type) {
       });
     };
 
-    handleMouseLeave = event => {
+    handleMouseLeave = (event) => {
       const { anchorEl } = this.state;
       if (anchorEl) {
         anchorEl.setAttribute(

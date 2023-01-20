@@ -1,8 +1,9 @@
-const idField = d => d.id;
-const studyIdField = d => d.studyId;
-const gTvIdField = d => `${d.geneId}-${d.tagVariantId}`;
-const tvIvSIdField = d => `${d.tagVariantId}-${d.indexVariantId}-${d.studyId}`;
-const dictReducer = idFieldAccessor => (dict, d) => {
+const idField = (d) => d.id;
+const studyIdField = (d) => d.studyId;
+const gTvIdField = (d) => `${d.geneId}-${d.tagVariantId}`;
+const tvIvSIdField = (d) =>
+  `${d.tagVariantId}-${d.indexVariantId}-${d.studyId}`;
+const dictReducer = (idFieldAccessor) => (dict, d) => {
   dict[idFieldAccessor(d)] = true;
   return dict;
 };
@@ -38,40 +39,37 @@ const locusChained = ({ data, dataFiltered }) => {
     dictReducer(gTvIdField),
     {}
   );
-  const tagVariantIndexVariantStudyDict = tagVariantIndexVariantStudiesFiltered.reduce(
-    dictReducer(tvIvSIdField),
-    {}
-  );
+  const tagVariantIndexVariantStudyDict =
+    tagVariantIndexVariantStudiesFiltered.reduce(dictReducer(tvIvSIdField), {});
 
-  const genesWithChained = genes.map(d => ({
+  const genesWithChained = genes.map((d) => ({
     ...d,
     chained: geneDict[d.id],
   }));
-  const tagVariantsWithChained = tagVariants.map(d => ({
+  const tagVariantsWithChained = tagVariants.map((d) => ({
     ...d,
     chained: tagVariantDict[d.id],
   }));
-  const indexVariantsWithChained = indexVariants.map(d => ({
+  const indexVariantsWithChained = indexVariants.map((d) => ({
     ...d,
     chained: indexVariantDict[d.id],
   }));
-  const studiesWithChained = studies.map(d => ({
+  const studiesWithChained = studies.map((d) => ({
     ...d,
     chained: studyDict[d.studyId],
   }));
-  const geneTagVariantsWithChained = geneTagVariants.map(d => ({
+  const geneTagVariantsWithChained = geneTagVariants.map((d) => ({
     ...d,
     chained: geneTagVariantDict[`${d.geneId}-${d.tagVariantId}`],
   }));
-  const tagVariantIndexVariantStudiesWithChained = tagVariantIndexVariantStudies.map(
-    d => ({
+  const tagVariantIndexVariantStudiesWithChained =
+    tagVariantIndexVariantStudies.map((d) => ({
       ...d,
       chained:
         tagVariantIndexVariantStudyDict[
           `${d.tagVariantId}-${d.indexVariantId}-${d.studyId}`
         ],
-    })
-  );
+    }));
 
   return {
     genes: genesWithChained,

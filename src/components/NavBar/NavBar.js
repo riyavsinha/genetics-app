@@ -11,7 +11,7 @@ import Link from '../Link';
 import OpenTargetsTitle from './OpenTargetsTitle';
 import HeaderMenu from './HeaderMenu';
 
-const styles = theme => ({
+const styles = (theme) => ({
   navbar: {
     backgroundColor: theme.palette.primary.main,
     margin: 0,

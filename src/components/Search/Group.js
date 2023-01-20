@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 
 import makeStyles from '@mui/styles/makeStyles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   groupHeading: {
     paddingBottom: '.25rem',
   },

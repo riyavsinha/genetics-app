@@ -5,13 +5,13 @@ import cytobandComparator from '../logic/cytobandComparator';
 import { getCytoband } from '../utils';
 import { Fragment } from 'react';
 
-const tableColumns = studyIds => [
+const tableColumns = (studyIds) => [
   {
     id: 'indexVariantId',
     label: 'Variant',
     tooltip:
       'This locus is shared across all selected studies. Only the lead variant in the root study is shown.',
-    renderCell: rowData => (
+    renderCell: (rowData) => (
       <Link to={`/variant/${rowData.indexVariantId}`}>
         {rowData.indexVariantId}
       </Link>
@@ -32,7 +32,7 @@ const tableColumns = studyIds => [
     label: 'Top Ranked Genes',
     tooltip:
       'The list of genes with equal best overall score across all variants in either the credible set or LD expansion of a given locus',
-    renderCell: rowData => (
+    renderCell: (rowData) => (
       <>
         {rowData.bestGenes.map((d, i) => (
           <Fragment key={i}>
@@ -51,7 +51,7 @@ function ManhattansVariantsTable({
   studyIds,
   filenameStem,
 }) {
-  const dataWithCytoband = data.map(d => {
+  const dataWithCytoband = data.map((d) => {
     const {
       indexVariantId,
       indexVariantRsId,

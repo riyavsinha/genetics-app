@@ -15,19 +15,19 @@ const locusSelected = ({
   } = data;
 
   // add selected field
-  let genesWithSelected = genes.map(d => ({
+  let genesWithSelected = genes.map((d) => ({
     ...d,
     selected: selectedGenes && selectedGenes.indexOf(d.id) >= 0,
   }));
-  let tagVariantsWithSelected = tagVariants.map(d => ({
+  let tagVariantsWithSelected = tagVariants.map((d) => ({
     ...d,
     selected: selectedTagVariants && selectedTagVariants.indexOf(d.id) >= 0,
   }));
-  let indexVariantsWithSelected = indexVariants.map(d => ({
+  let indexVariantsWithSelected = indexVariants.map((d) => ({
     ...d,
     selected: selectedIndexVariants && selectedIndexVariants.indexOf(d.id) >= 0,
   }));
-  let studiesWithSelected = studies.map(d => ({
+  let studiesWithSelected = studies.map((d) => ({
     ...d,
     selected: selectedStudies && selectedStudies.indexOf(d.studyId) >= 0,
   }));

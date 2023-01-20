@@ -20,12 +20,8 @@ class CredibleSetWithRegional extends Component {
     expanded: false,
   };
   render() {
-    const {
-      classes,
-      checkboxProps,
-      credibleSetProps,
-      regionalProps,
-    } = this.props;
+    const { classes, checkboxProps, credibleSetProps, regionalProps } =
+      this.props;
     const { expanded } = this.state;
     const { query, variables, start, end, ...rest } = regionalProps;
     return (
@@ -45,7 +41,7 @@ class CredibleSetWithRegional extends Component {
           {checkboxProps ? (
             <div
               style={{ position: 'absolute', zIndex: 1000 }}
-              onClick={e => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
             >
               <Checkbox {...checkboxProps} />
             </div>

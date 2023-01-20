@@ -5,7 +5,7 @@ const downloadPNG = ({ canvasNode, filenameStem }) => {
     console.info('Nothing to download.');
     return;
   }
-  canvasNode.toBlob(blob => {
+  canvasNode.toBlob((blob) => {
     FileSaver.saveAs(blob, `${filenameStem}.png`);
   });
 };

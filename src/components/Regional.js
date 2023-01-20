@@ -35,12 +35,10 @@ class Regional extends Component {
           xmlns="http://www.w3.org/2000/svg"
           width={outerWidth}
           height={outerHeight}
-          ref={node => (this.svgRef = node)}
+          ref={(node) => (this.svgRef = node)}
         >
           <g
-            transform={`translate(${theme.margin.left},${
-              theme.margin.regionalTop
-            })`}
+            transform={`translate(${theme.margin.left},${theme.margin.regionalTop})`}
           />
         </svg>
       </div>
@@ -71,7 +69,10 @@ class Regional extends Component {
     const chart = svg.select('g');
 
     const significance = -Math.log10(5e-8);
-    const [minLogPval, maxLogPval] = d3.extent(data, d => -Math.log10(d.pval));
+    const [minLogPval, maxLogPval] = d3.extent(
+      data,
+      (d) => -Math.log10(d.pval)
+    );
 
     x.domain([start, end]).range([0, width]);
     y.domain([
@@ -168,7 +169,7 @@ class Regional extends Component {
   _renderDataPoints(chart, data) {
     const { x, y } = this;
 
-    const dataPoints = chart.selectAll('circle.point').data(data, d => d.id);
+    const dataPoints = chart.selectAll('circle.point').data(data, (d) => d.id);
 
     dataPoints
       .enter()
@@ -177,14 +178,12 @@ class Regional extends Component {
       .attr('stroke', theme.point.color)
       .attr('r', 3)
       .merge(dataPoints)
-      .attr('cx', d => x(d.position))
-      .attr('cy', d => y(-Math.log10(d.pval)))
-      .attr(
-        'fill',
-        d =>
-          d.is99CredibleSet
-            ? posteriorProbabilityScale(d.posteriorProbability)
-            : 'white'
+      .attr('cx', (d) => x(d.position))
+      .attr('cy', (d) => y(-Math.log10(d.pval)))
+      .attr('fill', (d) =>
+        d.is99CredibleSet
+          ? posteriorProbabilityScale(d.posteriorProbability)
+          : 'white'
       );
 
     dataPoints.exit().remove();

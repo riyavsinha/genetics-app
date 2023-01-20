@@ -42,7 +42,7 @@ const ZOOM_LIMIT = 2000000;
 const ZOOM_FACTOR = 1.25;
 const PAN_FACTOR = 0.1;
 
-const styles = theme => {
+const styles = (theme) => {
   return {
     section: {
       padding: theme.sectionPadding,
@@ -154,54 +154,54 @@ class LocusPage extends Component {
     // this._stringifyQueryProps(newQueryParams);
   };
   handleMousemove = (d, type, point) => {};
-  handleAddGene = newSelectedGenes => {
+  handleAddGene = (newSelectedGenes) => {
     const { selectedGenes, ...rest } = this._parseQueryProps();
     const newQueryParams = {
       ...rest,
     };
     if (newSelectedGenes && newSelectedGenes.length > 0) {
-      newQueryParams.selectedGenes = newSelectedGenes.map(d => d.id);
+      newQueryParams.selectedGenes = newSelectedGenes.map((d) => d.id);
     }
     this._stringifyQueryProps(newQueryParams);
   };
-  handleAddTagVariant = newSelectedTagVariants => {
+  handleAddTagVariant = (newSelectedTagVariants) => {
     const { selectedTagVariants, ...rest } = this._parseQueryProps();
     const newQueryParams = {
       ...rest,
     };
     if (newSelectedTagVariants && newSelectedTagVariants.length > 0) {
       newQueryParams.selectedTagVariants = newSelectedTagVariants.map(
-        d => d.id
+        (d) => d.id
       );
     }
     this._stringifyQueryProps(newQueryParams);
   };
-  handleAddIndexVariant = newSelectedIndexVariants => {
+  handleAddIndexVariant = (newSelectedIndexVariants) => {
     const { selectedIndexVariants, ...rest } = this._parseQueryProps();
     const newQueryParams = {
       ...rest,
     };
     if (newSelectedIndexVariants && newSelectedIndexVariants.length > 0) {
       newQueryParams.selectedIndexVariants = newSelectedIndexVariants.map(
-        d => d.id
+        (d) => d.id
       );
     }
     this._stringifyQueryProps(newQueryParams);
   };
-  handleAddStudy = newSelectedStudies => {
+  handleAddStudy = (newSelectedStudies) => {
     const { selectedStudies, ...rest } = this._parseQueryProps();
     const newQueryParams = {
       ...rest,
     };
     if (newSelectedStudies && newSelectedStudies.length > 0) {
-      newQueryParams.selectedStudies = newSelectedStudies.map(d => d.studyId);
+      newQueryParams.selectedStudies = newSelectedStudies.map((d) => d.studyId);
     }
     this._stringifyQueryProps(newQueryParams);
   };
-  handleDeleteGene = id => () => {
+  handleDeleteGene = (id) => () => {
     const { selectedGenes, ...rest } = this._parseQueryProps();
     const newSelected = selectedGenes
-      ? selectedGenes.filter(d => d !== id)
+      ? selectedGenes.filter((d) => d !== id)
       : [];
     const newQueryParams = {
       ...rest,
@@ -211,10 +211,10 @@ class LocusPage extends Component {
     }
     this._stringifyQueryProps(newQueryParams);
   };
-  handleDeleteTagVariant = id => () => {
+  handleDeleteTagVariant = (id) => () => {
     const { selectedTagVariants, ...rest } = this._parseQueryProps();
     const newSelected = selectedTagVariants
-      ? selectedTagVariants.filter(d => d !== id)
+      ? selectedTagVariants.filter((d) => d !== id)
       : [];
     const newQueryParams = {
       ...rest,
@@ -224,10 +224,10 @@ class LocusPage extends Component {
     }
     this._stringifyQueryProps(newQueryParams);
   };
-  handleDeleteIndexVariant = id => () => {
+  handleDeleteIndexVariant = (id) => () => {
     const { selectedIndexVariants, ...rest } = this._parseQueryProps();
     const newSelected = selectedIndexVariants
-      ? selectedIndexVariants.filter(d => d !== id)
+      ? selectedIndexVariants.filter((d) => d !== id)
       : [];
     const newQueryParams = {
       ...rest,
@@ -237,10 +237,10 @@ class LocusPage extends Component {
     }
     this._stringifyQueryProps(newQueryParams);
   };
-  handleDeleteStudy = id => () => {
+  handleDeleteStudy = (id) => () => {
     const { selectedStudies, ...rest } = this._parseQueryProps();
     const newSelected = selectedStudies
-      ? selectedStudies.filter(d => d !== id)
+      ? selectedStudies.filter((d) => d !== id)
       : [];
     const newQueryParams = {
       ...rest,
@@ -250,7 +250,7 @@ class LocusPage extends Component {
     }
     this._stringifyQueryProps(newQueryParams);
   };
-  handleDisplayTypeChange = event => {
+  handleDisplayTypeChange = (event) => {
     const { displayType, ...rest } = this._parseQueryProps();
     const newDisplayTypeValue = event.target.value;
     const newQueryParams = {
@@ -259,7 +259,7 @@ class LocusPage extends Component {
     };
     this._stringifyQueryProps(newQueryParams);
   };
-  handleDisplayFinemappingChange = event => {
+  handleDisplayFinemappingChange = (event) => {
     const { displayFinemapping, ...rest } = this._parseQueryProps();
     const newDisplayFinemappingValue = event.target.value;
     const newQueryParams = {
@@ -273,9 +273,8 @@ class LocusPage extends Component {
     const urlProps = this._parseQueryProps();
     const locusQueryVariables = {};
     if (urlProps.selectedIndexVariants) {
-      locusQueryVariables[
-        'optionalVariantId'
-      ] = urlProps.selectedIndexVariants.join();
+      locusQueryVariables['optionalVariantId'] =
+        urlProps.selectedIndexVariants.join();
     }
     if (urlProps.selectedStudies) {
       locusQueryVariables['optionalStudyId'] = urlProps.selectedStudies.join();
@@ -293,7 +292,9 @@ class LocusPage extends Component {
   mergeData(data) {
     if (!data) return null;
     const genes = [...data.regionPlot.genes, ...data.genes];
-    const unique = [...new Map(genes.map(item => [item['id'], item])).values()];
+    const unique = [
+      ...new Map(genes.map((item) => [item['id'], item])).values(),
+    ];
     return { ...data.regionPlot, genes: unique };
   }
 
@@ -356,23 +357,18 @@ class LocusPage extends Component {
           {({ loading, error, data }) => {
             const datum = this.mergeData(data);
             const isValidLocus = hasData(data);
-            const {
-              lookups,
-              plot,
-              rows,
-              entities,
-              isEmpty,
-              isEmptyFiltered,
-            } = locusScheme({
-              scheme: displayTypeValue,
-              finemappingOnly:
-                displayFinemappingValue === LOCUS_FINEMAPPING.FINEMAPPING_ONLY,
-              data: isValidLocus ? datum : null,
-              selectedGenes,
-              selectedTagVariants,
-              selectedIndexVariants,
-              selectedStudies,
-            });
+            const { lookups, plot, rows, entities, isEmpty, isEmptyFiltered } =
+              locusScheme({
+                scheme: displayTypeValue,
+                finemappingOnly:
+                  displayFinemappingValue ===
+                  LOCUS_FINEMAPPING.FINEMAPPING_ONLY,
+                data: isValidLocus ? datum : null,
+                selectedGenes,
+                selectedTagVariants,
+                selectedIndexVariants,
+                selectedStudies,
+              });
             return (
               <>
                 <PlotContainer
@@ -448,7 +444,7 @@ class LocusPage extends Component {
                   geneFilterValue={
                     selectedGenes
                       ? entities.genes.filter(
-                          d => selectedGenes.indexOf(d.id) >= 0
+                          (d) => selectedGenes.indexOf(d.id) >= 0
                         )
                       : []
                   }
@@ -457,7 +453,7 @@ class LocusPage extends Component {
                   tagVariantFilterValue={
                     selectedTagVariants
                       ? entities.tagVariants.filter(
-                          d => selectedTagVariants.indexOf(d.id) >= 0
+                          (d) => selectedTagVariants.indexOf(d.id) >= 0
                         )
                       : []
                   }
@@ -466,7 +462,7 @@ class LocusPage extends Component {
                   indexVariantFilterValue={
                     selectedIndexVariants
                       ? entities.indexVariants.filter(
-                          d => selectedIndexVariants.indexOf(d.id) >= 0
+                          (d) => selectedIndexVariants.indexOf(d.id) >= 0
                         )
                       : []
                   }
@@ -475,7 +471,7 @@ class LocusPage extends Component {
                   studyFilterValue={
                     selectedStudies
                       ? entities.studies.filter(
-                          d => selectedStudies.indexOf(d.studyId) >= 0
+                          (d) => selectedStudies.indexOf(d.studyId) >= 0
                         )
                       : []
                   }

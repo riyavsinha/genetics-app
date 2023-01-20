@@ -1,7 +1,7 @@
 import Typography from '@mui/material/Typography';
 import withStyles from '@mui/styles/withStyles';
 
-const styles = theme => ({
+const styles = (theme) => ({
   groupHeading: {
     padding: '0 0.5rem',
     borderBottom: `1px solid ${theme.palette.secondary.main}`,

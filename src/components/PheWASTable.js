@@ -20,7 +20,7 @@ export const tableColumns = ({
   {
     id: 'studyId',
     label: 'Study ID',
-    renderCell: rowData => (
+    renderCell: (rowData) => (
       <Link to={`/study/${rowData.studyId}`}>{rowData.studyId}</Link>
     ),
   },
@@ -53,7 +53,7 @@ export const tableColumns = ({
   {
     id: 'pval',
     label: 'P-value',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.pval < pvalThreshold
         ? `<${pvalThreshold}`
         : significantFigures(rowData.pval),
@@ -62,38 +62,39 @@ export const tableColumns = ({
     id: 'beta',
     label: 'Beta',
     tooltip: 'Beta is with respect to the ALT allele',
-    renderCell: rowData => (rowData.beta ? rowData.beta.toPrecision(3) : null),
+    renderCell: (rowData) =>
+      rowData.beta ? rowData.beta.toPrecision(3) : null,
   },
   {
     id: 'oddsRatio',
     label: 'Odds Ratio',
     tooltip: 'Odds ratio is with respect to the ALT allele',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.oddsRatio ? rowData.oddsRatio.toPrecision(3) : null,
   },
   {
     id: 'pmid',
     label: 'PMID',
-    renderCell: rowData => (
+    renderCell: (rowData) => (
       <PmidOrBiobankLink studyId={rowData.studyId} pmid={rowData.pmid} />
     ),
   },
   {
     id: 'pubAuthor',
     label: 'Author (Year)',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       `${rowData.pubAuthor} (${new Date(rowData.pubDate).getFullYear()})`,
   },
   {
     id: 'nCases',
     label: 'N Cases',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.nCases !== null ? commaSeparate(rowData.nCases) : '',
   },
   {
     id: 'nTotal',
     label: 'N Overall',
-    renderCell: rowData => commaSeparate(rowData.nTotal),
+    renderCell: (rowData) => commaSeparate(rowData.nTotal),
   },
 ];
 

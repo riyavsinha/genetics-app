@@ -172,7 +172,7 @@ function Summary({ classes, variantId }) {
           </Typography>
           <Grid container>
             {!loading &&
-              variantPopulations.map(p => (
+              variantPopulations.map((p) => (
                 <Fragment key={p.code}>
                   <Grid item xs={9}>
                     <Typography variant="subtitle2">{p.description}</Typography>

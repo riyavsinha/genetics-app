@@ -5,7 +5,7 @@ import { OtTable, DataCircle, Tooltip } from '../ot-ui-components';
 // TODO: When more studies are available in the data, use hierarchical clustering
 //       to sort columns. See eg. `clusterfck`.
 
-const traitAuthorYear = s =>
+const traitAuthorYear = (s) =>
   `${s.traitReported} (${s.pubAuthor}, ${new Date(s.pubDate).getFullYear()})`;
 
 const studyVariantToLabel = (s, studiesMetaData) => {
@@ -30,13 +30,13 @@ const studyIndexVariantToLabel = ({ study, variant }) => (
   </span>
 );
 
-const studyComparator = t => (a, b) => {
+const studyComparator = (t) => (a, b) => {
   if (a[t] && b[t]) {
     return a[t].log2h4h3 > b[t].log2h4h3
       ? 1
       : a[t].log2h4h3 === b[t].log2h4h3
-        ? 0
-        : -1;
+      ? 0
+      : -1;
   } else if (a[t] && !b[t]) {
     return 1;
   } else if (!a[t] && b[t]) {
@@ -72,22 +72,19 @@ const ColocTable = ({
     uniqueStudyIndexVariantsLookup
   ).sort();
   const uniqueStudyIndexVariants = uniqueStudyIndexVariantIds.map(
-    d => uniqueStudyIndexVariantsLookup[d]
+    (d) => uniqueStudyIndexVariantsLookup[d]
   );
-  const [minVal, maxVal] = d3.extent(data.map(d => d.log2h4h3));
+  const [minVal, maxVal] = d3.extent(data.map((d) => d.log2h4h3));
   const absMax = Math.max(Math.abs(minVal), maxVal);
-  const radiusScale = d3
-    .scaleSqrt()
-    .domain([0, absMax])
-    .range([0, 6]);
-  const studyIndexVariantColumns = uniqueStudyIndexVariants.map(sv => {
+  const radiusScale = d3.scaleSqrt().domain([0, absMax]).range([0, 6]);
+  const studyIndexVariantColumns = uniqueStudyIndexVariants.map((sv) => {
     const label = studyIndexVariantToLabel(sv);
     return {
       id: sv.id,
       label,
       verticalHeader: true,
       // comparator: studyComparator(s),
-      renderCell: row => {
+      renderCell: (row) => {
         const item = row[sv.id] || {};
         const { h3, h4, log2h4h3 } = item;
 
@@ -118,7 +115,7 @@ const ColocTable = ({
       variant,
       ...data
         .filter(
-          d =>
+          (d) =>
             d.leftStudy.studyId === study.studyId &&
             d.leftVariant.id === variant.id
         )
@@ -137,7 +134,7 @@ const ColocTable = ({
   const studyIndexVariantColumn = {
     id: 'studyId',
     label: 'Study',
-    renderCell: d => studyIndexVariantToLabel(d),
+    renderCell: (d) => studyIndexVariantToLabel(d),
   };
   const tableColumns = [studyIndexVariantColumn, ...studyIndexVariantColumns];
   return (
