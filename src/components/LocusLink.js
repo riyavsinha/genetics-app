@@ -1,6 +1,5 @@
-import React from 'react';
 import queryString from 'query-string';
-import { withStyles } from '@material-ui/core';
+import withStyles from '@mui/styles/withStyles';
 
 import { Link, Button, LocusIcon } from '../ot-ui-components';
 import { chromosomesWithCumulativeLengths } from '../utils';

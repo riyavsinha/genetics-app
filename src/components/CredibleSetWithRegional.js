@@ -1,13 +1,9 @@
-import React from 'react';
 import { Query } from '@apollo/client/react/components';
-import { withStyles } from '@material-ui/core/styles';
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-} from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Checkbox from '@material-ui/core/Checkbox';
+import { Component } from 'react';
+import withStyles from '@mui/styles/withStyles';
+import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Checkbox from '@mui/material/Checkbox';
 
 import CredibleSet from './CredibleSet';
 import Regional from './Regional';
@@ -19,17 +15,13 @@ const styles = () => ({
   },
 });
 
-class CredibleSetWithRegional extends React.Component {
+class CredibleSetWithRegional extends Component {
   state = {
     expanded: false,
   };
   render() {
-    const {
-      classes,
-      checkboxProps,
-      credibleSetProps,
-      regionalProps,
-    } = this.props;
+    const { classes, checkboxProps, credibleSetProps, regionalProps } =
+      this.props;
     const { expanded } = this.state;
     const { query, variables, start, end, ...rest } = regionalProps;
     return (
@@ -49,7 +41,7 @@ class CredibleSetWithRegional extends React.Component {
           {checkboxProps ? (
             <div
               style={{ position: 'absolute', zIndex: 1000 }}
-              onClick={e => e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
             >
               <Checkbox {...checkboxProps} />
             </div>

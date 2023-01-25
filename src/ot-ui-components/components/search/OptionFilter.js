@@ -1,8 +1,7 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 import classNames from 'classnames';
 
-const styles = theme => ({
+const styles = (theme) => ({
   option: {
     fontSize: '0.8rem',
     padding: '0 5px',

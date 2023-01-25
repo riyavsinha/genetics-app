@@ -1,9 +1,8 @@
-import React from 'react';
 import classNames from 'classnames';
-import Tooltip from '@material-ui/core/Tooltip';
-import { withStyles } from '@material-ui/core/styles';
+import Tooltip from '@mui/material/Tooltip';
+import withStyles from '@mui/styles/withStyles';
 
-const styles = theme => ({
+const styles = (theme) => ({
   modelSchematic: {
     fontFamily: 'sans-serif',
   },
@@ -51,14 +50,14 @@ const ICON_LABEL_MAP = {
   variant: 'V',
   study: 'S',
   indexVariant: (
-    <React.Fragment>
+    <>
       V<tspan dy="6">L</tspan>
-    </React.Fragment>
+    </>
   ),
   tagVariant: (
-    <React.Fragment>
+    <>
       V<tspan dy="6">T</tspan>
-    </React.Fragment>
+    </>
   ),
 };
 
@@ -66,8 +65,10 @@ const ModelSchematic = ({ classes, entities }) => {
   const totalWidth =
     ENTITY_WIDTH * entities.length + CONNECTOR_WIDTH * (entities.length - 1);
 
-  const tuple = entities.map(d => NICENAME_MAP[d.type]);
-  const fixed = entities.filter(d => d.fixed).map(d => NICENAME_MAP[d.type]);
+  const tuple = entities.map((d) => NICENAME_MAP[d.type]);
+  const fixed = entities
+    .filter((d) => d.fixed)
+    .map((d) => NICENAME_MAP[d.type]);
   const title = `This section shows (${tuple.join(', ')}) tuples${
     fixed.length > 0 ? ` where the ${fixed[0]} is fixed` : ''
   }`;
@@ -85,8 +86,9 @@ const ModelSchematic = ({ classes, entities }) => {
             return (
               <g
                 key={i}
-                transform={`translate(${ENTITY_WIDTH / 2 +
-                  i * (ENTITY_WIDTH + CONNECTOR_WIDTH)},${TOTAL_HEIGHT / 2})`}
+                transform={`translate(${
+                  ENTITY_WIDTH / 2 + i * (ENTITY_WIDTH + CONNECTOR_WIDTH)
+                },${TOTAL_HEIGHT / 2})`}
               >
                 <circle
                   cx={0}

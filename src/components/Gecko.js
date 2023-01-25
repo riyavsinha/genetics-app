@@ -1,7 +1,7 @@
-import React from 'react';
 import * as d3 from 'd3';
 import { withContentRect } from 'react-measure';
 import theme from './theme';
+import { Component, createRef } from 'react';
 
 const GENE_SLOT_HEIGHT = 30;
 const GENE_TRANSCRIPT_HEIGHT = 7;
@@ -16,10 +16,10 @@ const CONNECTOR_TRACK_HEIGHT = 80;
 const CHAR_WIDTH = 12; // TODO: base on font-size
 const HEIGHT_DEFAULT = 400;
 
-class Gecko extends React.Component {
+class Gecko extends Component {
   constructor(props) {
     super(props);
-    this.svgRef = React.createRef();
+    this.svgRef = createRef();
   }
   componentDidMount() {
     this._render();
@@ -32,7 +32,11 @@ class Gecko extends React.Component {
     const { width, height } = this._dimensions();
     return (
       <div ref={measureRef}>
-        <svg width={width} height={height} ref={node => (this.svgRef = node)} />
+        <svg
+          width={width}
+          height={height}
+          ref={(node) => (this.svgRef = node)}
+        />
       </div>
     );
   }
@@ -139,7 +143,7 @@ class Gecko extends React.Component {
     g.attr('transform', `translate(0,${track.top})`);
 
     // join
-    const genes = g.selectAll('g').data(data, d => d.id);
+    const genes = g.selectAll('g').data(data, (d) => d.id);
 
     // -------------
     // --- GENES ---
@@ -162,10 +166,7 @@ class Gecko extends React.Component {
       .attr('stroke', theme.line.color);
 
     // spit
-    enter
-      .append('line')
-      .classed('spit', true)
-      .attr('stroke', theme.line.color);
+    enter.append('line').classed('spit', true).attr('stroke', theme.line.color);
 
     // label
     enter
@@ -179,22 +180,25 @@ class Gecko extends React.Component {
     // --- MERGE ---
     const merge = enter
       .merge(genes)
-      .attr('transform', d => `translate(0,${d.slotIndex * GENE_SLOT_HEIGHT})`);
+      .attr(
+        'transform',
+        (d) => `translate(0,${d.slotIndex * GENE_SLOT_HEIGHT})`
+      );
 
     // vertical
     merge
       .selectAll('line.vertical')
-      .attr('x1', d => scale(d.tss))
+      .attr('x1', (d) => scale(d.tss))
       .attr('y1', GENE_TRANSCRIPT_OFFSET + GENE_TRANSCRIPT_HEIGHT / 2)
-      .attr('x2', d => scale(d.tss))
-      .attr('y2', d => track.height - d.slotIndex * GENE_SLOT_HEIGHT);
+      .attr('x2', (d) => scale(d.tss))
+      .attr('y2', (d) => track.height - d.slotIndex * GENE_SLOT_HEIGHT);
 
     // backdrop
     merge
       .selectAll('rect.backdrop')
-      .attr('x', d => scale(d.start) - GENE_BACKDROP_PADDING)
+      .attr('x', (d) => scale(d.start) - GENE_BACKDROP_PADDING)
       .attr('y', GENE_TRANSCRIPT_OFFSET - GENE_BACKDROP_PADDING)
-      .attr('width', function(d) {
+      .attr('width', function (d) {
         const partnerText = d3.select(this.parentNode).select('text.label');
         const widthSpit = scale(d.end) - scale(d.start);
         const widthText = partnerText.node().getComputedTextLength();
@@ -208,17 +212,17 @@ class Gecko extends React.Component {
     // spit
     merge
       .selectAll('line.spit')
-      .attr('x1', d => scale(d.start))
+      .attr('x1', (d) => scale(d.start))
       .attr('y1', GENE_TRANSCRIPT_OFFSET + GENE_TRANSCRIPT_HEIGHT / 2)
-      .attr('x2', d => scale(d.end))
+      .attr('x2', (d) => scale(d.end))
       .attr('y2', GENE_TRANSCRIPT_OFFSET + GENE_TRANSCRIPT_HEIGHT / 2);
 
     // label
     merge
       .selectAll('text.label')
-      .attr('x', d => scale(d.start))
+      .attr('x', (d) => scale(d.start))
       .attr('y', GENE_LABEL_OFFSET)
-      .text(d => (d.start === d.tss ? `${d.symbol}>` : `<${d.symbol}`));
+      .text((d) => (d.start === d.tss ? `${d.symbol}>` : `<${d.symbol}`));
 
     // --- EXIT ---
     genes.exit().remove();
@@ -226,7 +230,7 @@ class Gecko extends React.Component {
     // -------------
     // --- EXONS ---
     // -------------
-    const exons = genes.selectAll('rect.exon').data(d => d.exons);
+    const exons = genes.selectAll('rect.exon').data((d) => d.exons);
 
     exons
       .enter()
@@ -235,9 +239,9 @@ class Gecko extends React.Component {
       .attr('fill', 'white')
       .classed('exon', true)
       .merge(exons)
-      .attr('x', d => scale(d[0]))
+      .attr('x', (d) => scale(d[0]))
       .attr('y', GENE_TRANSCRIPT_OFFSET)
-      .attr('width', d => scale(d[1]) - scale(d[0]))
+      .attr('width', (d) => scale(d[1]) - scale(d[0]))
       .attr('height', GENE_TRANSCRIPT_HEIGHT);
 
     exons.exit().remove();
@@ -268,9 +272,9 @@ class Gecko extends React.Component {
       .attr('stroke', theme.line.color)
       .attr('stroke-width', theme.line.thickness)
       .merge(tags)
-      .attr('x1', d => scale(d.position))
+      .attr('x1', (d) => scale(d.position))
       .attr('y1', 0)
-      .attr('x2', d => scale(d.position))
+      .attr('x2', (d) => scale(d.position))
       .attr('y2', track.height);
 
     tags.exit().remove();
@@ -301,9 +305,9 @@ class Gecko extends React.Component {
       .attr('stroke', theme.line.color)
       .attr('stroke-width', theme.line.thickness)
       .merge(tags)
-      .attr('x1', d => scale(d.position))
+      .attr('x1', (d) => scale(d.position))
       .attr('y1', 0)
-      .attr('x2', d => scale(d.position))
+      .attr('x2', (d) => scale(d.position))
       .attr('y2', track.height);
 
     tags.exit().remove();
@@ -324,10 +328,10 @@ class Gecko extends React.Component {
       .append('line')
       .attr('stroke', theme.connector.color)
       .merge(verticals)
-      .attr('x1', d => scaleX(d.studyId))
+      .attr('x1', (d) => scaleX(d.studyId))
       .attr('y1', 0)
-      .attr('x2', d => scaleX(d.studyId))
-      .attr('y2', d => scaleY(d.studyId));
+      .attr('x2', (d) => scaleX(d.studyId))
+      .attr('y2', (d) => scaleY(d.studyId));
 
     verticals.exit().remove();
 
@@ -342,14 +346,14 @@ class Gecko extends React.Component {
       .merge(backdrops)
       .attr(
         'x',
-        d =>
+        (d) =>
           scaleX(d.studyId) -
           (CHAR_WIDTH * d.studyId.length + 2 * GENE_BACKDROP_PADDING) / 2
       )
-      .attr('y', d => scaleY(d.studyId))
+      .attr('y', (d) => scaleY(d.studyId))
       .attr(
         'width',
-        d => CHAR_WIDTH * d.studyId.length + 2 * GENE_BACKDROP_PADDING
+        (d) => CHAR_WIDTH * d.studyId.length + 2 * GENE_BACKDROP_PADDING
       )
       .attr('height', CHAR_WIDTH + 2 * GENE_BACKDROP_PADDING);
 
@@ -364,8 +368,8 @@ class Gecko extends React.Component {
       .attr('stroke', theme.line.color)
       .attr('fill', 'white')
       .merge(pointers)
-      .attr('cx', d => scaleX(d.studyId))
-      .attr('cy', d => scaleY(d.studyId))
+      .attr('cx', (d) => scaleX(d.studyId))
+      .attr('cy', (d) => scaleY(d.studyId))
       .attr('r', 2);
 
     pointers.exit().remove();
@@ -381,9 +385,9 @@ class Gecko extends React.Component {
       .attr('font-family', 'sans-serif')
       .attr('font-size', 12)
       .merge(texts)
-      .attr('x', d => scaleX(d.studyId))
-      .attr('y', d => scaleY(d.studyId) + CHAR_WIDTH)
-      .text(d => d.studyId);
+      .attr('x', (d) => scaleX(d.studyId))
+      .attr('y', (d) => scaleY(d.studyId) + CHAR_WIDTH)
+      .text((d) => d.studyId);
 
     texts.exit().remove();
   }
@@ -404,7 +408,7 @@ class Gecko extends React.Component {
       .attr('stroke', theme.connector.color)
       .attr('fill', 'none')
       .merge(tags)
-      .attr('d', d => {
+      .attr('d', (d) => {
         const topX = scale(d.geneTss);
         const topY = 0;
         const bottomX = scale(d.tagVariantPosition);
@@ -438,16 +442,14 @@ class Gecko extends React.Component {
     tags
       .enter()
       .append('path')
-      .attr(
-        'stroke',
-        d =>
-          d.posteriorProbability
-            ? theme.connector.finemappingColor
-            : theme.connector.color
+      .attr('stroke', (d) =>
+        d.posteriorProbability
+          ? theme.connector.finemappingColor
+          : theme.connector.color
       )
       .attr('fill', 'none')
       .merge(tags)
-      .attr('d', d => {
+      .attr('d', (d) => {
         // tag variant - index variant
         const tvIvTopX = scaleGenome(d.tagVariantPosition);
         const tvIvTopY = tvIvTrack.top;
@@ -473,16 +475,16 @@ class Gecko extends React.Component {
   }
   _geneSlots(scale) {
     const { genes } = this.props.data;
-    const sortedGenes = genes.slice().sort(function(a, b) {
+    const sortedGenes = genes.slice().sort(function (a, b) {
       return a.start - b.start;
     });
 
     let slotCount = 0;
     const slots = [];
     const genesWithSlots = [];
-    sortedGenes.forEach(gene => {
+    sortedGenes.forEach((gene) => {
       const suitableSlots = slots.filter(
-        slot =>
+        (slot) =>
           scale(gene.start) > scale(slot.end) + gene.symbol.length * CHAR_WIDTH
       );
       if (suitableSlots.length > 0) {
@@ -516,24 +518,18 @@ class Gecko extends React.Component {
     const slotCount = Math.ceil(studies.length / studiesPerSlot);
     const domain = studies
       .slice()
-      .sort(function(a, b) {
+      .sort(function (a, b) {
         return a.traitReported - b.traitReported;
       })
-      .map(d => d.studyId);
+      .map((d) => d.studyId);
     const rangeX = [STUDY_TEXT_MAX_WIDTH / 2, width - STUDY_TEXT_MAX_WIDTH / 2];
     const rangeY = domain.map((d, i) => {
       const s = GENE_TRACK_PADDING;
       const e = trackHeight - 2 * GENE_TRACK_PADDING;
       return s + ((e - s) * (i % slotCount)) / slotCount;
     });
-    const scaleStudyX = d3
-      .scalePoint()
-      .domain(domain)
-      .range(rangeX);
-    const scaleStudyY = d3
-      .scaleOrdinal()
-      .domain(domain)
-      .range(rangeY);
+    const scaleStudyX = d3.scalePoint().domain(domain).range(rangeX);
+    const scaleStudyY = d3.scaleOrdinal().domain(domain).range(rangeY);
 
     return { scaleStudyX, scaleStudyY };
   }

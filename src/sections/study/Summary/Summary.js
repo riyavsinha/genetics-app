@@ -1,10 +1,10 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
-import { Skeleton } from '@material-ui/lab';
+import { Skeleton } from '@mui/material';
 import { Typography, SectionHeading } from '../../../ot-ui-components';
 import Link from '../../../components/Link';
+import { Fragment } from 'react';
 
 import { commaSeparate, studyHasInfo, studyGetInfo } from '../../../utils';
 
@@ -97,7 +97,7 @@ const StudySummary = ({ studyId }) => {
                 { label: 'N Replication', value: data.nReplication },
                 { label: 'N Cases', value: data.nCases },
               ].map((d, i) => (
-                <React.Fragment key={i}>
+                <Fragment key={i}>
                   <Grid item xs={9}>
                     <Typography variant="subtitle2">{d.label}</Typography>
                   </Grid>
@@ -106,7 +106,7 @@ const StudySummary = ({ studyId }) => {
                       {d.value ? commaSeparate(d.value) : 'NA'}
                     </Typography>
                   </Grid>
-                </React.Fragment>
+                </Fragment>
               ))}
             </Grid>
           )}

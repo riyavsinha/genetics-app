@@ -1,7 +1,7 @@
-import React from 'react';
 import * as d3 from 'd3';
 import { withContentRect } from 'react-measure';
 import theme from './theme';
+import { Component, createRef } from 'react';
 
 const LEGEND_HEIGHT = 50;
 const GENE_SLOT_HEIGHT = 30;
@@ -25,7 +25,7 @@ const HIDDEN_TYPE_MAP = {
 };
 const HIDDEN_TYPE_MAP_INVERSE = {};
 Object.keys(HIDDEN_TYPE_MAP).forEach(
-  k => (HIDDEN_TYPE_MAP_INVERSE[HIDDEN_TYPE_MAP[k]] = k)
+  (k) => (HIDDEN_TYPE_MAP_INVERSE[HIDDEN_TYPE_MAP[k]] = k)
 );
 const ENTITY_WIDTH = 34;
 const ENTITY_RADIUS = 13;
@@ -34,35 +34,35 @@ const color = (d, noSelectedEntities) =>
   d.selected
     ? theme.gecko.colorSelected
     : !noSelectedEntities && d.chained
-      ? theme.gecko.colorChained
-      : theme.gecko.color;
+    ? theme.gecko.colorChained
+    : theme.gecko.color;
 const backgroundColor = (d, noSelectedEntities) =>
   d.selected
     ? theme.gecko.backgroundColorSelected
     : !noSelectedEntities && d.chained
-      ? theme.gecko.backgroundColorChained
-      : theme.gecko.backgroundColor;
+    ? theme.gecko.backgroundColorChained
+    : theme.gecko.backgroundColor;
 const connectorColor = (d, noSelectedEntities) => {
   if (d.posteriorProbability) {
     return d.selected
       ? theme.gecko.finemappingConnectorColorSelected
       : !noSelectedEntities && d.chained
-        ? theme.gecko.finemappingConnectorColorChained
-        : theme.gecko.finemappingConnectorColor;
+      ? theme.gecko.finemappingConnectorColorChained
+      : theme.gecko.finemappingConnectorColor;
   } else {
     return d.selected
       ? theme.gecko.connectorColorSelected
       : !noSelectedEntities && d.chained
-        ? theme.gecko.connectorColorChained
-        : theme.gecko.connectorColor;
+      ? theme.gecko.connectorColorChained
+      : theme.gecko.connectorColor;
   }
 };
 
-class Gecko extends React.Component {
+class Gecko extends Component {
   constructor(props) {
     super(props);
-    this.canvasRef = React.createRef();
-    this.hiddenCanvasRef = React.createRef();
+    this.canvasRef = createRef();
+    this.hiddenCanvasRef = createRef();
   }
   componentDidMount() {
     this._render();
@@ -93,7 +93,7 @@ class Gecko extends React.Component {
             top: 0,
             left: 0,
           }}
-          ref={node => (this.canvasRef = node)}
+          ref={(node) => (this.canvasRef = node)}
         />
         <canvas
           width={width ? width * SCALE_FACTOR : 0}
@@ -107,7 +107,7 @@ class Gecko extends React.Component {
             imageRendering: 'pixelated',
             opacity: 0,
           }}
-          ref={node => (this.hiddenCanvasRef = node)}
+          ref={(node) => (this.hiddenCanvasRef = node)}
         />
       </div>
     );
@@ -182,7 +182,7 @@ class Gecko extends React.Component {
     const hiddenCanvas = this.hiddenCanvasRef;
     const hiddenContext = hiddenCanvas.getContext('2d');
 
-    d3.select(hiddenCanvas).on('mousemove', function() {
+    d3.select(hiddenCanvas).on('mousemove', function () {
       const point = d3.mouse(this);
       const [r, g, b, a] = hiddenContext.getImageData(
         Math.round(point[0]) * SCALE_FACTOR,
@@ -201,7 +201,7 @@ class Gecko extends React.Component {
       }
     });
 
-    d3.select(hiddenCanvas).on('click', function() {
+    d3.select(hiddenCanvas).on('click', function () {
       const point = d3.mouse(this);
       const [r, g, b, a] = hiddenContext.getImageData(
         Math.round(point[0]) * SCALE_FACTOR,
@@ -487,8 +487,8 @@ class Gecko extends React.Component {
     const verticals =
       noSelectedEntities || showGeneVerticals
         ? data
-        : data.filter(d => d.chained);
-    verticals.forEach(d => {
+        : data.filter((d) => d.chained);
+    verticals.forEach((d) => {
       context.strokeStyle = color(d, noSelectedEntities);
       context.beginPath();
       context.moveTo(scaleX(d.tss), d.slotIndex * GENE_SLOT_HEIGHT);
@@ -497,7 +497,7 @@ class Gecko extends React.Component {
     });
 
     // genes
-    data.forEach(d => {
+    data.forEach((d) => {
       const label = d.start === d.tss ? `${d.symbol}>` : `<${d.symbol}`;
       const textWidth = context.measureText(label).width;
 
@@ -538,7 +538,7 @@ class Gecko extends React.Component {
       context.stroke();
 
       // exons
-      d.exons.forEach(e => {
+      d.exons.forEach((e) => {
         const exonX = scaleX(e[[0]]);
         const exonY = d.slotIndex * GENE_SLOT_HEIGHT + GENE_TRANSCRIPT_OFFSET;
         const exonWidth = scaleX(e[[1]]) - exonX;
@@ -621,7 +621,7 @@ class Gecko extends React.Component {
 
     // picker
     hiddenContext.translate(0, track.top);
-    data.forEach(d => {
+    data.forEach((d) => {
       hiddenContext.fillStyle = d.hiddenColor;
       hiddenContext.fillRect(
         Math.round(scaleX(d.position)) - 1,
@@ -638,7 +638,7 @@ class Gecko extends React.Component {
 
     // tag variants
     context.lineWidth = 2;
-    data.forEach(d => {
+    data.forEach((d) => {
       context.strokeStyle = color(d, noSelectedEntities);
       context.beginPath();
       context.moveTo(scaleX(d.position), 0);
@@ -662,7 +662,7 @@ class Gecko extends React.Component {
 
     // picker
     hiddenContext.translate(0, track.top);
-    data.forEach(d => {
+    data.forEach((d) => {
       hiddenContext.fillStyle = d.hiddenColor;
       hiddenContext.fillRect(
         Math.round(scaleX(d.position)) - 1,
@@ -679,7 +679,7 @@ class Gecko extends React.Component {
 
     // index variants
     context.lineWidth = 2;
-    data.forEach(d => {
+    data.forEach((d) => {
       context.strokeStyle = color(d, noSelectedEntities);
       context.beginPath();
       context.moveTo(scaleX(d.position), 0);
@@ -705,7 +705,7 @@ class Gecko extends React.Component {
     hiddenContext.translate(0, track.top);
 
     // verticals
-    data.forEach(d => {
+    data.forEach((d) => {
       context.strokeStyle = color(d, noSelectedEntities);
       context.beginPath();
       context.moveTo(scaleX(d.studyId), 0);
@@ -716,7 +716,7 @@ class Gecko extends React.Component {
     // studies
     context.textBaseline = 'hanging';
     context.textAlign = 'center';
-    data.forEach(d => {
+    data.forEach((d) => {
       const label =
         d.traitReported +
         (d.pubAuthor && d.pubDate
@@ -771,7 +771,7 @@ class Gecko extends React.Component {
     context.translate(0, track.top);
 
     // gene tag variants
-    data.forEach(d => {
+    data.forEach((d) => {
       const topX = scaleX(d.geneTss);
       const topY = 0;
       const bottomX = scaleX(d.tagVariantPosition);
@@ -803,7 +803,7 @@ class Gecko extends React.Component {
     noSelectedEntities
   ) {
     context.save();
-    data.forEach(d => {
+    data.forEach((d) => {
       const tvIvTopX = scaleX(d.tagVariantPosition);
       const tvIvTopY = tvIvTrack.top;
       const tvIvBottomX = scaleX(d.indexVariantPosition);
@@ -845,16 +845,16 @@ class Gecko extends React.Component {
     context.restore();
   }
   _geneSlots(genes, scale) {
-    const sortedGenes = genes.slice().sort(function(a, b) {
+    const sortedGenes = genes.slice().sort(function (a, b) {
       return a.start - b.start;
     });
 
     let slotCount = 0;
     const slots = [];
     const genesWithSlots = [];
-    sortedGenes.forEach(gene => {
+    sortedGenes.forEach((gene) => {
       const suitableSlots = slots.filter(
-        slot =>
+        (slot) =>
           scale(gene.start) > scale(slot.end) + gene.symbol.length * CHAR_WIDTH
       );
       if (suitableSlots.length > 0) {
@@ -886,24 +886,18 @@ class Gecko extends React.Component {
     const slotCount = Math.ceil(studies.length / studiesPerSlot);
     const domain = studies
       .slice()
-      .sort(function(a, b) {
+      .sort(function (a, b) {
         return a.traitReported - b.traitReported;
       })
-      .map(d => d.studyId);
+      .map((d) => d.studyId);
     const rangeX = [STUDY_TEXT_MAX_WIDTH / 2, width - STUDY_TEXT_MAX_WIDTH / 2];
     const rangeY = domain.map((d, i) => {
       const s = GENE_TRACK_PADDING + ENTITY_WIDTH;
       const e = trackHeight - 2 * GENE_TRACK_PADDING;
       return s + ((e - s) * (i % slotCount)) / slotCount;
     });
-    const scaleStudyX = d3
-      .scalePoint()
-      .domain(domain)
-      .range(rangeX);
-    const scaleStudyY = d3
-      .scaleOrdinal()
-      .domain(domain)
-      .range(rangeY);
+    const scaleStudyX = d3.scalePoint().domain(domain).range(rangeX);
+    const scaleStudyY = d3.scaleOrdinal().domain(domain).range(rangeY);
 
     return { scaleStudyX, scaleStudyY };
   }
@@ -991,7 +985,7 @@ class Gecko extends React.Component {
       }
     }
     width = lineArray
-      .map(l => context.measureText(l).width)
+      .map((l) => context.measureText(l).width)
       .reduce((acc, val) => (val > acc ? val : acc), 0);
     return { lineArray, width };
   }

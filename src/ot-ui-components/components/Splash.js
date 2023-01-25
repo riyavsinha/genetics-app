@@ -1,9 +1,9 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 import * as d3 from 'd3';
 import { withContentRect } from 'react-measure';
+import { Component, createRef } from 'react';
 
-const styles = theme => ({
+const styles = (theme) => ({
   splash: {
     left: 0,
     top: 0,
@@ -21,10 +21,10 @@ for (let i = 0; i < 500; i++) {
   DATA.push([uniformGenerator(), uniformGenerator()]);
 }
 
-class Splash extends React.Component {
+class Splash extends Component {
   constructor(props) {
     super(props);
-    this.svgRef = React.createRef();
+    this.svgRef = createRef();
   }
   componentDidMount() {
     this._renderVoronoi();
@@ -36,7 +36,7 @@ class Splash extends React.Component {
     const { classes, measureRef } = this.props;
     return (
       <div className={classes.splash} ref={measureRef}>
-        <svg ref={node => (this.svgRef = node)} />
+        <svg ref={(node) => (this.svgRef = node)} />
       </div>
     );
   }
@@ -50,11 +50,14 @@ class Splash extends React.Component {
     const { width, height } = this._dimensions();
 
     // scale data and svg to parent dims
-    const data = DATA.map(d => [d[0] * width, d[1] * height]);
+    const data = DATA.map((d) => [d[0] * width, d[1] * height]);
     svg.attr('width', width).attr('height', height);
 
     // create voronoi generator
-    const voronoi = d3.voronoi().extent([[-1, -1], [width, height]]);
+    const voronoi = d3.voronoi().extent([
+      [-1, -1],
+      [width, height],
+    ]);
 
     // join
     const pointsVoronoi = svg.selectAll('path').data(voronoi.polygons(data));
@@ -66,7 +69,7 @@ class Splash extends React.Component {
       .attr('stroke-opacity', 0.3)
       .attr('fill', 'none')
       .merge(pointsVoronoi)
-      .attr('d', function(d) {
+      .attr('d', function (d) {
         return d ? 'M' + d.join('L') + 'Z' : null;
       });
 

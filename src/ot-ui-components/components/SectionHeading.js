@@ -1,11 +1,10 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import withStyles from '@mui/styles/withStyles';
 
 import ModelSchematic from './ModelSchematic';
 
-const styles = theme => ({
+const styles = (theme) => ({
   container: {
     width: '100%',
     display: 'flex',
@@ -26,7 +25,7 @@ const styles = theme => ({
 
 const SectionHeading = ({ classes, heading, subheading, entities }) => {
   return (
-    <React.Fragment>
+    <>
       <hr className={classes.hr} />
       <div className={classes.container}>
         <div>
@@ -42,7 +41,7 @@ const SectionHeading = ({ classes, heading, subheading, entities }) => {
         <div className={classes.flex} />
         {entities ? <ModelSchematic entities={entities} /> : null}
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

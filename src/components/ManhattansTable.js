@@ -1,13 +1,12 @@
-import React from 'react';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 import { Link, OtTable, commaSeparate } from '../ot-ui-components';
 
 import ManhattanFlat from '../components/ManhattanFlat';
 
-const CloseButton = props => (
-  <IconButton {...props}>
+const CloseButton = (props) => (
+  <IconButton {...props} size="large">
     <CloseIcon />
   </IconButton>
 );
@@ -16,7 +15,7 @@ export const tableColumns = ({ onDeleteStudy, onClickIntersectionLocus }) => [
   {
     id: 'deleteRow',
     label: 'Remove',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       onDeleteStudy ? (
         <CloseButton onClick={onDeleteStudy(rowData.studyId)} />
       ) : !rowData.pileup ? (
@@ -26,7 +25,7 @@ export const tableColumns = ({ onDeleteStudy, onClickIntersectionLocus }) => [
   {
     id: 'studyId',
     label: 'Study ID',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.pileup ? (
         <b>Intersection</b>
       ) : (
@@ -36,7 +35,7 @@ export const tableColumns = ({ onDeleteStudy, onClickIntersectionLocus }) => [
   {
     id: 'traitReported',
     label: 'Details',
-    renderCell: rowData => {
+    renderCell: (rowData) => {
       let pubInfo = '';
       if (rowData.pubAuthor && rowData.pubDate) {
         pubInfo = ` (${rowData.pubAuthor} ${new Date(
@@ -44,31 +43,31 @@ export const tableColumns = ({ onDeleteStudy, onClickIntersectionLocus }) => [
         ).getFullYear()})`;
       }
       return (
-        <React.Fragment>
+        <>
           <span style={{ fontWeight: 'bold' }}>{rowData.traitReported}</span>
           <span style={{ fontSize: '0.75rem' }}>{pubInfo}</span>
           <br />
           <span style={{ fontSize: '0.65rem' }}>{rowData.pubJournal}</span>
-        </React.Fragment>
+        </>
       );
     },
   },
   {
     id: 'nInitial',
     label: 'N Initial',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.nInitial ? commaSeparate(rowData.nInitial) : null,
   },
   {
     id: 'nReplication',
     label: 'N Replication',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.nReplication ? commaSeparate(rowData.nReplication) : null,
   },
   {
     id: 'nCases',
     label: 'N Cases',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.nCases ? commaSeparate(rowData.nCases) : null,
   },
   {
@@ -76,7 +75,7 @@ export const tableColumns = ({ onDeleteStudy, onClickIntersectionLocus }) => [
     label: 'Independently-associated loci',
     tooltip:
       'Independently-associated loci across studies that occur in the ROOT study',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.pileup && onClickIntersectionLocus ? (
         <ManhattanFlat
           data={rowData.associations}
@@ -113,7 +112,7 @@ function ManhattansTable({
       order="desc"
       downloadFileStem="multi-study"
       message={
-        <React.Fragment>
+        <>
           Each selected study in this table is compared to the <b>ROOT</b>{' '}
           study.
           <br />
@@ -121,7 +120,7 @@ function ManhattansTable({
             Loci overlapping with the ROOT study are shown in <i>black</i>. Loci
             overlapping across all selected studies are shown in <i>red</i>.
           </small>
-        </React.Fragment>
+        </>
       }
     />
   );

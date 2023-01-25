@@ -6,7 +6,7 @@ export const commaSeparate = format(',');
 Example usage:
 const comparatorDiseaseName = generateComparator(d => d.disease.name);
  */
-export const generateComparator = accessor => (a, b) => {
+export const generateComparator = (accessor) => (a, b) => {
   const aValue = accessor(a);
   const bValue = accessor(b);
   return aValue > bValue ? 1 : aValue === bValue ? 0 : -1;

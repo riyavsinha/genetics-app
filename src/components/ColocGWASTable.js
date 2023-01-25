@@ -1,4 +1,3 @@
-import React from 'react';
 import * as d3 from 'd3';
 
 import {
@@ -16,7 +15,7 @@ const tableColumns = [
     id: 'study',
     label: 'Study',
     comparator: (a, b) => d3.ascending(a.study.studyId, b.study.studyId),
-    renderCell: d => (
+    renderCell: (d) => (
       <Link to={`/study/${d.study.studyId}`}>{d.study.studyId}</Link>
     ),
   },
@@ -25,19 +24,19 @@ const tableColumns = [
     label: 'Trait reported',
     comparator: (a, b) =>
       d3.ascending(a.study.traitReported, b.study.traitReported),
-    renderCell: d => d.study.traitReported,
+    renderCell: (d) => d.study.traitReported,
   },
   {
     id: 'pubAuthor',
     label: 'Author',
     comparator: (a, b) => d3.ascending(a.study.pubAuthor, b.study.pubAuthor),
-    renderCell: d => d.study.pubAuthor,
+    renderCell: (d) => d.study.pubAuthor,
   },
   {
     id: 'indexVariant',
     label: 'Lead variant',
     comparator: (a, b) => d3.ascending(a.indexVariant.id, b.indexVariant.id),
-    renderCell: d => (
+    renderCell: (d) => (
       <Link to={`/variant/${d.indexVariant.id}`}>{d.indexVariant.id}</Link>
     ),
   },
@@ -46,37 +45,37 @@ const tableColumns = [
     label: 'Study beta',
     tooltip:
       'Effect with respect to the alternative allele of the page variant',
-    renderCell: d => (d.beta ? significantFigures(d.beta) : naLabel),
+    renderCell: (d) => (d.beta ? significantFigures(d.beta) : naLabel),
   },
   {
     id: 'h3',
     label: 'H3',
     tooltip: (
-      <React.Fragment>
+      <>
         Posterior probability that the signals <strong>do not</strong>{' '}
         colocalise
-      </React.Fragment>
+      </>
     ),
-    renderCell: d => significantFigures(d.h3),
+    renderCell: (d) => significantFigures(d.h3),
   },
   {
     id: 'h4',
     label: 'H4',
     tooltip: 'Posterior probability that the signals colocalise',
-    renderCell: d => significantFigures(d.h4),
+    renderCell: (d) => significantFigures(d.h4),
   },
   {
     id: 'log2h4h3',
     label: 'log2(H4/H3)',
     tooltip: 'Log-likelihood that the signals colocalise',
-    renderCell: d => significantFigures(d.log2h4h3),
+    renderCell: (d) => significantFigures(d.log2h4h3),
   },
   {
     id: 'locus',
     label: 'View',
     comparator: (a, b) =>
       d3.ascending(a.study.hasSumstats, b.study.hasSumstats),
-    renderCell: d => (
+    renderCell: (d) => (
       <StudyLocusLink
         indexVariantId={d.indexVariant.id}
         studyId={d.study.studyId}
@@ -85,8 +84,8 @@ const tableColumns = [
   },
 ];
 
-const getDownloadData = data => {
-  return data.map(d => ({
+const getDownloadData = (data) => {
+  return data.map((d) => ({
     study: d.study.studyId,
     traitReported: d.study.traitReported,
     pubAuthor: d.study.pubAuthor,
@@ -101,7 +100,7 @@ const getDownloadData = data => {
 const ColocGWASTable = ({ loading, error, fileStem, data }) => {
   const downloadData = getDownloadData(data);
   return (
-    <React.Fragment>
+    <>
       <DataDownloader
         tableHeaders={tableColumns}
         rows={downloadData}
@@ -115,7 +114,7 @@ const ColocGWASTable = ({ loading, error, fileStem, data }) => {
         sortBy="log2h4h3"
         order="desc"
       />
-    </React.Fragment>
+    </>
   );
 };
 

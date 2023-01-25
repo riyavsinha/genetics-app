@@ -1,10 +1,10 @@
-import React, { Fragment } from 'react';
+import { Fragment, Component } from 'react';
 import { Helmet } from 'react-helmet';
 import { Query } from '@apollo/client/react/components';
 import { loader } from 'graphql.macro';
 import queryString from 'query-string';
-import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
+import Typography from '@mui/material/Typography';
+import withStyles from '@mui/styles/withStyles';
 
 import { SectionHeading, Autocomplete } from '../ot-ui-components';
 
@@ -46,16 +46,14 @@ function getStudiesTableData(data, studyId, studyIds) {
   if (!hasOverlapInfoForStudy(data) || !hasTopOverlappedStudies(data)) {
     return EMPTY_CASE;
   }
-  const {
-    topOverlappedStudies,
-    overlapInfoForStudy: overlappingStudies,
-  } = data;
+  const { topOverlappedStudies, overlapInfoForStudy: overlappingStudies } =
+    data;
   const { topStudiesByLociOverlap: topStudies } = topOverlappedStudies;
 
   // select
-  const rootStudyTop = topStudies.find(d => d.study.studyId === studyId);
+  const rootStudyTop = topStudies.find((d) => d.study.studyId === studyId);
 
-  const topStudiesExcludingRoot = topStudies.filter(d => {
+  const topStudiesExcludingRoot = topStudies.filter((d) => {
     if (d.study !== null) return d.study.studyId !== studyId;
     else return null;
   });
@@ -66,13 +64,13 @@ function getStudiesTableData(data, studyId, studyIds) {
       hasManhattan(data) &&
       hasStudyInfo(data)
     ) {
-      const associationsRoot = data.manhattan.associations.map(d => ({
+      const associationsRoot = data.manhattan.associations.map((d) => ({
         ...d,
         ...d.variant,
         variantId: d.variant.id,
         inIntersection: true,
       }));
-      const associationsPileup = associationsRoot.map(d => ({
+      const associationsPileup = associationsRoot.map((d) => ({
         ...d,
         pileup: true,
       }));
@@ -91,7 +89,7 @@ function getStudiesTableData(data, studyId, studyIds) {
 
   const rootLociCount = rootStudyTop.numOverlapLoci;
   const studySelectOptions = topStudiesExcludingRoot
-    .filter(d => d.study.studyId !== studyId)
+    .filter((d) => d.study.studyId !== studyId)
     .sort((a, b) => {
       // order by (selected, numOverlapLoci, studyId)
       const aSelected = studyIds.indexOf(a.study.studyId) >= 0;
@@ -107,7 +105,7 @@ function getStudiesTableData(data, studyId, studyIds) {
 
       return a.study.studyId >= b.study.studyId;
     })
-    .map(d => ({
+    .map((d) => ({
       ...d,
       selected: studyIds.indexOf(d.study.studyId) >= 0,
       count: d.numOverlapLoci,
@@ -117,10 +115,10 @@ function getStudiesTableData(data, studyId, studyIds) {
   const variantIntersectionSet = overlappingStudies
     ? overlappingStudies.variantIntersectionSet
     : [];
-  const transformOverlaps = d => ({
+  const transformOverlaps = (d) => ({
     ...d.study,
     associations: d.overlaps
-      .map(o => {
+      .map((o) => {
         const [chromosome, positionString] = o.variantIdB.split('_');
         const position = parseInt(positionString, 10);
         return {
@@ -135,23 +133,23 @@ function getStudiesTableData(data, studyId, studyIds) {
         return a.inIntersection === b.inIntersection
           ? a.position - b.position
           : a.inIntersection
-            ? 1
-            : -1;
+          ? 1
+          : -1;
       }),
   });
   const overlapsRootStudy = overlappingStudies
     ? overlappingStudies.overlappedVariantsForStudies.find(
-        d => d.study.studyId === studyId
+        (d) => d.study.studyId === studyId
       )
     : null;
   const overlapsStudies = overlappingStudies
     ? overlappingStudies.overlappedVariantsForStudies.filter(
-        d => d.study.studyId !== studyId
+        (d) => d.study.studyId !== studyId
       )
     : [];
   const pileupPseudoStudy = {
     pileup: true,
-    associations: variantIntersectionSet.map(d => {
+    associations: variantIntersectionSet.map((d) => {
       const [chromosome, positionString] = d.split('_');
       const position = parseInt(positionString, 10);
       return {
@@ -188,13 +186,12 @@ function getOverlappingVariants(
     return [];
   }
   return data.manhattan.associations
-    .filter(
-      d =>
-        studiesToCompare
-          ? variantIntersectionSet.indexOf(d.variant.id) >= 0
-          : true
+    .filter((d) =>
+      studiesToCompare
+        ? variantIntersectionSet.indexOf(d.variant.id) >= 0
+        : true
     )
-    .map(d => {
+    .map((d) => {
       const { variant, ...rest } = d;
       return {
         ...rest,
@@ -206,7 +203,7 @@ function getOverlappingVariants(
     });
 }
 
-const styles = theme => {
+const styles = (theme) => {
   return {
     section: {
       padding: theme.sectionPadding,
@@ -215,11 +212,11 @@ const styles = theme => {
   };
 };
 
-class StudiesPage extends React.Component {
-  handleAddStudy = studyId => {
+class StudiesPage extends Component {
+  handleAddStudy = (studyId) => {
     const { studyIds, ...rest } = this._parseQueryProps();
     const newStudyIds = studyIds
-      ? [studyId, ...studyIds.filter(d => d !== studyId)]
+      ? [studyId, ...studyIds.filter((d) => d !== studyId)]
       : [studyId];
     const newQueryParams = { ...rest };
     if (studyIds) {
@@ -227,24 +224,24 @@ class StudiesPage extends React.Component {
     }
     this._stringifyQueryProps(newQueryParams);
   };
-  handleDeleteStudy = studyId => () => {
+  handleDeleteStudy = (studyId) => () => {
     const { studyIds, ...rest } = this._parseQueryProps();
-    const newStudyIds = studyIds ? studyIds.filter(d => d !== studyId) : null;
+    const newStudyIds = studyIds ? studyIds.filter((d) => d !== studyId) : null;
     const newQueryParams = { ...rest };
     if (studyIds) {
       newQueryParams.studyIds = newStudyIds;
     }
     this._stringifyQueryProps(newQueryParams);
   };
-  handleChange = newStudies => {
+  handleChange = (newStudies) => {
     const { studyIds, ...rest } = this._parseQueryProps();
     const newQueryParams = { ...rest };
     if (newStudies && newStudies.length > 0) {
-      newQueryParams.studyIds = newStudies.map(d => d.study.studyId);
+      newQueryParams.studyIds = newStudies.map((d) => d.study.studyId);
     }
     this._stringifyQueryProps(newQueryParams);
   };
-  handleClick = overlap => {
+  handleClick = (overlap) => {
     const { match, history } = this.props;
     const { studyId } = match.params;
     const { studyIds } = this._parseQueryProps();
@@ -288,7 +285,7 @@ class StudiesPage extends React.Component {
                 studies,
               } = getStudiesTableData(data, studyId, studyIds);
               const studySelectValue = studySelectOptions.filter(
-                d => studyIds.indexOf(d.study.studyId) >= 0
+                (d) => studyIds.indexOf(d.study.studyId) >= 0
               );
               const overlappingVariants = getOverlappingVariants(
                 data,
@@ -338,12 +335,12 @@ class StudiesPage extends React.Component {
                       <Autocomplete
                         options={studySelectOptions}
                         value={studySelectValue}
-                        getOptionLabel={d =>
+                        getOptionLabel={(d) =>
                           `${d.study.traitReported} (${
                             d.study.pubAuthor
                           } ${new Date(d.study.pubDate).getFullYear()})`
                         }
-                        getOptionValue={d => d.study.studyId}
+                        getOptionValue={(d) => d.study.studyId}
                         handleSelectOption={this.handleChange}
                         placeholder="Add a study to compare..."
                         multiple

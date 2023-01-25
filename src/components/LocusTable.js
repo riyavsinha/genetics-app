@@ -1,4 +1,3 @@
-import React from 'react';
 import * as d3 from 'd3';
 import {
   Link,
@@ -30,7 +29,7 @@ export const tableColumns = ({
   {
     id: 'studyId',
     label: 'Study ID',
-    renderCell: rowData => (
+    renderCell: (rowData) => (
       <Link to={`/study/${rowData.studyId}`}>{rowData.studyId}</Link>
     ),
   },
@@ -41,18 +40,18 @@ export const tableColumns = ({
       <Autocomplete
         options={studyFilterOptions}
         value={studyFilterValue}
-        getOptionLabel={d =>
+        getOptionLabel={(d) =>
           `${d.traitReported} (${d.pubAuthor} ${new Date(
             d.pubDate
           ).getFullYear()})`
         }
-        getOptionValue={d => d.studyId}
+        getOptionValue={(d) => d.studyId}
         handleSelectOption={studyFilterHandler}
         placeholder="None"
         multiple
       />
     ),
-    renderCell: rowData => <StudyDetailCell {...rowData.study} />,
+    renderCell: (rowData) => <StudyDetailCell {...rowData.study} />,
   },
   {
     id: 'indexVariantId',
@@ -61,14 +60,14 @@ export const tableColumns = ({
       <Autocomplete
         options={indexVariantFilterOptions}
         value={indexVariantFilterValue}
-        getOptionLabel={d => `${d.id} (${d.rsId})`}
-        getOptionValue={d => d.id}
+        getOptionLabel={(d) => `${d.id} (${d.rsId})`}
+        getOptionValue={(d) => d.id}
         handleSelectOption={indexVariantFilterHandler}
         placeholder="None"
         multiple
       />
     ),
-    renderCell: rowData => (
+    renderCell: (rowData) => (
       <Link to={`/variant/${rowData.indexVariantId}`}>
         {rowData.indexVariantId}
       </Link>
@@ -81,14 +80,14 @@ export const tableColumns = ({
       <Autocomplete
         options={tagVariantFilterOptions}
         value={tagVariantFilterValue}
-        getOptionLabel={d => `${d.id} (${d.rsId})`}
-        getOptionValue={d => d.id}
+        getOptionLabel={(d) => `${d.id} (${d.rsId})`}
+        getOptionValue={(d) => d.id}
         handleSelectOption={tagVariantFilterHandler}
         placeholder="None"
         multiple
       />
     ),
-    renderCell: rowData => (
+    renderCell: (rowData) => (
       <Link to={`/variant/${rowData.tagVariantId}`}>
         {rowData.tagVariantId}
       </Link>
@@ -102,21 +101,21 @@ export const tableColumns = ({
       <Autocomplete
         options={geneFilterOptions}
         value={geneFilterValue}
-        getOptionLabel={d => d.symbol}
-        getOptionValue={d => d.id}
+        getOptionLabel={(d) => d.symbol}
+        getOptionValue={(d) => d.id}
         handleSelectOption={geneFilterHandler}
         placeholder="None"
         multiple
       />
     ),
-    renderCell: rowData => (
+    renderCell: (rowData) => (
       <Link to={`/gene/${rowData.geneId}`}>{rowData.gene.symbol}</Link>
     ),
   },
   {
     id: 'pval',
     label: 'Lead Variant P-value',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.pval < pvalThreshold
         ? `<${pvalThreshold}`
         : significantFigures(rowData.pval),
@@ -125,7 +124,7 @@ export const tableColumns = ({
     id: 'beta',
     label: 'Beta',
     tooltip: (
-      <React.Fragment>
+      <>
         Beta with respect to the ALT allele.
         <Link
           external
@@ -134,16 +133,16 @@ export const tableColumns = ({
         >
           See FAQ.
         </Link>
-      </React.Fragment>
+      </>
     ),
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.beta ? significantFigures(rowData.beta) : null,
   },
   {
     id: 'oddsRatio',
     label: 'Odds Ratio',
     tooltip: 'Odds ratio with respect to the ALT allele',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.oddsRatio ? significantFigures(rowData.oddsRatio) : null,
   },
   {
@@ -151,28 +150,28 @@ export const tableColumns = ({
     label: '95% Confidence Interval',
     tooltip:
       '95% confidence interval for the effect estimate. CIs are calculated approximately using the reported p-value.',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.beta
         ? `(${significantFigures(rowData.betaCILower)}, ${significantFigures(
             rowData.betaCIUpper
           )})`
         : rowData.oddsRatio
-          ? `(${significantFigures(
-              rowData.oddsRatioCILower
-            )}, ${significantFigures(rowData.oddsRatioCIUpper)})`
-          : null,
+        ? `(${significantFigures(
+            rowData.oddsRatioCILower
+          )}, ${significantFigures(rowData.oddsRatioCIUpper)})`
+        : null,
   },
   {
     id: 'method',
     label: 'Expansion',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.posteriorProbability ? 'Fine-mapping' : 'LD Expansion',
   },
   {
     id: 'r2',
     label: 'LD (r²)',
     tooltip: 'Linkage disequilibrium between lead and tag variants',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.r2 ? rowData.r2.toPrecision(3) : 'No information',
   },
   {
@@ -180,7 +179,7 @@ export const tableColumns = ({
     label: 'Posterior Probability',
     tooltip:
       'Posterior probability from fine-mapping that this tag variant is causal',
-    renderCell: rowData =>
+    renderCell: (rowData) =>
       rowData.posteriorProbability !== null
         ? rowData.posteriorProbability.toPrecision(3)
         : '',
@@ -188,7 +187,7 @@ export const tableColumns = ({
   {
     id: 'overallScore',
     label: 'Overall V2G',
-    renderCell: rowData => (
+    renderCell: (rowData) => (
       <DataCircle
         radius={overallScoreScale(rowData.overallScore)}
         colorScheme="bold"
@@ -198,7 +197,7 @@ export const tableColumns = ({
   {
     id: 'studyLocus',
     label: 'View',
-    renderCell: rowData => (
+    renderCell: (rowData) => (
       <StudyLocusLink
         indexVariantId={rowData.indexVariantId}
         studyId={rowData.studyId}
@@ -227,7 +226,7 @@ function LocusTable({
 }) {
   const overallScoreScale = d3
     .scaleSqrt()
-    .domain([0, d3.max(data, d => d.overallScore)])
+    .domain([0, d3.max(data, (d) => d.overallScore)])
     .range([0, 6]);
   return (
     <OtTable

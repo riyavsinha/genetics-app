@@ -120,35 +120,35 @@ const locusScheme = ({
   } = chained;
 
   const entities = {
-    genes: _.sortBy(genes, [d => !d.selected, d => !d.chained, 'symbol']),
+    genes: _.sortBy(genes, [(d) => !d.selected, (d) => !d.chained, 'symbol']),
     tagVariants: tagVariants,
     indexVariants: _.sortBy(indexVariants, [
-      d => !d.selected,
-      d => !d.chained,
+      (d) => !d.selected,
+      (d) => !d.chained,
 
       'id',
     ]),
     studies: _.sortBy(studies, [
-      d => !d.selected,
-      d => !d.chained,
+      (d) => !d.selected,
+      (d) => !d.chained,
       'traitReported',
       'pubAuthor',
     ]),
   };
 
-  const genesFiltered = genes.filter(d => d.chained);
+  const genesFiltered = genes.filter((d) => d.chained);
   const tagVariantsFiltered = tagVariants
-    .filter(d => d.chained)
+    .filter((d) => d.chained)
     .sort(variantComparator);
   const indexVariantsFiltered = indexVariants
-    .filter(d => d.chained)
+    .filter((d) => d.chained)
     .sort(variantComparator);
-  const studiesFiltered = studies.filter(d => d.chained);
+  const studiesFiltered = studies.filter((d) => d.chained);
   const geneTagVariantsFiltered = geneTagVariants
-    .filter(d => d.chained)
+    .filter((d) => d.chained)
     .sort(geneTagVariantComparator);
   const tagVariantIndexVariantStudiesFiltered = tagVariantIndexVariantStudies
-    .filter(d => d.chained)
+    .filter((d) => d.chained)
     .sort(tagVariantIndexVariantStudyComparator);
 
   const isEmpty =
@@ -187,9 +187,10 @@ const locusScheme = ({
       const geneTagVariantsSorted = geneTagVariants.sort(
         geneTagVariantComparator
       );
-      const tagVariantIndexVariantStudiesSorted = tagVariantIndexVariantStudies.sort(
-        tagVariantIndexVariantStudyComparator
-      );
+      const tagVariantIndexVariantStudiesSorted =
+        tagVariantIndexVariantStudies.sort(
+          tagVariantIndexVariantStudyComparator
+        );
       plot = {
         genes,
         tagVariants: tagVariantsSorted,

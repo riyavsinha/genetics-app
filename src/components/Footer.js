@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Icon from '@material-ui/core/Icon';
-import { withStyles } from '@material-ui/core/styles';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Icon from '@mui/material/Icon';
+import withStyles from '@mui/styles/withStyles';
 
 import Link from './Link';
 import EmailLink from './EmailLink';
 
-const styles = theme => ({
+const styles = (theme) => ({
   footer: {
     backgroundColor: theme.palette.footer,
     color: '#fff',

@@ -1,29 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
-import { loader } from 'graphql.macro';
-import {
-  Box,
-  CircularProgress,
-  Input,
-  InputBase,
-  makeStyles,
-} from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
-import { Search as SearchIcon, ArrowDropDown } from '@material-ui/icons';
+import { Box, CircularProgress, Input, InputBase } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { Autocomplete } from '@mui/material';
+import { Search as SearchIcon, ArrowDropDown } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
+import { SEARCH_QUERY } from './SearchQuery';
 
 import useDebounce from '../../hooks/useDebounce';
 import Option from './Option';
 import Group from './Group';
 
-const SEARCH_QUERY = loader('./SearchQuery.gql');
 const EntitiesMap = {
   genes: 'gene',
   studies: 'study',
   variants: 'variant',
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     width: '100%',
   },
@@ -50,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Search({ autoFocus = false, embedded = false }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const debouncedInputValue = useDebounce(inputValue, 300);
   const [getData, { loading, data }] = useLazyQuery(SEARCH_QUERY, {
@@ -60,7 +54,7 @@ function Search({ autoFocus = false, embedded = false }) {
   const [searchResults, setSearchResults] = useState([]);
   let history = useHistory();
 
-  const handleChangeInputValue = e => {
+  const handleChangeInputValue = (e) => {
     if (!e.target.value) {
       setOpen(false);
     } else {
@@ -81,36 +75,30 @@ function Search({ autoFocus = false, embedded = false }) {
     }
   };
 
-  useEffect(
-    () => {
-      if (debouncedInputValue) {
-        getData({ variables: { queryString: debouncedInputValue } });
-      } else {
-        setSearchResults([]);
-      }
-    },
-    [debouncedInputValue, getData]
-  );
+  useEffect(() => {
+    if (debouncedInputValue) {
+      getData({ variables: { queryString: debouncedInputValue } });
+    } else {
+      setSearchResults([]);
+    }
+  }, [debouncedInputValue, getData]);
 
-  useEffect(
-    () => {
-      const res = [];
+  useEffect(() => {
+    const res = [];
 
-      if (data) {
-        ['variants', 'genes', 'studies'].forEach(key =>
-          data.search[key].map(element =>
-            res.push({
-              type: key === 'topHit' ? 'topHit' : 'normal',
-              entity: EntitiesMap[key],
-              ...element,
-            })
-          )
-        );
-      }
-      setSearchResults(res);
-    },
-    [data, inputValue]
-  );
+    if (data) {
+      ['variants', 'genes', 'studies'].forEach((key) =>
+        data.search[key].map((element) =>
+          res.push({
+            type: key === 'topHit' ? 'topHit' : 'normal',
+            entity: EntitiesMap[key],
+            ...element,
+          })
+        )
+      );
+    }
+    setSearchResults(res);
+  }, [data, inputValue]);
 
   const classes = useStyles();
 
@@ -128,9 +116,9 @@ function Search({ autoFocus = false, embedded = false }) {
           root: classes.root,
         }}
         filterOptions={(o, s) => searchResults}
-        getOptionLabel={option => (option.id ? option.id : option)}
-        getOptionSelected={(option, value) => option.id === value}
-        groupBy={option =>
+        getOptionLabel={(option) => option.id ?? option.studyId ?? option}
+        isOptionEqualToValue={(option, value) => option.id === value}
+        groupBy={(option) =>
           option.type === 'topHit' ? 'topHit' : option.entity
         }
         loading={loading}
@@ -145,11 +133,15 @@ function Search({ autoFocus = false, embedded = false }) {
         }}
         open={open}
         popupIcon={open ? <ArrowDropDown /> : <SearchIcon />}
-        renderOption={option => <Option data={option} />}
-        renderGroup={group => (
+        renderOption={(props, option) => (
+          <li {...props}>
+            <Option data={option} />
+          </li>
+        )}
+        renderGroup={(group) => (
           <Group key={group.key} name={group.group} children={group.children} />
         )}
-        renderInput={params =>
+        renderInput={(params) =>
           !embedded ? (
             <Input
               className={classes.input}

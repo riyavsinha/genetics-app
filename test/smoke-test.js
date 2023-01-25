@@ -1,5 +1,5 @@
 const tests = {
-  'smoke test': browser => {
+  'smoke test': (browser) => {
     return browser
       .url('http://localhost:8080/gene/ENSG00000169174')
       .waitForElementVisible('body', 3000)

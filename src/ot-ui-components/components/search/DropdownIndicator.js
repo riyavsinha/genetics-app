@@ -1,5 +1,4 @@
-import React from 'react';
-import SearchIcon from '@material-ui/icons/Search';
+import SearchIcon from '@mui/icons-material/Search';
 
 const DropdownIndicator = ({ inputRef, innerProps }) => {
   return <SearchIcon ref={inputRef} {...innerProps} color="inherit" />;

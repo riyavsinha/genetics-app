@@ -1,6 +1,5 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core';
-import Tooltip from '@material-ui/core/Tooltip';
+import withStyles from '@mui/styles/withStyles';
+import Tooltip from '@mui/material/Tooltip';
 
 import { Link, Button } from '../ot-ui-components';
 

@@ -1,9 +1,8 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import withStyles from '@mui/styles/withStyles';
+import Grid from '@mui/material/Grid';
 import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
-import { Skeleton } from '@material-ui/lab';
+import { Skeleton } from '@mui/material';
 import { Link, Typography, SectionHeading } from '../../../ot-ui-components';
 import {
   commaSeparate,
@@ -11,6 +10,7 @@ import {
   variantGetInfo,
   variantPopulations,
 } from '../../../utils';
+import { Fragment } from 'react';
 
 const VARIANT_SUMMARY_QUERY = loader('./VariantSummary.gql');
 
@@ -172,8 +172,8 @@ function Summary({ classes, variantId }) {
           </Typography>
           <Grid container>
             {!loading &&
-              variantPopulations.map(p => (
-                <React.Fragment key={p.code}>
+              variantPopulations.map((p) => (
+                <Fragment key={p.code}>
                   <Grid item xs={9}>
                     <Typography variant="subtitle2">{p.description}</Typography>
                   </Grid>
@@ -184,7 +184,7 @@ function Summary({ classes, variantId }) {
                         : 'N/A'}
                     </Typography>
                   </Grid>
-                </React.Fragment>
+                </Fragment>
               ))}
           </Grid>
         </Grid>

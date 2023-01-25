@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Query } from '@apollo/client/react/components';
 import _ from 'lodash';
 import { loader } from 'graphql.macro';
-import { Typography, NativeSelect } from '@material-ui/core';
+import { Typography, NativeSelect } from '@mui/material';
 
 import {
   DownloadSVGPlot,
@@ -27,7 +27,7 @@ function hasAssociations(data) {
 }
 
 function transformPheWAS(data) {
-  return data.pheWAS.associations.map(d => {
+  return data.pheWAS.associations.map((d) => {
     const { study, ...rest } = d;
     const {
       studyId,
@@ -37,8 +37,7 @@ function transformPheWAS(data) {
       pubAuthor,
       pmid,
       source,
-    } =
-      study ?? {};
+    } = study ?? {};
     return {
       studyId,
       source,
@@ -87,7 +86,7 @@ function PheWASSection({
   }
 
   function handleTraitSelection(newDropdownValue) {
-    setSelectedCategories(_ => newDropdownValue.map(d => d.value));
+    setSelectedCategories((_) => newDropdownValue.map((d) => d.value));
   }
 
   return (
@@ -109,7 +108,7 @@ function PheWASSection({
         );
         const pheWASAssociations = isPheWASVariant ? transformPheWAS(data) : [];
         // phewas - filtered
-        const pheWASAssociationsFiltered = pheWASAssociations.filter(d => {
+        const pheWASAssociationsFiltered = pheWASAssociations.filter((d) => {
           return (
             (phewasTraitFilterUrl
               ? phewasTraitFilterUrl.indexOf(d.traitReported) >= 0
@@ -122,8 +121,8 @@ function PheWASSection({
         });
         // phewas - filters
         const phewasTraitFilterOptions = _.sortBy(
-          _.uniq(pheWASAssociationsFiltered.map(d => d.traitReported)).map(
-            d => ({
+          _.uniq(pheWASAssociationsFiltered.map((d) => d.traitReported)).map(
+            (d) => ({
               label: d,
               value: d,
               selected: phewasTraitFilterUrl
@@ -131,14 +130,14 @@ function PheWASSection({
                 : false,
             })
           ),
-          [d => !d.selected, 'value']
+          [(d) => !d.selected, 'value']
         );
         const phewasTraitFilterValue = phewasTraitFilterOptions.filter(
-          d => d.selected
+          (d) => d.selected
         );
         const phewasCategoryFilterOptions = _.sortBy(
-          _.uniq(pheWASAssociationsFiltered.map(d => d.traitCategory)).map(
-            d => ({
+          _.uniq(pheWASAssociationsFiltered.map((d) => d.traitCategory)).map(
+            (d) => ({
               label: d,
               value: d,
               selected: phewasCategoryFilterUrl
@@ -146,14 +145,14 @@ function PheWASSection({
                 : false,
             })
           ),
-          [d => !d.selected, 'value']
+          [(d) => !d.selected, 'value']
         );
         const phewasCategoryFilterValue = phewasCategoryFilterOptions.filter(
-          d => d.selected
+          (d) => d.selected
         );
 
         return (
-          <React.Fragment>
+          <>
             <SectionHeading
               heading="PheWAS"
               subheading="Which traits are associated with this variant in the UK Biobank, FinnGen, and/or GWAS Catalog summary statistics repository? Only traits with P-value < 0.005 are returned"
@@ -221,7 +220,7 @@ function PheWASSection({
               categoryFilterOptions={phewasCategoryFilterOptions}
               categoryFilterHandler={handlePhewasCategoryFilter}
             />
-          </React.Fragment>
+          </>
         );
       }}
     </Query>

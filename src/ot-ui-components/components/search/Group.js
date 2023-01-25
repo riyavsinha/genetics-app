@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Group = ({ children, Heading, headingProps, label }) => (
   <div>
     <Heading {...headingProps}>{label}</Heading>

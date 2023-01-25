@@ -1,4 +1,3 @@
-import React from 'react';
 import { Typography } from '../ot-ui-components';
 
 import Chip from './LocusChip';
@@ -21,10 +20,10 @@ const LocusSelection = ({
     !selectedTagVariants &&
     !selectedGenes;
 
-  const geneIsInData = d => geneDict[d];
-  const tagVariantIsInData = d => tagVariantDict[d];
-  const indexVariantIsInData = d => indexVariantDict[d];
-  const studyIsInData = d => studyDict[d];
+  const geneIsInData = (d) => geneDict[d];
+  const tagVariantIsInData = (d) => tagVariantDict[d];
+  const indexVariantIsInData = (d) => indexVariantDict[d];
+  const studyIsInData = (d) => studyDict[d];
   return (
     <div>
       {noSelection ? (
@@ -33,7 +32,7 @@ const LocusSelection = ({
         </div>
       ) : null}
       {selectedStudies
-        ? selectedStudies.map(d => (
+        ? selectedStudies.map((d) => (
             <Chip
               key={d}
               label={
@@ -53,7 +52,7 @@ const LocusSelection = ({
           ))
         : null}
       {selectedIndexVariants
-        ? selectedIndexVariants.map(d => (
+        ? selectedIndexVariants.map((d) => (
             <Chip
               key={d}
               label={indexVariantIsInData(d) ? d : `${d} (no data)`}
@@ -63,7 +62,7 @@ const LocusSelection = ({
           ))
         : null}
       {selectedTagVariants
-        ? selectedTagVariants.map(d => (
+        ? selectedTagVariants.map((d) => (
             <Chip
               key={d}
               label={tagVariantIsInData(d) ? d : `${d} (no data)`}
@@ -73,7 +72,7 @@ const LocusSelection = ({
           ))
         : null}
       {selectedGenes
-        ? selectedGenes.map(d => (
+        ? selectedGenes.map((d) => (
             <Chip
               key={d}
               label={geneIsInData(d) ? geneDict[d].symbol : `${d} (no data)`}

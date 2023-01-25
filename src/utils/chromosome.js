@@ -2,9 +2,11 @@ import GRCh38 from './GRCh38';
 
 // get the cytoband of a position on a chromosome
 export const getCytoband = (chromosome, position) => {
-  const chrom = GRCh38.top_level_region.find(d => d.name === chromosome);
+  const chrom = GRCh38.top_level_region.find((d) => d.name === chromosome);
   if (chrom) {
-    const band = chrom.bands.find(d => d.start <= position && d.end > position);
+    const band = chrom.bands.find(
+      (d) => d.start <= position && d.end > position
+    );
     if (band) {
       const [major] = band.id.split('.');
       return `${chrom.name}${major}`;
@@ -24,8 +26,8 @@ for (let i = 0; i < 22; i++) {
 export const chromosomeNames = [...chromosomesNumeric, 'X', 'Y'];
 
 // calculate chromosomes with cumulative lengths (also as fraction)
-const chromosomesWithLengths = chromosomeNames.map(chr => {
-  const chrom = GRCh38.top_level_region.find(d => d.name === chr);
+const chromosomesWithLengths = chromosomeNames.map((chr) => {
+  const chrom = GRCh38.top_level_region.find((d) => d.name === chr);
   return { name: chr, length: chrom.length };
 });
 const totalLength = chromosomesWithLengths.reduce((acc, d) => {

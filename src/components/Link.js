@@ -1,10 +1,10 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link as RouterLink } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
+import { Component } from 'react';
 
-const styles = theme => ({
+const styles = (theme) => ({
   base: {
     fontFamily: 'Inter',
     fontSize: 'inherit',
@@ -42,7 +42,7 @@ const styles = theme => ({
   },
 });
 
-class Link extends React.Component {
+class Link extends Component {
   render() {
     const {
       classes = {},

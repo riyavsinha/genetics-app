@@ -1,10 +1,9 @@
-import React from 'react';
-import Icon from '@material-ui/core/Icon';
-import { withStyles } from '@material-ui/core/styles';
+import Icon from '@mui/material/Icon';
+import withStyles from '@mui/styles/withStyles';
 import classNames from 'classnames';
 import { withContentRect } from 'react-measure';
 
-const styles = theme => ({
+const styles = (theme) => ({
   emailLink: {
     display: 'flex',
     alignItems: 'center',

@@ -1,8 +1,7 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import MuiSlider from '@material-ui/core/Slider';
-import Grid from '@material-ui/core/Grid';
+import withStyles from '@mui/styles/withStyles';
+import Typography from '@mui/material/Typography';
+import MuiSlider from '@mui/material/Slider';
+import Grid from '@mui/material/Grid';
 
 const styles = {
   root: {

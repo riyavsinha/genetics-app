@@ -1,5 +1,4 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import makeStyles from '@mui/styles/makeStyles';
 
 import { Button } from '../../ot-ui-components';
 

@@ -21,17 +21,14 @@ class CredibleSet extends Component {
         ? 0
         : outerWidth - theme.margin.left - theme.margin.right;
 
-    const xScale = d3
-      .scaleLinear()
-      .domain([start, end])
-      .range([0, width]);
+    const xScale = d3.scaleLinear().domain([start, end]).range([0, width]);
 
     const posteriorProbabilityScale = d3
       .scaleLinear()
       .domain([0, 1])
       .range(['cyan', 'darkblue']);
 
-    const bars = data.map(d => {
+    const bars = data.map((d) => {
       return {
         x: xScale(d.position),
         color: posteriorProbabilityScale(d.posteriorProbability),
@@ -54,9 +51,7 @@ class CredibleSet extends Component {
           height={OUTER_HEIGHT}
         >
           <g
-            transform={`translate(${theme.margin.left}, ${
-              theme.margin.credibleSetTop
-            })`}
+            transform={`translate(${theme.margin.left}, ${theme.margin.credibleSetTop})`}
           >
             <text
               fontSize={14}
@@ -89,9 +84,7 @@ class CredibleSet extends Component {
             />
           </g>
           <g
-            transform={`translate(${theme.margin.left}, ${
-              theme.margin.credibleSetTop
-            })`}
+            transform={`translate(${theme.margin.left}, ${theme.margin.credibleSetTop})`}
           >
             {bars.map((bar, i) => {
               return (

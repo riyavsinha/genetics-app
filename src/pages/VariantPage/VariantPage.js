@@ -32,19 +32,19 @@ const VARIANT_PAGE_QUERY = loader('../../queries/VariantPageQuery.gql');
 const VARIANT_HEADER_QUERY = loader('./VariantHeader.gql');
 
 function VariantPage(props) {
-  const handlePhewasTraitFilter = newPhewasTraitFilterValue => {
+  const handlePhewasTraitFilter = (newPhewasTraitFilterValue) => {
     const { phewasTraitFilter, ...rest } = _parseQueryProps();
     const newQueryParams = {
       ...rest,
     };
     if (newPhewasTraitFilterValue && newPhewasTraitFilterValue.length > 0) {
       newQueryParams.phewasTraitFilter = newPhewasTraitFilterValue.map(
-        d => d.value
+        (d) => d.value
       );
     }
     _stringifyQueryProps(newQueryParams);
   };
-  const handlePhewasCategoryFilter = newPhewasCategoryFilterValue => {
+  const handlePhewasCategoryFilter = (newPhewasCategoryFilterValue) => {
     const { phewasCategoryFilter, ...rest } = _parseQueryProps();
     const newQueryParams = {
       ...rest,
@@ -54,7 +54,7 @@ function VariantPage(props) {
       newPhewasCategoryFilterValue.length > 0
     ) {
       newQueryParams.phewasCategoryFilter = newPhewasCategoryFilterValue.map(
-        d => d.value
+        (d) => d.value
       );
     }
     _stringifyQueryProps(newQueryParams);
@@ -78,7 +78,7 @@ function VariantPage(props) {
     }
     return queryProps;
   };
-  const _stringifyQueryProps = newQueryParams => {
+  const _stringifyQueryProps = (newQueryParams) => {
     const { history } = props;
     history.replace({
       ...history.location,

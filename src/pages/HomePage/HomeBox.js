@@ -1,9 +1,10 @@
-import React from 'react';
-import { Grid, Paper, withStyles } from '@material-ui/core';
+import { Grid, Paper } from '@mui/material';
+
+import withStyles from '@mui/styles/withStyles';
 
 import OTLogo from '../../assets/OTLogo';
 
-const styles = theme => ({
+const styles = (theme) => ({
   homeboxContainer: {
     overflow: 'visible',
     padding: '30px 60px',

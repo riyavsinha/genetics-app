@@ -1,5 +1,4 @@
-import React from 'react';
-import { default as MuiButton } from '@material-ui/core/Button';
+import { default as MuiButton } from '@mui/material/Button';
 
 const Button = ({ children, color, variant, ...rest }) => (
   <MuiButton

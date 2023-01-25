@@ -1,5 +1,6 @@
-import React from 'react';
-import { SvgIcon, withStyles } from '@material-ui/core';
+import { SvgIcon } from '@mui/material';
+
+import withStyles from '@mui/styles/withStyles';
 
 const styles = () => ({
   root: {

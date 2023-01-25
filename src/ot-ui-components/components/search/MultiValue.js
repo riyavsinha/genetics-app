@@ -1,12 +1,11 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import MuiChip from '@material-ui/core/Chip';
-import CancelIcon from '@material-ui/icons/Cancel';
+import withStyles from '@mui/styles/withStyles';
+import MuiChip from '@mui/material/Chip';
+import CancelIcon from '@mui/icons-material/Cancel';
 
-const styles = theme => ({
+const styles = (theme) => ({
   miniChip: {
     color: 'white',
-    backgroundColor: props =>
+    backgroundColor: (props) =>
       props.data.chipcolor ? props.data.chipcolor : theme.palette.primary.main,
     margin: '1px',
     height: '20px',

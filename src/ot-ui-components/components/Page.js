@@ -1,9 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
+import Grid from '@mui/material/Grid';
+import withStyles from '@mui/styles/withStyles';
+import { Component } from 'react';
 
-const styles = theme => ({
+const styles = (theme) => ({
   page: {
     background: theme.palette.grey['50'],
     minHeight: '100vh',
@@ -20,7 +20,7 @@ const styles = theme => ({
   },
 });
 
-class Page extends React.Component {
+class Page extends Component {
   render() {
     const { classes, header, footer, children } = this.props;
     return (

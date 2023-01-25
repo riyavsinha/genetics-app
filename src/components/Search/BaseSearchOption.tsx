@@ -1,9 +1,9 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import { ClassNameMap, Theme } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import withStyles, { Styles } from '@mui/styles/withStyles';
 
-const styles = theme => ({
+const styles: Styles<Theme, {}> = (theme: Theme) => ({
   heading: {
     color: theme.palette.primary.main,
     fontWeight: 'bold',
@@ -35,14 +35,22 @@ const styles = theme => ({
   },
 });
 
-const SearchOption = ({
+type BaseSearchOptionProps = {
+  classes: ClassNameMap;
+  heading: string;
+  subheading: string;
+  extra?: string | JSX.Element;
+  count?: number;
+  proportion?: number;
+};
+const BaseSearchOption = ({
   classes,
   heading,
   subheading,
   extra,
   count,
   proportion,
-}) => (
+}: BaseSearchOptionProps) => (
   <Grid container>
     <Grid item xs={12}>
       <Typography variant="body1">
@@ -69,4 +77,4 @@ const SearchOption = ({
   </Grid>
 );
 
-export default withStyles(styles)(SearchOption);
+export default withStyles(styles)(BaseSearchOption);

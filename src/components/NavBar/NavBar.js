@@ -1,18 +1,17 @@
-import React from 'react';
 import { Link as ReactRouterLink } from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { MenuItem, MenuList } from '@material-ui/core';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { MenuItem, MenuList } from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import withStyles from '@mui/styles/withStyles';
 import classNames from 'classnames';
 import Link from '../Link';
 import OpenTargetsTitle from './OpenTargetsTitle';
 import HeaderMenu from './HeaderMenu';
 
-const styles = theme => ({
+const styles = (theme) => ({
   navbar: {
     backgroundColor: theme.palette.primary.main,
     margin: 0,

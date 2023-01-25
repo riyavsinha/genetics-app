@@ -1,4 +1,3 @@
-import React from 'react';
 import * as d3 from 'd3';
 
 import {
@@ -14,7 +13,7 @@ const tableColumns = [
     id: 'gene.symbol',
     label: 'Gene',
     comparator: (a, b) => d3.ascending(a.gene.symbol, b.gene.symbol),
-    renderCell: d => <Link to={`/gene/${d.gene.id}`}>{d.gene.symbol}</Link>,
+    renderCell: (d) => <Link to={`/gene/${d.gene.id}`}>{d.gene.symbol}</Link>,
   },
   {
     id: 'yProbaModel',
@@ -22,7 +21,7 @@ const tableColumns = [
     tooltip:
       'Overall evidence linking gene to this study using all features. Score range [0, 1].',
     comparator: (a, b) => d3.ascending(a.yProbaModel, b.yProbaModel),
-    renderCell: d => significantFigures(d.yProbaModel),
+    renderCell: (d) => significantFigures(d.yProbaModel),
   },
   {
     id: 'yProbaPathogenicity',
@@ -31,7 +30,7 @@ const tableColumns = [
       'Evidence linking gene to this study including variant pathogenicity features only. Score range [0, 1].',
     comparator: (a, b) =>
       d3.ascending(a.yProbaPathogenicity, b.yProbaPathogenicity),
-    renderCell: d => significantFigures(d.yProbaPathogenicity),
+    renderCell: (d) => significantFigures(d.yProbaPathogenicity),
   },
   {
     id: 'yProbaDistance',
@@ -39,7 +38,7 @@ const tableColumns = [
     tooltip:
       'Evidence linking gene to this study including distance features only. Score range [0, 1].',
     comparator: (a, b) => d3.ascending(a.yProbaDistance, b.yProbaDistance),
-    renderCell: d => significantFigures(d.yProbaDistance),
+    renderCell: (d) => significantFigures(d.yProbaDistance),
   },
   {
     id: 'yProbaMolecularQTL',
@@ -48,7 +47,7 @@ const tableColumns = [
       'Evidence linking gene to this study including molecular trait colocalisation features only. Score range [0, 1].',
     comparator: (a, b) =>
       d3.ascending(a.yProbaMolecularQTL, b.yProbaMolecularQTL),
-    renderCell: d => significantFigures(d.yProbaMolecularQTL),
+    renderCell: (d) => significantFigures(d.yProbaMolecularQTL),
   },
   {
     id: 'yProbaInteraction',
@@ -57,19 +56,19 @@ const tableColumns = [
       'Evidence linking gene to this study including chromatin interaction features only. Score range [0, 1].',
     comparator: (a, b) =>
       d3.ascending(a.yProbaInteraction, b.yProbaInteraction),
-    renderCell: d => significantFigures(d.yProbaInteraction),
+    renderCell: (d) => significantFigures(d.yProbaInteraction),
   },
   {
     id: 'distanceToLocus',
     label: 'Distance to locus (bp)',
     comparator: (a, b) => d3.ascending(a.distanceToLocus, b.distanceToLocus),
-    renderCell: d =>
+    renderCell: (d) =>
       d.distanceToLocus ? commaSeparate(d.distanceToLocus) : '',
   },
   {
     id: 'hasColoc',
     label: 'Evidence of colocalisation',
-    renderCell: d =>
+    renderCell: (d) =>
       d.hasColoc ? (
         <a href="#coloc" style={{ color: '#3489ca', textDecoration: 'none' }}>
           Yes
@@ -96,8 +95,8 @@ const getDownloadColumns = () => {
   ];
 };
 
-const getDownloadRows = data => {
-  return data.map(d => ({
+const getDownloadRows = (data) => {
+  return data.map((d) => ({
     geneSymbol: d.gene.symbol,
     geneId: d.gene.id,
     yProbaModel: d.yProbaModel,
@@ -112,7 +111,7 @@ const getDownloadRows = data => {
 
 const ColocL2GTable = ({ loading, error, fileStem, data }) => {
   return (
-    <React.Fragment>
+    <>
       <DataDownloader
         tableHeaders={getDownloadColumns()}
         rows={getDownloadRows(data)}
@@ -134,7 +133,7 @@ const ColocL2GTable = ({ loading, error, fileStem, data }) => {
           { colspan: 3, label: '' },
         ]}
       />
-    </React.Fragment>
+    </>
   );
 };
 

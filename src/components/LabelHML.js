@@ -1,7 +1,6 @@
-import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 
-const styles = theme => ({
+const styles = (theme) => ({
   high: {
     color: theme.palette.high,
   },
@@ -21,10 +20,10 @@ const LabelHML = ({ level, children, classes }) => {
     level === 'L'
       ? classes.low
       : level === 'M'
-        ? classes.medium
-        : level === 'H'
-          ? classes.high
-          : classes.default;
+      ? classes.medium
+      : level === 'H'
+      ? classes.high
+      : classes.default;
   return <span className={labelClass}>{children}</span>;
 };
 

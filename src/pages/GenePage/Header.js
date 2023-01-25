@@ -1,7 +1,7 @@
-import React from 'react';
 import { faDna } from '@fortawesome/free-solid-svg-icons';
-import { Grid, makeStyles, Typography } from '@material-ui/core';
-import { Skeleton } from '@material-ui/lab';
+import { Grid, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { Skeleton } from '@mui/material';
 import { useQuery } from '@apollo/client';
 import { loader } from 'graphql.macro';
 import { Link as RouterLink } from 'react-router-dom';
@@ -18,7 +18,7 @@ import {
 
 const GENE_HEADER_QUERY = loader('./GeneHeader.gql');
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   sectionContainer: {
     marginBottom: '20px',
     '& span': {

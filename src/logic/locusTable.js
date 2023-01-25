@@ -13,10 +13,10 @@ const locusTable = (
 
   // build rows
   const rows = [];
-  geneTagVariants.forEach(g2tv => {
+  geneTagVariants.forEach((g2tv) => {
     tagVariantIndexVariantStudies
-      .filter(tv2iv2s => g2tv.tagVariantId === tv2iv2s.tagVariantId)
-      .forEach(tv2iv2s => {
+      .filter((tv2iv2s) => g2tv.tagVariantId === tv2iv2s.tagVariantId)
+      .forEach((tv2iv2s) => {
         rows.push({
           ...g2tv,
           ...tv2iv2s,

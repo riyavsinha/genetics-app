@@ -1,50 +1,50 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Tooltip from '@material-ui/core/Tooltip';
-import Badge from '@material-ui/core/Badge';
-import IconButton from '@material-ui/core/IconButton';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import LastPageIcon from '@material-ui/icons/LastPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import HelpIcon from '@material-ui/icons/Help';
+import withStyles from '@mui/styles/withStyles';
+import Typography from '@mui/material/Typography';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableBody from '@mui/material/TableBody';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import TablePagination from '@mui/material/TablePagination';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import Tooltip from '@mui/material/Tooltip';
+import Badge from '@mui/material/Badge';
+import IconButton from '@mui/material/IconButton';
+import FirstPageIcon from '@mui/icons-material/FirstPage';
+import LastPageIcon from '@mui/icons-material/LastPage';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import HelpIcon from '@mui/icons-material/Help';
 
 import PlotContainer from './PlotContainer';
 import PlotContainerSection from './PlotContainerSection';
 
 const PAGE_SIZE = 10;
 
-const actionsStyles = theme => ({
+const actionsStyles = (theme) => ({
   root: {
     flexShrink: 0,
   },
 });
 
 class TablePaginationActions extends Component {
-  handleFirstPageButtonClick = event => {
+  handleFirstPageButtonClick = (event) => {
     this.props.onPageChange(event, 0);
   };
 
-  handleBackButtonClick = event => {
+  handleBackButtonClick = (event) => {
     const { onPageChange, page } = this.props;
     onPageChange(event, page - 1);
   };
 
-  handleNextButtonClick = event => {
+  handleNextButtonClick = (event) => {
     const { onPageChange, page } = this.props;
     onPageChange(event, page + 1);
   };
 
-  handleLastPageButtonClick = event => {
+  handleLastPageButtonClick = (event) => {
     const { onPageChange, count, rowsPerPage } = this.props;
     const lastPage = Math.ceil(count / rowsPerPage) - 1;
     onPageChange(event, lastPage);
@@ -59,6 +59,7 @@ class TablePaginationActions extends Component {
           onClick={this.handleFirstPageButtonClick}
           disabled={page === 0}
           aria-label="First Page"
+          size="large"
         >
           <FirstPageIcon />
         </IconButton>
@@ -66,6 +67,7 @@ class TablePaginationActions extends Component {
           onClick={this.handleBackButtonClick}
           disabled={page === 0}
           aria-label="Previous Page"
+          size="large"
         >
           <KeyboardArrowLeft />
         </IconButton>
@@ -73,6 +75,7 @@ class TablePaginationActions extends Component {
           onClick={this.handleNextButtonClick}
           disabled={page >= lastPage}
           aria-label="Next Page"
+          size="large"
         >
           <KeyboardArrowRight />
         </IconButton>
@@ -80,6 +83,7 @@ class TablePaginationActions extends Component {
           onClick={this.handleLastPageButtonClick}
           disabled={page >= lastPage}
           aria-label="Last Page"
+          size="large"
         >
           <LastPageIcon />
         </IconButton>
@@ -91,7 +95,7 @@ class TablePaginationActions extends Component {
 TablePaginationActions = withStyles(actionsStyles)(TablePaginationActions);
 
 const getComparator = (columns, sortBy, order) => {
-  const column = columns.find(col => col.id === sortBy);
+  const column = columns.find((col) => col.id === sortBy);
 
   if (column && column.comparator) {
     if (order === 'asc') {
@@ -117,7 +121,7 @@ const getComparator = (columns, sortBy, order) => {
   };
 };
 
-const tableStyles = theme => ({
+const tableStyles = (theme) => ({
   tableWrapper: {
     overflowX: 'auto',
   },
@@ -205,7 +209,7 @@ class OtTableRF extends Component {
     }
   };
 
-  selectSortColumn = sortBy => {
+  selectSortColumn = (sortBy) => {
     const { reportTableSortEvent, onPageSort } = this.props;
     let order = 'desc';
 
@@ -246,7 +250,7 @@ class OtTableRF extends Component {
     const { sortBy, order, page } = this.state;
     const filterRow = filters ? (
       <TableRow className={classes.tableRowFilters}>
-        {columns.map(column => (
+        {columns.map((column) => (
           <TableCell key={column.id} className={classes.tableCellHeader}>
             {column.renderFilter ? column.renderFilter() : null}
           </TableCell>
@@ -288,7 +292,7 @@ class OtTableRF extends Component {
                   </TableRow>
                 ) : null}
                 <TableRow>
-                  {columns.map(column => (
+                  {columns.map((column) => (
                     <TableCell
                       key={column.id}
                       className={classNames(classes.tableCellHeader, {
@@ -315,11 +319,7 @@ class OtTableRF extends Component {
                             <Badge
                               className={classes.badgeWithTooltip}
                               badgeContent={
-                                <Tooltip
-                                  title={column.tooltip}
-                                  placement="top"
-                                  interactive
-                                >
+                                <Tooltip title={column.tooltip} placement="top">
                                   <HelpIcon className={classes.tooltipIcon} />
                                 </Tooltip>
                               }
@@ -353,7 +353,7 @@ class OtTableRF extends Component {
                         component={tableRowComponent}
                         data={row}
                       >
-                        {columnsFixed.map(column => (
+                        {columnsFixed.map((column) => (
                           <TableCell
                             key={column.id}
                             className={classNames(classes.tableCell, {
@@ -386,7 +386,7 @@ class OtTableRF extends Component {
                       component={tableRowComponent}
                       data={row}
                     >
-                      {columns.map(column => (
+                      {columns.map((column) => (
                         <TableCell
                           key={column.id}
                           className={classNames(classes.tableCell, {

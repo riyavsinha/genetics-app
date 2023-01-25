@@ -7,9 +7,9 @@ import {
   Fade,
   Paper,
   ClickAwayListener,
-} from '@material-ui/core';
-import { Menu as MenuIcon, Close as CloseIcon } from '@material-ui/icons';
-import { withStyles } from '@material-ui/core/styles';
+} from '@mui/material';
+import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
+import withStyles from '@mui/styles/withStyles';
 import Link from '../Link';
 
 const styles = () => ({
@@ -36,7 +36,7 @@ class HeaderMenu extends Component {
     };
   }
 
-  handleMenuToggle = event => {
+  handleMenuToggle = (event) => {
     const { anchorEl } = this.state;
     this.setState({
       anchorEl: anchorEl === null ? event.currentTarget : null,
@@ -49,7 +49,7 @@ class HeaderMenu extends Component {
     });
   };
 
-  handleListKeyDown = event => {
+  handleListKeyDown = (event) => {
     if (event.key === 'Tab') {
       event.preventDefault();
       this.setState({
