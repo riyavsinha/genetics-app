@@ -39,7 +39,7 @@ type BaseSearchOptionProps = {
   classes: ClassNameMap;
   heading: string;
   subheading: string;
-  extra?: JSX.Element;
+  extra?: string | JSX.Element;
   count?: number;
   proportion?: number;
 };

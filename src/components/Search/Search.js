@@ -54,7 +54,7 @@ function Search({ autoFocus = false, embedded = false }) {
   const [searchResults, setSearchResults] = useState([]);
   let history = useHistory();
 
-  const handleChangeInputValue = (e: ChangeEvent) => {
+  const handleChangeInputValue = (e) => {
     if (!e.target.value) {
       setOpen(false);
     } else {
