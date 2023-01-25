@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.4.1",
+    "@babel/helper-environment-visitor": "^7.18.9",
+    "@babel/helper-string-parser": "^7.19.4",
     "@fontsource/inter": "^4.5.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-brands-svg-icons": "^5.15.4",
