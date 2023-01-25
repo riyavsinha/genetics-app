@@ -1,11 +1,11 @@
 import { Typography, Chip } from '@mui/material';
 import { commaSeparate } from '../../ot-ui-components';
-import SearchOption from './BaseSearchOption';
+import BaseSearchOption from './BaseSearchOption';
 
 const Search = ({ data }) => <Typography>Search for: {data.name}</Typography>;
 
 const Gene = ({ data }) => (
-  <SearchOption
+  <BaseSearchOption
     heading={data.symbol}
     subheading={`${data.chromosome}:${commaSeparate(
       data.start
@@ -17,7 +17,7 @@ const Gene = ({ data }) => (
 const Study = ({ data }) => {
   const pubYear = new Date(data.pubDate).getFullYear();
   return (
-    <SearchOption
+    <BaseSearchOption
       heading={data.traitReported}
       subheading={`${data.pubAuthor} (${pubYear})`}
       extra={
@@ -55,7 +55,7 @@ const Study = ({ data }) => {
 };
 
 const Variant = ({ data }) => (
-  <SearchOption heading={data.id} subheading={data.rsId} />
+  <BaseSearchOption heading={data.id} subheading={data.rsId} />
 );
 
 const optionTypes = {
@@ -64,7 +64,6 @@ const optionTypes = {
 };
 
 const Option = ({ data }) => {
-  console.log(data);
   const OptionType = optionTypes[data.type][data.entity];
   return <OptionType data={data} />;
 };

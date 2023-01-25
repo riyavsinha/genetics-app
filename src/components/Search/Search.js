@@ -134,7 +134,11 @@ function Search({ autoFocus = false, embedded = false }) {
         }}
         open={open}
         popupIcon={open ? <ArrowDropDown /> : <SearchIcon />}
-        renderOption={(props, option) => <Option data={option} {...props} />}
+        renderOption={(props, option) => (
+          <li {...props}>
+            <Option data={option} />
+          </li>
+        )}
         renderGroup={(group) => (
           <Group key={group.key} name={group.group} children={group.children} />
         )}
