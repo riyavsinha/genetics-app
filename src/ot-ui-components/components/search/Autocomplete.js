@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import withStyles from '@mui/styles/withStyles';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
-import { Component } from 'react';
+import { Component, forwardRef } from 'react';
 
 import Placeholder from './Placeholder';
 import NoOptionsMessage from './NoOptionsMessage';
@@ -47,9 +47,9 @@ const OptionContainer = (props) => {
   );
 };
 
-const InputComponent = ({ inputRef, ...rest }) => (
-  <div ref={inputRef} {...rest} />
-);
+const InputComponent = forwardRef(({ ...rest }, ref) => (
+  <div ref={ref} {...rest} />
+));
 
 function Control(props) {
   return (
@@ -58,9 +58,9 @@ function Control(props) {
       fullWidth
       InputProps={{
         inputComponent: InputComponent,
+        ref: props.innerRef,
         inputProps: {
           style: { display: 'flex', backgroundColor: '#eee' },
-          inputRef: props.innerRef,
           children: props.children,
           ...props.innerProps,
         },
