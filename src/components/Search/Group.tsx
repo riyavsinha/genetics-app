@@ -1,8 +1,8 @@
-import { Typography } from '@mui/material';
+import { Theme, Typography } from '@mui/material';
 
 import makeStyles from '@mui/styles/makeStyles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   groupHeading: {
     paddingBottom: '.25rem',
   },
@@ -14,20 +14,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const groupName = {
+const groupNameMap = {
+  any: 'any',
   variant: 'Variants',
   gene: 'Genes',
   study: 'Studies',
 };
 
-const Group = ({ children, name }) => {
+type GroupProps = {
+  children: JSX.Element;
+  name: keyof typeof groupNameMap;
+};
+const Group = ({ children, name }: GroupProps) => {
   const classes = useStyles();
 
   return (
     <div className={classes.groupHeading}>
       {name !== 'any' && (
         <Typography className={classes.groupHeadingText} variant="body1">
-          {groupName[name]}
+          {groupNameMap[name]}
         </Typography>
       )}
       {children}

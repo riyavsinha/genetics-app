@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
-import { loader } from 'graphql.macro';
 import { Box, CircularProgress, Input, InputBase } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { Autocomplete } from '@mui/material';
 import { Search as SearchIcon, ArrowDropDown } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
+import { SEARCH_QUERY } from './SearchQuery';
 
 import useDebounce from '../../hooks/useDebounce';
 import Option from './Option';
 import Group from './Group';
 
-const SEARCH_QUERY = loader('./SearchQuery.gql');
 const EntitiesMap = {
   genes: 'gene',
   studies: 'study',
@@ -45,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Search({ autoFocus = false, embedded = false }) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const debouncedInputValue = useDebounce(inputValue, 300);
   const [getData, { loading, data }] = useLazyQuery(SEARCH_QUERY, {
@@ -55,7 +54,7 @@ function Search({ autoFocus = false, embedded = false }) {
   const [searchResults, setSearchResults] = useState([]);
   let history = useHistory();
 
-  const handleChangeInputValue = (e) => {
+  const handleChangeInputValue = (e: ChangeEvent) => {
     if (!e.target.value) {
       setOpen(false);
     } else {
