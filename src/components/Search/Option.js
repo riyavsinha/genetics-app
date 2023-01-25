@@ -64,6 +64,7 @@ const optionTypes = {
 };
 
 const Option = ({ data }) => {
+  console.log(data);
   const OptionType = optionTypes[data.type][data.entity];
   return <OptionType data={data} />;
 };

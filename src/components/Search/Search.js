@@ -117,7 +117,7 @@ function Search({ autoFocus = false, embedded = false }) {
           root: classes.root,
         }}
         filterOptions={(o, s) => searchResults}
-        getOptionLabel={(option) => (option.id ? option.id : option)}
+        getOptionLabel={(option) => option.id ?? option.studyId ?? option}
         isOptionEqualToValue={(option, value) => option.id === value}
         groupBy={(option) =>
           option.type === 'topHit' ? 'topHit' : option.entity
@@ -134,7 +134,7 @@ function Search({ autoFocus = false, embedded = false }) {
         }}
         open={open}
         popupIcon={open ? <ArrowDropDown /> : <SearchIcon />}
-        renderOption={(option) => <Option data={option} />}
+        renderOption={(props, option) => <Option data={option} {...props} />}
         renderGroup={(group) => (
           <Group key={group.key} name={group.group} children={group.children} />
         )}
