@@ -1,6 +1,7 @@
 import { Theme, Typography } from '@mui/material';
 
 import makeStyles from '@mui/styles/makeStyles';
+import { ReactNode } from 'react';
 
 const useStyles = makeStyles((theme: Theme) => ({
   groupHeading: {
@@ -14,16 +15,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const groupNameMap = {
-  any: 'any',
-  variant: 'Variants',
-  gene: 'Genes',
-  study: 'Studies',
+const groupNameMap: { [key: string]: string } = {
+  Variant: 'Variants',
+  Gene: 'Genes',
+  Study: 'Studies',
 };
 
 type GroupProps = {
-  children: JSX.Element;
-  name: keyof typeof groupNameMap;
+  children: ReactNode;
+  name: string;
 };
 const Group = ({ children, name }: GroupProps) => {
   const classes = useStyles();

@@ -1,23 +1,18 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { Box, CircularProgress, Input, InputBase } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
-import { Autocomplete } from '@mui/material';
+import { Autocomplete, Theme } from '@mui/material';
 import { Search as SearchIcon, ArrowDropDown } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
 import { SEARCH_QUERY } from './SearchQuery';
 
 import useDebounce from '../../hooks/useDebounce';
-import Option from './Option';
+import Option, { OptionDataType } from './Option';
 import Group from './Group';
+import { SearchQueryQuery } from '../../__generated__/graphql';
 
-const EntitiesMap = {
-  genes: 'gene',
-  studies: 'study',
-  variants: 'variant',
-};
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     width: '100%',
   },
@@ -47,32 +42,50 @@ function Search({ autoFocus = false, embedded = false }) {
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const debouncedInputValue = useDebounce(inputValue, 300);
-  const [getData, { loading, data }] = useLazyQuery(SEARCH_QUERY, {
-    variables: { queryString: debouncedInputValue },
-    onCompleted: () => {},
-  });
-  const [searchResults, setSearchResults] = useState([]);
+  const [getData, { loading, data }] = useLazyQuery<SearchQueryQuery>(
+    SEARCH_QUERY,
+    {
+      variables: { queryString: debouncedInputValue },
+      onCompleted: () => {},
+    }
+  );
+  const [searchResults, setSearchResults] = useState<OptionDataType[]>([]);
   let history = useHistory();
 
-  const handleChangeInputValue = (e) => {
-    if (!e.target.value) {
+  const handleChangeInputValue = (e: SyntheticEvent) => {
+    const typedEvent = e as ChangeEvent<HTMLInputElement>;
+    if (!typedEvent.target.value) {
       setOpen(false);
     } else {
       setOpen(true);
     }
-    setInputValue(e.target.value || '');
+    setInputValue(typedEvent.target.value || '');
   };
 
-  const handleSelectOption = (e, option) => {
+  const handleSelectOption = (
+    e: SyntheticEvent,
+    option: OptionDataType | string | null
+  ) => {
     handleChangeInputValue(e);
 
-    if (!option) return;
+    if (!option || typeof option === 'string') return;
 
-    if (option.entity === 'study') {
-      history.push(`/${option.entity}/${option.studyId}`);
-    } else {
-      history.push(`/${option.entity}/${option.id}`);
+    if (option.__typename === 'Study') {
+      history.push(`/study/${option.studyId}`);
+    } else if (option.__typename === 'Gene') {
+      history.push(`/gene/${option.id}`);
+    } else if (option.__typename === 'Variant') {
+      history.push(`/variant/${option.id}`);
     }
+  };
+
+  const getOptionId = (opt: OptionDataType | string) => {
+    if (typeof opt === 'string') {
+      return opt;
+    } else if ('id' in opt) {
+      return opt.id;
+    }
+    return opt.studyId;
   };
 
   useEffect(() => {
@@ -84,20 +97,13 @@ function Search({ autoFocus = false, embedded = false }) {
   }, [debouncedInputValue, getData]);
 
   useEffect(() => {
-    const res = [];
-
     if (data) {
-      ['variants', 'genes', 'studies'].forEach((key) =>
-        data.search[key].map((element) =>
-          res.push({
-            type: key === 'topHit' ? 'topHit' : 'normal',
-            entity: EntitiesMap[key],
-            ...element,
-          })
-        )
-      );
+      setSearchResults([
+        ...(data.search.genes as OptionDataType[]),
+        ...(data.search.variants as OptionDataType[]),
+        ...(data.search.studies as OptionDataType[]),
+      ]);
     }
-    setSearchResults(res);
   }, [data, inputValue]);
 
   const classes = useStyles();
@@ -116,11 +122,9 @@ function Search({ autoFocus = false, embedded = false }) {
           root: classes.root,
         }}
         filterOptions={(o, s) => searchResults}
-        getOptionLabel={(option) => option.id ?? option.studyId ?? option}
-        isOptionEqualToValue={(option, value) => option.id === value}
-        groupBy={(option) =>
-          option.type === 'topHit' ? 'topHit' : option.entity
-        }
+        getOptionLabel={(option) => getOptionId(option)}
+        isOptionEqualToValue={(option, value) => option === value}
+        groupBy={(option) => option.__typename ?? ''}
         loading={loading}
         noOptionsText="No results"
         options={searchResults}

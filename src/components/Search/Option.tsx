@@ -7,6 +7,10 @@ import {
 } from '../../__generated__/graphql';
 import BaseSearchOption from './BaseSearchOption';
 
+export type OptionDataType = SearchQueryGenesFragment
+| SearchQueryVariantsFragment
+| SearchQueryStudiesFragment
+
 const GeneOption = ({ data }: { data: SearchQueryGenesFragment }) => {
   if (!data.symbol) {
     return null;
@@ -69,10 +73,7 @@ const VariantOption = ({ data }: { data: SearchQueryVariantsFragment }) => (
 const Option = ({
   data,
 }: {
-  data:
-    | SearchQueryGenesFragment
-    | SearchQueryVariantsFragment
-    | SearchQueryStudiesFragment;
+  data: OptionDataType;
 }) => {
   switch (data.__typename) {
     case 'Gene':
