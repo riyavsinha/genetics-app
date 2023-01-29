@@ -13,7 +13,11 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const OTButtonLink = ({ id, symbol }) => {
+type OTButtonLinkProps = {
+  id: string;
+  symbol: string;
+};
+const OTButtonLink = ({ id, symbol }: OTButtonLinkProps) => {
   const classes = useStyles();
   const btnLabel = `View ${symbol} in the Open Targets Platform`;
   return (
