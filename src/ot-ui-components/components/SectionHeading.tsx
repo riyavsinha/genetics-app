@@ -1,10 +1,11 @@
+import { Theme } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import withStyles from '@mui/styles/withStyles';
+import { makeStyles } from '@mui/styles';
 
 import ModelSchematic from './ModelSchematic';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     width: '100%',
     display: 'flex',
@@ -21,9 +22,15 @@ const styles = (theme) => ({
   heading: {
     fontWeight: 400,
   },
-});
+}));
 
-const SectionHeading = ({ classes, heading, subheading, entities }) => {
+type SectionHeadingProps = {
+  heading: string;
+  subheading: string;
+  entities?: string[];
+}
+const SectionHeading = ({ heading, subheading, entities }: SectionHeadingProps) => {
+  const classes = useStyles();
   return (
     <>
       <hr className={classes.hr} />
@@ -45,4 +52,4 @@ const SectionHeading = ({ classes, heading, subheading, entities }) => {
   );
 };
 
-export default withStyles(styles)(SectionHeading);
+export default SectionHeading;
