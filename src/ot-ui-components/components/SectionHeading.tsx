@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
 
-import ModelSchematic from './ModelSchematic';
+import ModelSchematic, { ModelSchematicEntity } from './ModelSchematic';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -27,9 +27,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 type SectionHeadingProps = {
   heading: string;
   subheading: string;
-  entities?: string[];
-}
-const SectionHeading = ({ heading, subheading, entities }: SectionHeadingProps) => {
+  entities?: ModelSchematicEntity[];
+};
+const SectionHeading = ({
+  heading,
+  subheading,
+  entities,
+}: SectionHeadingProps) => {
   const classes = useStyles();
   return (
     <>
