@@ -1,8 +1,9 @@
+import { Theme } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import withStyles from '@mui/styles/withStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import classNames from 'classnames';
 
-const styles = () => ({
+const useStyles  = makeStyles((_theme: Theme) => ({
   root: {
     display: 'inline',
   },
@@ -14,9 +15,14 @@ const styles = () => ({
     fontWeight: 300,
     textTransform: 'capitalize',
   },
-});
+}));
 
-const OpenTargetsTitle = ({ classes, className, name }) => {
+type OpenTargetsTitlesProps = {
+  className?: string;
+  name: string;
+};
+const OpenTargetsTitle = ({className, name }: OpenTargetsTitlesProps) => {
+  const classes = useStyles();
   const titleClasses = classNames(classes.root, className);
   return (
     <Typography className={titleClasses} variant="h6" color="inherit">
@@ -26,4 +32,4 @@ const OpenTargetsTitle = ({ classes, className, name }) => {
   );
 };
 
-export default withStyles(styles)(OpenTargetsTitle);
+export default OpenTargetsTitle;
