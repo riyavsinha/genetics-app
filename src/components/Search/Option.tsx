@@ -7,12 +7,13 @@ import {
 } from '../../__generated__/graphql';
 import BaseSearchOption from './BaseSearchOption';
 
-export type OptionDataType = SearchQueryGenesFragment
-| SearchQueryVariantsFragment
-| SearchQueryStudiesFragment
+export type OptionDataType =
+  | SearchQueryGenesFragment
+  | SearchQueryVariantsFragment
+  | SearchQueryStudiesFragment;
 
 const GeneOption = ({ data }: { data: SearchQueryGenesFragment }) => {
-  if (!data.symbol) {
+  if (!data.symbol || !data.start || !data.end) {
     return null;
   }
   return (
@@ -35,7 +36,7 @@ const StudyOption = ({ data }: { data: SearchQueryStudiesFragment }) => {
       extra={
         <>
           {data.pubJournal ? <em>{data.pubJournal} </em> : null}N Study:{' '}
-          {commaSeparate(data.nInitial)}
+          {data.nInitial ? commaSeparate(data.nInitial) : null}
           <span style={{ float: 'right' }}>
             {data.hasSumstats ? (
               <Chip
@@ -70,11 +71,7 @@ const VariantOption = ({ data }: { data: SearchQueryVariantsFragment }) => (
   <BaseSearchOption heading={data.id} subheading={data.rsId ?? ''} />
 );
 
-const Option = ({
-  data,
-}: {
-  data: OptionDataType;
-}) => {
+const Option = ({ data }: { data: OptionDataType }) => {
   switch (data.__typename) {
     case 'Gene':
       return <GeneOption data={data} />;
