@@ -5,12 +5,14 @@ import makeStyles from '@mui/styles/makeStyles';
 import { Autocomplete, Theme } from '@mui/material';
 import { Search as SearchIcon, ArrowDropDown } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
-import { SEARCH_QUERY } from './SearchQuery';
 
 import useDebounce from '../../hooks/useDebounce';
 import Option, { OptionDataType } from './Option';
 import Group from './Group';
 import { SearchQueryQuery } from '../../__generated__/graphql';
+import { loader } from 'graphql.macro';
+
+const SEARCH_QUERY = loader('../../queries/SearchQuery.gql');
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {

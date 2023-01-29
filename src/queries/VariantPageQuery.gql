@@ -1,4 +1,4 @@
-query VariantPageQuery($variantId: String!) {
+query VariantPage($variantId: String!) {
   genesForVariantSchema {
     qtls {
       id
