@@ -3,15 +3,16 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { MenuItem, MenuList } from '@mui/material';
+import { MenuItem, MenuList, Theme } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import withStyles from '@mui/styles/withStyles';
+import { ClassNameMap } from '@mui/styles/withStyles';
 import classNames from 'classnames';
 import Link from '../Link';
 import OpenTargetsTitle from './OpenTargetsTitle';
-import HeaderMenu from './HeaderMenu';
+import HeaderMenu, { HeaderMenuItem } from './HeaderMenu';
+import { makeStyles } from '@mui/styles';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   navbar: {
     backgroundColor: theme.palette.primary.main,
     margin: 0,
@@ -55,9 +56,18 @@ const styles = (theme) => ({
       color: '#fff',
     },
   },
-});
+}));
 
-const MenuExternalLink = ({ classes, href, children }) => (
+type MenuExternalLinkProps = {
+  classes: ClassNameMap;
+  href: string;
+  children: React.ReactNode;
+};
+const MenuExternalLink = ({
+  classes,
+  href,
+  children,
+}: MenuExternalLinkProps) => (
   <Typography color="inherit" className={classes.menuExternalLinkContainer}>
     <a
       target="_blank"
@@ -70,8 +80,18 @@ const MenuExternalLink = ({ classes, href, children }) => (
   </Typography>
 );
 
+type NavBarProps = {
+  name: string;
+  search?: React.ReactNode;
+  api?: string;
+  downloads?: string;
+  docs?: string;
+  contact?: string;
+  homepage?: boolean;
+  items: HeaderMenuItem[];
+  placement?: 'bottom-start' | 'bottom-end' | undefined;
+};
 const NavBar = ({
-  classes,
   name,
   search,
   api,
@@ -81,9 +101,10 @@ const NavBar = ({
   homepage,
   items,
   placement,
-}) => {
+}: NavBarProps) => {
   const smMQ = useMediaQuery('(max-width:800px)');
   const isHomePageRegular = homepage && !smMQ;
+  const classes = useStyles();
   return (
     <AppBar
       className={classNames(classes.navbar, {
@@ -150,4 +171,4 @@ const NavBar = ({
   );
 };
 
-export default withStyles(styles)(NavBar);
+export default NavBar;

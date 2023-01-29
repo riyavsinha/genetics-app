@@ -1,7 +1,4 @@
-import {
-  KeyboardEventHandler,
-  SyntheticEvent,
-} from 'react';
+import { KeyboardEventHandler, SyntheticEvent } from 'react';
 import {
   MenuItem,
   Popper,
@@ -37,12 +34,13 @@ const useStyles = makeStyles((_theme: Theme) => ({
   },
 }));
 
+export type HeaderMenuItem = {
+  name: string;
+  external?: boolean;
+  url: string;
+};
 type HeaderMenuProps = {
-  items: {
-    name: string;
-    external?: boolean;
-    url: string;
-  }[];
+  items: HeaderMenuItem[];
   placement?: 'bottom-start' | 'bottom-end';
 };
 const HeaderMenu = (props: HeaderMenuProps) => {
