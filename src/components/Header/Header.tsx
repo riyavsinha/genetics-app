@@ -1,10 +1,11 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Theme, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { Skeleton } from '@mui/material';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   externalLinks: {
     '& > :not(:first-child):before': {
       content: '" | "',
@@ -35,6 +36,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+type HeaderProps = {
+  loading: boolean;
+  Icon: IconProp;
+  title: string;
+  subtitle?: string | null;
+  externalLinks?: React.ReactNode;
+  children?: React.ReactNode | null;
+};
 function Header({
   loading,
   Icon,
@@ -42,7 +51,7 @@ function Header({
   subtitle = null,
   externalLinks,
   children = null,
-}) {
+}: HeaderProps) {
   const classes = useStyles();
 
   return (
