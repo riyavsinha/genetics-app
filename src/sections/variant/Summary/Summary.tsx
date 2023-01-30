@@ -1,4 +1,3 @@
-import withStyles from '@mui/styles/withStyles';
 import Grid from '@mui/material/Grid';
 import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
@@ -6,27 +5,43 @@ import { Skeleton } from '@mui/material';
 import { Link, Typography, SectionHeading } from '../../../ot-ui-components';
 import {
   commaSeparate,
-  variantHasInfo,
-  variantGetInfo,
+  isKeyOfObject,
   variantPopulations,
 } from '../../../utils';
 import { Fragment } from 'react';
+import { makeStyles } from '@mui/styles';
+import {
+  VariantSummaryQuery,
+  VariantSummaryQueryVariables,
+} from '../../../__generated__/graphql';
 
 const VARIANT_SUMMARY_QUERY = loader('./VariantSummary.gql');
 
-const styles = () => ({
+const useStyles = makeStyles(() => ({
   value: {
     paddingLeft: '0.6rem',
     paddingRight: '1rem',
   },
-});
+}));
 
-function Summary({ classes, variantId }) {
-  const { loading, data: queryResult } = useQuery(VARIANT_SUMMARY_QUERY, {
+type VariantSummaryProps = {
+  variantId: string;
+};
+function Summary({ variantId }: VariantSummaryProps) {
+  const classes = useStyles();
+  const { loading, data: queryResult } = useQuery<
+    VariantSummaryQuery,
+    VariantSummaryQueryVariables
+  >(VARIANT_SUMMARY_QUERY, {
     variables: { variantId },
   });
-  const isVariantWithInfo = variantHasInfo(queryResult);
-  const data = isVariantWithInfo ? variantGetInfo(queryResult) : {};
+
+  if (!queryResult || !queryResult.variantInfo) {
+    // Will never reach, since variantInfo is always sent back with nulled fields
+    // This is a safeguard in case API changes
+    return `Variant ${variantId} not found`;
+  }
+  const data = queryResult.variantInfo;
   return (
     <>
       <SectionHeading
@@ -172,20 +187,27 @@ function Summary({ classes, variantId }) {
           </Typography>
           <Grid container>
             {!loading &&
-              variantPopulations.map((p) => (
-                <Fragment key={p.code}>
-                  <Grid item xs={9}>
-                    <Typography variant="subtitle2">{p.description}</Typography>
-                  </Grid>
-                  <Grid item xs={3}>
-                    <Typography variant="subtitle2" align="right">
-                      {data[`gnomad${p.code}`]
-                        ? data[`gnomad${p.code}`].toPrecision(3)
-                        : 'N/A'}
-                    </Typography>
-                  </Grid>
-                </Fragment>
-              ))}
+              variantPopulations.map((p) => {
+                const gnomadProp = `gnomad${p.code}`;
+                const isValidCode = isKeyOfObject(gnomadProp, data);
+                const gnomadVal = isValidCode
+                  ? (data[gnomadProp] as number)
+                  : null;
+                return (
+                  <Fragment key={p.code}>
+                    <Grid item xs={9}>
+                      <Typography variant="subtitle2">
+                        {p.description}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={3}>
+                      <Typography variant="subtitle2" align="right">
+                        {gnomadVal ? gnomadVal.toPrecision(3) : 'N/A'}
+                      </Typography>
+                    </Grid>
+                  </Fragment>
+                );
+              })}
           </Grid>
         </Grid>
       </Grid>
@@ -193,4 +215,4 @@ function Summary({ classes, variantId }) {
   );
 }
 
-export default withStyles(styles)(Summary);
+export default Summary;
