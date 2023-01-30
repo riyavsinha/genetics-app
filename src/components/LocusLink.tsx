@@ -1,17 +1,23 @@
 import queryString from 'query-string';
-import withStyles from '@mui/styles/withStyles';
 
 import { Link, Button, LocusIcon } from '../ot-ui-components';
-import { chromosomesWithCumulativeLengths } from '../utils';
+import {
+  chromosomesWithCumulativeLengths,
+  ChromosomeWithCumulativeLength,
+} from '../utils';
+import { makeStyles } from '@mui/styles';
 
+type ChromosomeDict = {
+  [chromosomeName: string]: ChromosomeWithCumulativeLength;
+};
 const chromosomeDict = chromosomesWithCumulativeLengths.reduce((acc, d) => {
   acc[d.name] = d;
   return acc;
-}, {});
+}, {} as ChromosomeDict);
 
 const mb = 1000000;
 
-const styles = {
+const useStyles = makeStyles(() => ({
   button: {
     lineHeight: 1,
     minWidth: '110px',
@@ -39,8 +45,17 @@ const styles = {
   link: {
     textDecoration: 'none',
   },
-};
+}));
 
+type LocusLinkProps = {
+  big?: boolean;
+  chromosome: string | null;
+  position: number;
+  selectedGenes?: string[];
+  selectedTagVariants?: string[];
+  selectedIndexVariants?: string[];
+  selectedStudies?: string[];
+};
 const LocusLink = ({
   big,
   chromosome,
@@ -49,8 +64,8 @@ const LocusLink = ({
   selectedTagVariants,
   selectedIndexVariants,
   selectedStudies,
-  classes,
-}) => {
+}: LocusLinkProps) => {
+  const classes = useStyles();
   if (chromosome === null) return null;
   const chromosomeObj = chromosomeDict[chromosome];
   const start = position > mb ? position - mb : 0;
@@ -58,7 +73,8 @@ const LocusLink = ({
     position <= chromosomeObj.length - mb
       ? position + mb
       : chromosomeObj.length - 1;
-  const params = { chromosome, start, end };
+  // TODO: type when LocusPage is typed
+  const params: { [key: string]: any } = { chromosome, start, end };
   if (selectedGenes) {
     params.selectedGenes = selectedGenes;
   }
@@ -84,4 +100,4 @@ const LocusLink = ({
   );
 };
 
-export default withStyles(styles)(LocusLink);
+export default LocusLink;

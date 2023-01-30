@@ -1,10 +1,10 @@
 import GRCh38 from './GRCh38';
 
 // get the cytoband of a position on a chromosome
-export const getCytoband = (chromosome, position) => {
+export const getCytoband = (chromosome: string, position: number) => {
   const chrom = GRCh38.top_level_region.find((d) => d.name === chromosome);
   if (chrom) {
-    const band = chrom.bands.find(
+    const band = chrom.bands?.find(
       (d) => d.start <= position && d.end > position
     );
     if (band) {
@@ -18,7 +18,7 @@ export const getCytoband = (chromosome, position) => {
 };
 
 // ignore Y, MT and patches
-const chromosomesNumeric = [];
+const chromosomesNumeric: string[] = [];
 for (let i = 0; i < 22; i++) {
   chromosomesNumeric.push(`${i + 1}`);
 }
@@ -28,7 +28,7 @@ export const chromosomeNames = [...chromosomesNumeric, 'X', 'Y'];
 // calculate chromosomes with cumulative lengths (also as fraction)
 const chromosomesWithLengths = chromosomeNames.map((chr) => {
   const chrom = GRCh38.top_level_region.find((d) => d.name === chr);
-  return { name: chr, length: chrom.length };
+  return { name: chr, length: chrom?.length || 0 };
 });
 const totalLength = chromosomesWithLengths.reduce((acc, d) => {
   acc += d.length;
@@ -36,8 +36,15 @@ const totalLength = chromosomesWithLengths.reduce((acc, d) => {
 }, 0);
 let cumLength = 0;
 
-export const chromosomesWithCumulativeLengths = chromosomesWithLengths.reduce(
-  (acc, d) => {
+export type ChromosomeWithCumulativeLength = {
+  name: string;
+  length: number;
+  cumulativeLength: number;
+  proportionalStart: number;
+  proportionalEnd: number;
+};
+export const chromosomesWithCumulativeLengths: ChromosomeWithCumulativeLength[] =
+  chromosomesWithLengths.reduce((acc, d) => {
     cumLength += d.length;
     acc.push({
       ...d,
@@ -46,6 +53,4 @@ export const chromosomesWithCumulativeLengths = chromosomesWithLengths.reduce(
       proportionalEnd: cumLength / totalLength,
     });
     return acc;
-  },
-  []
-);
+  }, [] as ChromosomeWithCumulativeLength[]);
