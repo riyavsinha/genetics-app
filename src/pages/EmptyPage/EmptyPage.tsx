@@ -1,11 +1,11 @@
-import { Grid, Typography } from '@mui/material';
-import withStyles from '@mui/styles/withStyles';
+import { Grid, Theme, Typography } from '@mui/material';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Search from '../../components/Search';
+import { makeStyles } from '@mui/styles';
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   icon: {
     color: theme.palette.primary.main,
     marginBottom: '12px',
@@ -20,9 +20,13 @@ const styles = (theme) => ({
   message: {
     marginBottom: '24px',
   },
-});
+}));
 
-const EmptyPage = ({ classes, children }) => {
+type EmptyPageProps = {
+  children: React.ReactNode;
+};
+const EmptyPage = ({ children }: EmptyPageProps) => {
+  const classes = useStyles();
   return (
     <Grid container direction="column" alignItems="center">
       <FontAwesomeIcon
@@ -37,4 +41,4 @@ const EmptyPage = ({ classes, children }) => {
   );
 };
 
-export default withStyles(styles)(EmptyPage);
+export default EmptyPage;

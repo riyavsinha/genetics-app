@@ -1,8 +1,7 @@
-import React, { Component, Fragment, useRef } from 'react';
+import { useRef } from 'react';
 import { Helmet } from 'react-helmet';
 import { Grid, Theme, Typography } from '@mui/material';
 
-import withStyles from '@mui/styles/withStyles';
 import makeStyles from '@mui/styles/makeStyles';
 
 import {
@@ -91,7 +90,7 @@ const HomePage = () => {
   };
 
   return (
-    <Fragment>
+    <>
       <Helmet>
         <title>Open Targets Genetics</title>
       </Helmet>
@@ -247,7 +246,7 @@ const HomePage = () => {
         </Grid>
       </Grid>
       <Footer externalLinks={externalLinks} />
-    </Fragment>
+    </>
   );
 };
 
