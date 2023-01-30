@@ -1,6 +1,7 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from '@apollo/client';
 import { OtUiThemeProvider } from './ot-ui-components';
+import { CompatRouter, CompatRoute } from 'react-router-dom-v5-compat';
 
 import client from './client';
 import HomePage from './pages/HomePage/index';
@@ -16,19 +17,24 @@ const App = () => (
   <ApolloProvider client={client}>
     <OtUiThemeProvider>
       <Router>
-        <>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/study/:studyId" component={StudyPage} />
-          <Route path="/study-comparison/:studyId" component={StudiesPage} />
-          <Route path="/gene/:geneId" component={GenePage} />
-          <Route path="/variant/:variantId" component={VariantPage} />
-          <Route path="/locus" component={LocusPage} />
-          <Route
-            path="/study-locus/:studyId/:indexVariantId"
-            component={StudyLocusPage}
-          />
-          <Route path="/immunobase" component={ImmunobasePage} />
-        </>
+        <CompatRouter>
+          <Switch>
+            <CompatRoute exact path="/" component={HomePage} />
+            <CompatRoute path="/study/:studyId" component={StudyPage} />
+            <CompatRoute
+              path="/study-comparison/:studyId"
+              component={StudiesPage}
+            />
+            <CompatRoute path="/gene/:geneId" component={GenePage} />
+            <CompatRoute path="/variant/:variantId" component={VariantPage} />
+            <CompatRoute path="/locus" component={LocusPage} />
+            <CompatRoute
+              path="/study-locus/:studyId/:indexVariantId"
+              component={StudyLocusPage}
+            />
+            <CompatRoute path="/immunobase" component={ImmunobasePage} />
+          </Switch>
+        </CompatRouter>
       </Router>
     </OtUiThemeProvider>
   </ApolloProvider>
