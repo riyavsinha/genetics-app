@@ -174,8 +174,6 @@ const VariantPage = () => {
             genesForVariant={pageData.genesForVariant}
           />
         ) : (
-          // TODO: Remove when PlotContainer is typed
-          // @ts-expect-error
           <PlotContainer
             loading={pageLoading}
             error={error}
