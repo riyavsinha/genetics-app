@@ -39,7 +39,7 @@ function Summary({ variantId }: VariantSummaryProps) {
   if (!queryResult || !queryResult.variantInfo) {
     // Will never reach, since variantInfo is always sent back with nulled fields
     // This is a safeguard in case API changes
-    return `Variant ${variantId} not found`;
+    return null;
   }
   const data = queryResult.variantInfo;
   return (
