@@ -1,28 +1,47 @@
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import withStyles from '@mui/styles/withStyles';
-import downloadTable from '../helpers/downloadTable';
+import downloadTable, {
+  DownloadFormat,
+  HeaderMap,
+  TableRow,
+} from '../helpers/downloadTable';
+import { makeStyles } from '@mui/styles';
 
-const styles = () => ({
+const useStyles = makeStyles(() => ({
   container: {
     marginBottom: '2px',
   },
   downloadHeader: {
     marginTop: '7px',
   },
-});
+}));
 
-function handleDownload(headers, rows, fileStem, format) {
-  downloadTable({
-    headerMap: headers,
-    rows,
-    format,
-    filenameStem: fileStem,
-  });
-}
+type DataDownloaderProps = {
+  tableHeaders: HeaderMap;
+  rows: TableRow[];
+  fileStem: string;
+};
+const DataDownloader = ({
+  tableHeaders,
+  rows,
+  fileStem,
+}: DataDownloaderProps) => {
+  const classes = useStyles();
+  const handleDownload = (
+    headers: HeaderMap,
+    rows: TableRow[],
+    fileStem: string,
+    format: DownloadFormat
+  ) => {
+    downloadTable({
+      headerMap: headers,
+      rows,
+      format,
+      filenameStem: fileStem,
+    });
+  };
 
-function DataDownloader({ tableHeaders, rows, classes, fileStem }) {
   return (
     <Grid
       container
@@ -61,6 +80,6 @@ function DataDownloader({ tableHeaders, rows, classes, fileStem }) {
       </Grid>
     </Grid>
   );
-}
+};
 
-export default withStyles(styles)(DataDownloader);
+export default DataDownloader;
