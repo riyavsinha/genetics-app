@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import makeStyles from '@mui/styles/makeStyles';
 import classNames from 'classnames';
 
-const useStyles  = makeStyles((_theme: Theme) => ({
+const useStyles = makeStyles((_theme: Theme) => ({
   root: {
     display: 'inline',
   },
@@ -21,7 +21,7 @@ type OpenTargetsTitlesProps = {
   className?: string;
   name: string;
 };
-const OpenTargetsTitle = ({className, name }: OpenTargetsTitlesProps) => {
+const OpenTargetsTitle = ({ className, name }: OpenTargetsTitlesProps) => {
   const classes = useStyles();
   const titleClasses = classNames(classes.root, className);
   return (
