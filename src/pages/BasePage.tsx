@@ -7,7 +7,10 @@ import NavBar from '../components/NavBar/NavBar';
 import { externalLinks, mainMenuItems } from '../constants';
 import Footer from '../components/Footer';
 
-const BasePage = ({ children }) => (
+type BasePageProps = {
+  children: React.ReactNode;
+};
+const BasePage = ({ children }: BasePageProps) => (
   <Page
     header={
       <NavBar
