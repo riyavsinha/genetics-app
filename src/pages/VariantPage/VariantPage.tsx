@@ -30,6 +30,12 @@ import {
   useLocation,
   useParams,
 } from 'react-router-dom-v5-compat';
+import {
+  VariantHeaderQuery,
+  VariantHeaderQueryVariables,
+  VariantPageQuery,
+  VariantPageQueryVariables,
+} from '../../__generated__/graphql';
 
 const VARIANT_PAGE_QUERY = loader('../../queries/VariantPageQuery.gql');
 const VARIANT_HEADER_QUERY = loader('./VariantHeader.gql');
@@ -43,21 +49,27 @@ const VariantPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { variantId } = useParams<{ variantId: string }>();
+  if (!variantId) {
+    return <NotFoundPage />;
+  }
 
   // Queries
-  const { loading: headerLoading, data: headerData } = useQuery(
-    VARIANT_HEADER_QUERY,
-    {
-      variables: { variantId },
-    }
-  );
+  const { loading: headerLoading, data: headerData } = useQuery<
+    VariantHeaderQuery,
+    VariantHeaderQueryVariables
+  >(VARIANT_HEADER_QUERY, {
+    variables: { variantId },
+  });
   const {
     loading: pageLoading,
     error,
     data: pageData,
-  } = useQuery(VARIANT_PAGE_QUERY, {
-    variables: { variantId },
-  });
+  } = useQuery<VariantPageQuery, VariantPageQueryVariables>(
+    VARIANT_PAGE_QUERY,
+    {
+      variables: { variantId },
+    }
+  );
 
   // Derived State
   const isGeneVariant = variantHasAssociatedGenes(pageData);
@@ -140,7 +152,7 @@ const VariantPage = () => {
   } = _parseQueryProps();
 
   // Render
-  if ((headerData && !headerData.variantInfo) || !variantId) {
+  if (headerData && !headerData.variantInfo) {
     return <NotFoundPage />;
   }
   return (
@@ -171,7 +183,7 @@ const VariantPage = () => {
           <AssociatedGenes
             variantId={variantId}
             genesForVariantSchema={genesForVariantSchema}
-            genesForVariant={pageData.genesForVariant}
+            genesForVariant={pageData?.genesForVariant}
           />
         ) : (
           <PlotContainer
