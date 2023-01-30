@@ -2,10 +2,16 @@ import { faMapPin } from '@fortawesome/free-solid-svg-icons';
 import BaseHeader from '../../components/Header';
 import { ExternalLink } from '../../components/ExternalLink';
 import LocusLink from '../../components/LocusLink';
+import { VariantHeaderQuery } from '../../__generated__/graphql';
 
-const VariantHeader = ({ loading, data }) => {
-  const id = data?.variantInfo.id;
-  const rsId = data?.variantInfo.rsId;
+type VariantHeaderProps = {
+  loading: boolean;
+  data?: VariantHeaderQuery;
+};
+const VariantHeader = ({ loading, data }: VariantHeaderProps) => {
+  console.log(data);
+  const id = data?.variantInfo?.id ?? '';
+  const rsId = data?.variantInfo?.rsId;
   const chromosome = !loading ? id.split('_')[0] : null;
   const positionString = !loading ? id.split('_')[1] : '';
   const position = parseInt(positionString, 10);
@@ -36,9 +42,7 @@ const VariantHeader = ({ loading, data }) => {
           position={position}
           selectedIndexVariants={[id]}
           selectedTagVariants={[id]}
-        >
-          View locus
-        </LocusLink>
+        />
       )}
     </BaseHeader>
   );
