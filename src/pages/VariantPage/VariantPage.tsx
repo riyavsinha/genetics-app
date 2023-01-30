@@ -48,10 +48,7 @@ const VariantPage = () => {
   // Router State
   const navigate = useNavigate();
   const location = useLocation();
-  const { variantId } = useParams<{ variantId: string }>();
-  if (!variantId) {
-    return <NotFoundPage />;
-  }
+  const { variantId = '' } = useParams<{ variantId: string }>();
 
   // Queries
   const { loading: headerLoading, data: headerData } = useQuery<
@@ -76,14 +73,14 @@ const VariantPage = () => {
   const isTagVariant = variantHasAssociatedIndexVariants(pageData);
   const isIndexVariant = variantHasAssociatedTagVariants(pageData);
   const associatedIndexVariants = isTagVariant
-    ? variantTransformAssociatedIndexVariants(pageData)
+    ? variantTransformAssociatedIndexVariants(pageData!)
     : [];
   const associatedTagVariants = isIndexVariant
-    ? variantTransformAssociatedTagVariants(pageData)
+    ? variantTransformAssociatedTagVariants(pageData!)
     : [];
 
   const genesForVariantSchema = isGeneVariant
-    ? variantParseGenesForVariantSchema(pageData)
+    ? variantParseGenesForVariantSchema(pageData!)
     : [];
 
   // Methods

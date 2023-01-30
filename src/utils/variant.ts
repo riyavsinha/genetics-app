@@ -1,16 +1,18 @@
-export function variantHasInfo(data) {
+import { VariantHeaderQuery, VariantPageQuery } from '../__generated__/graphql';
+
+export function variantHasInfo(data?: VariantHeaderQuery) {
   return data && data.variantInfo;
 }
-export function variantHasAssociatedGenes(data) {
-  return data && data.genesForVariantSchema;
+export function variantHasAssociatedGenes(data?: VariantPageQuery) {
+  return !!(data && data.genesForVariantSchema);
 }
 
-export function variantGetInfo(data) {
+export function variantGetInfo(data: VariantHeaderQuery) {
   return data.variantInfo;
 }
 
-export function variantHasAssociatedIndexVariants(data) {
-  return (
+export function variantHasAssociatedIndexVariants(data?: VariantPageQuery) {
+  return !!(
     data &&
     data.indexVariantsAndStudiesForTagVariant &&
     data.indexVariantsAndStudiesForTagVariant.associations &&
@@ -18,8 +20,8 @@ export function variantHasAssociatedIndexVariants(data) {
   );
 }
 
-export function variantHasAssociatedTagVariants(data) {
-  return (
+export function variantHasAssociatedTagVariants(data?: VariantPageQuery) {
+  return !!(
     data &&
     data.tagVariantsAndStudiesForIndexVariant &&
     data.tagVariantsAndStudiesForIndexVariant.associations &&
@@ -27,7 +29,9 @@ export function variantHasAssociatedTagVariants(data) {
   );
 }
 
-export function variantTransformAssociatedIndexVariants(data) {
+export function variantTransformAssociatedIndexVariants(
+  data: VariantPageQuery
+) {
   const associationsFlattened =
     data.indexVariantsAndStudiesForTagVariant.associations.map((d) => {
       const { indexVariant, study, ...rest } = d;
@@ -45,7 +49,7 @@ export function variantTransformAssociatedIndexVariants(data) {
   return associationsFlattened;
 }
 
-export function variantTransformAssociatedTagVariants(data) {
+export function variantTransformAssociatedTagVariants(data: VariantPageQuery) {
   const associationsFlattened =
     data.tagVariantsAndStudiesForIndexVariant.associations.map((d) => {
       const { tagVariant, study, ...rest } = d;
@@ -79,13 +83,13 @@ export const variantPopulations = [
   { code: 'OTH', description: 'Other (population not assigned)' },
 ];
 
-export function variantParseGenesForVariantSchema(data) {
+export function variantParseGenesForVariantSchema(data: VariantPageQuery) {
   const genesForVariantSchema = data.genesForVariantSchema;
   const currentQtls = genesForVariantSchema.qtls;
   if (currentQtls.length === 0) return genesForVariantSchema;
   if (currentQtls[0].id === 'pqtl') {
     const pqtl = currentQtls[0];
-    const restQtls = currentQtls.slice(1, pqtl.length);
+    const restQtls = currentQtls.slice(1);
     const sourceDescriptionBreakdown = parseSourceDescriptionBreakdown(
       pqtl.sourceDescriptionBreakdown
     );
@@ -97,12 +101,12 @@ export function variantParseGenesForVariantSchema(data) {
   return genesForVariantSchema;
 }
 
-function parseSourceDescriptionBreakdown(description = '') {
+function parseSourceDescriptionBreakdown(description: string | null = '') {
   if (!description) return;
   return description.replace(' Sun *et al.* (2018)', '');
 }
 
-function parseSourceLabel(label = '') {
+function parseSourceLabel(label: string | null = '') {
   if (!label) return;
   return label.replace(' (Sun, 2018)', '');
 }
