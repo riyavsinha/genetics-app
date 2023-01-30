@@ -1,22 +1,20 @@
 import { Grid, Typography } from '@mui/material';
-import withStyles from '@mui/styles/withStyles';
+import { makeStyles } from '@mui/styles';
 
 import { Link, Button } from '../ot-ui-components';
 
 import BasePage from './BasePage';
 
-const styles = () => {
-  return {
-    information: {
-      height: '100%',
-    },
-  };
-};
+const useStyles = makeStyles(() => ({
+  information: {
+    height: '100%',
+  },
+}));
 
-const ImmunobasePage = ({ classes }) => (
+const ImmunobasePage = () => (
   <BasePage>
     <Grid
-      className={classes.information}
+      className={useStyles().information}
       container
       justifyContent="center"
       alignItems="center"
@@ -78,4 +76,4 @@ const ImmunobasePage = ({ classes }) => (
   </BasePage>
 );
 
-export default withStyles(styles)(ImmunobasePage);
+export default ImmunobasePage;
