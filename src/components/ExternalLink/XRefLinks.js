@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import Link from '../Link';
+import { Fragment } from 'react';
+import { Link } from '../../ot-ui-components';
 
 function XRefLinks({ label, urlStem, ids }) {
   return (

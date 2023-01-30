@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Icon from '@mui/material/Icon';
 import withStyles from '@mui/styles/withStyles';
 
-import Link from './Link';
+import { Link } from '../ot-ui-components';
 import EmailLink from './EmailLink';
 
 const styles = (theme) => ({

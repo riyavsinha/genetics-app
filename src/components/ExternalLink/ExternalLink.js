@@ -1,4 +1,4 @@
-import Link from '../Link';
+import { Link } from '../../ot-ui-components';
 
 function ExternalLink({ title, id, url }) {
   if (!id) return null;

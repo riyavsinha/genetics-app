@@ -15,7 +15,7 @@ import {
   faFileAlt,
   faCommentDots,
 } from '@fortawesome/free-solid-svg-icons';
-import Link from '../../components/Link';
+import { Link } from '../../ot-ui-components';
 import Search from '../../components/Search';
 import ScrollDownButton from '../../components/ScrollDownButton';
 import NavBar from '../../components/NavBar/NavBar';

@@ -10,7 +10,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Grid from '@mui/material/Grid';
 import { sanitize } from 'string-sanitizer';
-import Link from '../../components/Link';
+import { Link } from '../../ot-ui-components';
 import ScrollToTop from '../../components/ScrollToTop';
 
 import {

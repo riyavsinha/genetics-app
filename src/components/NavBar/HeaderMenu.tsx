@@ -10,7 +10,7 @@ import {
   Theme,
 } from '@mui/material';
 import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
-import Link from '../Link';
+import {Link} from '../../ot-ui-components';
 import { makeStyles } from '@mui/styles';
 import { useState } from 'react';
 

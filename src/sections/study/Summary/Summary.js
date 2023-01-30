@@ -2,8 +2,7 @@ import Grid from '@mui/material/Grid';
 import { loader } from 'graphql.macro';
 import { useQuery } from '@apollo/client';
 import { Skeleton } from '@mui/material';
-import { Typography, SectionHeading } from '../../../ot-ui-components';
-import Link from '../../../components/Link';
+import { Typography, SectionHeading, Link } from '../../../ot-ui-components';
 import { Fragment } from 'react';
 
 import { commaSeparate, studyHasInfo, studyGetInfo } from '../../../utils';

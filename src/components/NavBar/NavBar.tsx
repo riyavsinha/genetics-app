@@ -7,7 +7,7 @@ import { MenuItem, MenuList, Theme } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { ClassNameMap } from '@mui/styles/withStyles';
 import classNames from 'classnames';
-import Link from '../Link';
+import {Link} from '../../ot-ui-components';
 import OpenTargetsTitle from './OpenTargetsTitle';
 import HeaderMenu, { HeaderMenuItem } from './HeaderMenu';
 import { makeStyles } from '@mui/styles';
