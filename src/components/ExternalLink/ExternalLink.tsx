@@ -1,6 +1,11 @@
 import { Link } from '../../ot-ui-components';
 
-function ExternalLink({ title, id, url }) {
+type ExternalLinkProps = {
+  title: string;
+  id?: string | null;
+  url: string;
+};
+const ExternalLink = ({ title, id, url }: ExternalLinkProps) => {
   if (!id) return null;
 
   return (
@@ -11,6 +16,6 @@ function ExternalLink({ title, id, url }) {
       </Link>
     </span>
   );
-}
+};
 
 export default ExternalLink;

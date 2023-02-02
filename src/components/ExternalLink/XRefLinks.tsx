@@ -1,7 +1,12 @@
 import { Fragment } from 'react';
 import { Link } from '../../ot-ui-components';
 
-function XRefLinks({ label, urlStem, ids }) {
+type XRefLinksProps = {
+  label: string;
+  urlStem: string;
+  ids: string[];
+};
+function XRefLinks({ label, urlStem, ids }: XRefLinksProps) {
   return (
     <span>
       {label}:{' '}
