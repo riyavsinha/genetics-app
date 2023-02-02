@@ -13,11 +13,7 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 import Tooltip from '@mui/material/Tooltip';
 import Badge from '@mui/material/Badge';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import LastPageIcon from '@mui/icons-material/LastPage';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import OtTablePaginationActions from './OtTablePaginationActions';
 import HelpIcon from '@mui/icons-material/Help';
 
 import PlotContainer from './PlotContainer';
@@ -25,77 +21,6 @@ import PlotContainerSection from './PlotContainerSection';
 import downloadTable from '../helpers/downloadTable';
 
 const PAGE_SIZE = 10;
-
-const actionsStyles = (theme) => ({
-  root: {
-    flexShrink: 0,
-  },
-});
-
-class TablePaginationActions extends Component {
-  handleFirstPageButtonClick = (event) => {
-    this.props.onPageChange(event, 0);
-  };
-
-  handleBackButtonClick = (event) => {
-    const { onPageChange, page } = this.props;
-    onPageChange(event, page - 1);
-  };
-
-  handleNextButtonClick = (event) => {
-    const { onPageChange, page } = this.props;
-    onPageChange(event, page + 1);
-  };
-
-  handleLastPageButtonClick = (event) => {
-    const { onPageChange, count, rowsPerPage } = this.props;
-    const lastPage = Math.ceil(count / rowsPerPage) - 1;
-    onPageChange(event, lastPage);
-  };
-
-  render() {
-    const { count, page, rowsPerPage, classes } = this.props;
-    const lastPage = Math.ceil(count / rowsPerPage) - 1;
-    return (
-      <div className={classes.root}>
-        <IconButton
-          onClick={this.handleFirstPageButtonClick}
-          disabled={page === 0}
-          aria-label="First Page"
-          size="large"
-        >
-          <FirstPageIcon />
-        </IconButton>
-        <IconButton
-          onClick={this.handleBackButtonClick}
-          disabled={page === 0}
-          aria-label="Previous Page"
-          size="large"
-        >
-          <KeyboardArrowLeft />
-        </IconButton>
-        <IconButton
-          onClick={this.handleNextButtonClick}
-          disabled={page >= lastPage}
-          aria-label="Next Page"
-          size="large"
-        >
-          <KeyboardArrowRight />
-        </IconButton>
-        <IconButton
-          onClick={this.handleLastPageButtonClick}
-          disabled={page >= lastPage}
-          aria-label="Last Page"
-          size="large"
-        >
-          <LastPageIcon />
-        </IconButton>
-      </div>
-    );
-  }
-}
-
-TablePaginationActions = withStyles(actionsStyles)(TablePaginationActions);
 
 const getComparator = (columns, sortBy, order) => {
   const column = columns.find((col) => col.id === sortBy);
@@ -428,7 +353,7 @@ class OtTable extends Component {
             page={page}
             rowsPerPage={pageSize}
             rowsPerPageOptions={[]}
-            ActionsComponent={TablePaginationActions}
+            ActionsComponent={OtTablePaginationActions}
           />
         </PlotContainerSection>
       </PlotContainer>
